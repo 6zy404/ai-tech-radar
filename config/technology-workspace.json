@@ -1,6 +1,587 @@
 {
-  "updatedAt": "2026-10-20T03:22:09.400Z",
+  "updatedAt": "2026-10-20T20:18:01.645Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "slug": "llm-0-32-agent-shaped",
+      "title": {
+        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
+      },
+      "summary": {
+        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
+        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
+      },
+      "content": {
+        "original": "I released LLM 0.32 this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the llm-anthropic, llm-gemini, and llm-openrouter plugins, each with substantial updates of their own. Headline features for LLM CLI users Running LLM against reasoning models now displays their reasoning traces to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add -R/--hide-reasoning to turn this off. …",
+        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-04",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability",
+        "tag-agent-infra"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 95,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-20T20:18:01.645Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
+      "whoShouldCare": [
+        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
+        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
+        "关心长对话日志成本与可回放性的基础设施负责人",
+        "在评估 MCP 生态实际落地形态的架构师"
+      ],
+      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
+      "impactAreas": [
+        "本地优先的智能体工具链",
+        "MCP 生态的落地形态",
+        "长时程对话的日志与成本",
+        "命令行与管道式工作流集成"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
+        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
+        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
+        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
+        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
+        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
+        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
+        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
+      },
+      "followUpQuestions": [
+        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
+        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
+        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "createdAt": "2026-08-05T08:38:57.526Z",
+      "updatedAt": "2026-10-20T20:18:01.645Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "slug": "meta-muse-glimmer",
+      "title": {
+        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
+      },
+      "summary": {
+        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
+        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
+      },
+      "content": {
+        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
+        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
+      },
+      "type": "model",
+      "publishDate": "2026-08-10",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/muse-glimmer",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Meta",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-multimodal",
+        "tag-open-weights"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-tool-use",
+        "knowledge-kv-cache",
+        "knowledge-distillation",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c",
+        "skill-ws-84837d46",
+        "skill-open-weights-self-hosting"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-20T20:18:01.503Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
+      "whoShouldCare": [
+        "在本地或私有环境部署智能体的工程团队",
+        "正在评估开放权重能否替代闭源 API 的技术决策者",
+        "关注蒸馏与模型压缩路线的研究者"
+      ],
+      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
+      "impactAreas": [
+        "本地智能体部署",
+        "开放权重模型选型",
+        "推理引擎适配",
+        "模型蒸馏与压缩"
+      ],
+      "learningPath": [
+        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
+        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
+        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
+        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
+        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
+        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
+        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
+        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
+        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
+      },
+      "followUpQuestions": [
+        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
+        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
+        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "createdAt": "2026-08-11T03:11:13.706Z",
+      "updatedAt": "2026-10-20T20:18:01.503Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "slug": "muse-glimmer-local-agent-model",
+      "title": {
+        "original": "本地运行、支持视觉与工具调用：Meta 开源智能体模型",
+        "zh": "Muse Glimmer 开源：30B 压进消费级显卡，报错不停下"
+      },
+      "summary": {
+        "original": "Meta AI Research 发布 Muse Glimmer，300 亿参数、Apache 2.0 开放权重，面向常驻本地的智能体工作流。",
+        "zh": "Meta 发布 Muse Glimmer：300 亿参数、Apache 2.0 开放权重，专为常驻本地的智能体工作流设计。4 位动态量化把 55GB 以上的显存需求压到 17 至 20GB，配合 DFlash 推测解码在 M5 Max 与 RTX 5090 上把吞吐提到最多 3.1 倍。真正值得注意的不是尺寸，而是它把「工具调用失败之后怎么办」写进了训练目标：API 或终端命令报错时，模型诊断故障并另找路径，而不是终止执行。"
+      },
+      "content": {
+        "original": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。",
+        "zh": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-21",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/aGfkSN1YlmLrUQMPea9L?utm_source=rss&utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Meta",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-multimodal",
+        "tag-inference",
+        "tag-open-weights",
+        "tag-efficient-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-rl-post-training",
+        "knowledge-distillation",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c",
+        "skill-tool-integration",
+        "skill-open-weights-self-hosting",
+        "skill-inference-speedup-verification"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-20T20:18:01.364Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能装下」，而是「装下之后还剩不剩得下上下文」。Muse Glimmer 把量化、推测解码和感知编码器的内存开销一起算进了 24 至 32GB 这个消费级预算里，并且首日就有 llama.cpp、MLX、Ollama、vLLM 等运行时支持——这让「本地跑一个能用的智能体」第一次不需要先做一轮工程适配。",
+      "whoShouldCare": [
+        "在自己机器或工作站上跑智能体、不想把数据交给云 API 的开发者",
+        "需要为 24 至 32GB 显存预算选模型的端侧工程师",
+        "关心开放权重模型在工具调用可靠性上追到哪一步的技术决策者"
+      ],
+      "technicalContext": "训练路径分四段：从更大的 Muse Spark 做 logit 蒸馏迁移基础推理能力；中期训练用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像、以及多步工具调用轨迹；后训练结合 SFT、同策略蒸馏与强化学习，优化代码生成、工具使用和结构化规划。一个 18 亿参数的感知编码器让它原生处理交错多模态输入，因此本地智能体可以在执行代码或自动化流程时直接读截图、图表和文档。",
+      "impactAreas": [
+        "端侧推理",
+        "智能体工程",
+        "开放权重生态"
+      ],
+      "learningPath": [
+        "先算内存账：权重之外还要留出 KV 缓存、感知嵌入和 DFlash 草稿模型的开销，这一步决定你的机器跑不跑得动",
+        "读《模型量化与数值精度》：4 位动态量化把 55GB 压到 17 至 20GB 是这条信号成立的前提，也是精度风险所在",
+        "读《推测解码与推理加速技术》：草稿模型并行验证是那 3.1 倍的来源，也决定了它在什么条件下不成立",
+        "在你自己的任务上复测失败恢复行为：报错后另找路径是能力还是基准特例，只有你的工具链能回答",
+        "读《模型与推理引擎的支持路径》，把「首日支持」按四级口径拆开，判断你要等的是哪一级"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-34da6116": "4 位动态量化把 55GB 压到 17 至 20GB，是这条信号能成立的前提而不是附注。",
+        "knowledge-ws-68963f7f": "DFlash 的草稿模型一次提多个 token 并行验证，最多 3.1 倍吞吐就来自这里。",
+        "knowledge-model-sizing": "决定跑不跑得动的不是参数量，而是权重加 KV 缓存、感知嵌入与草稿模型的总开销。",
+        "knowledge-ws-e251051e": "厂商把「这一步做完了吗」当成可训练目标，而不是等它作为副产物涌现。",
+        "knowledge-latency-tradeoffs": "3.1 倍没有附上下文长度与批量，速度永远是「在某组条件下的速度」。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "量化档位、运行时路径、显存余量三件事在这条信号里是一起被决定的，正是这条技能的单机口径。",
+        "skill-ws-7796779a": "首日就有 llama.cpp、MLX、vLLM 的原生支持，等于一上来就落在「有性能路径」那一级。",
+        "skill-ws-dddaf80c": "公告给的是相对表述而非逐项分数，正是「哪些数字可直接比」这一问要处理的情况。",
+        "skill-tool-integration": "报错后诊断并另找路径，是把失败吸收在工具层之外、由模型自己承担的那一半。"
+      },
+      "followUpQuestions": [
+        "在你的真实任务上，失败恢复行为是稳定的能力还是基准里的特例？",
+        "4 位量化之后，工具调用的结构化输出正确率下降了多少？",
+        "3.1 倍吞吐是在什么上下文长度和批量下测出来的？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-23T16:09:54.672Z",
+      "updatedAt": "2026-10-20T20:18:01.364Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+      "slug": "agent-consistency-gap-pass-k",
+      "title": {
+        "original": "Your Agent Aced the Task. Will It Do It Again?",
+        "zh": "平均成功率 77%，五次全对只有 53%：智能体的一致性差距"
+      },
+      "summary": {
+        "original": "IBM Research measures the consistency gap between Mean@k and Pass^k for LLM agents and halves it with guidelines distilled from flip-prone decision points.",
+        "zh": "IBM Research 指出，几乎所有基准只报平均成功率：AppWorld 上一个 GPT-4.1 的 ReAct 智能体五次运行平均成功 77.4%，但五次全对的任务只有 53.0%，差 24.4 个点，难任务上达 30 个点。原因在于决策分布的形状——平坦分布里的近似平局会被 GPU 浮点、批处理等平台侧扰动翻转，几十个决策串起来就累积成很大的走偏概率，所以温度设成 0 也没用。他们用一条轨迹、无需标准答案就能找出易翻转决策点，并据此生成指引，把差距从 24.4 降到 12.0 个点，平均准确率不降。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 一个几乎没人报的数字\n\n你的智能体在彩排时成功了，现场演示时却走了另一条路，同一个任务失败了。台上这叫尴尬；生产里这叫可靠性问题——一个成功过一次的流程，下一次用户提出同样的请求时可能就失败。\n\nIBM Research 给了一个具体的数：在 AppWorld 上，一个用 GPT-4.1 的 ReAct 智能体在五次重复运行中**平均成功率 77.4%**，但**五次全部成功的任务只有 53.0%**。两者之差 **24.4 个百分点**，他们称之为「一致性差距」；在难任务上达到 30 个百分点。几乎所有基准只报前一个数。\n\n## 三个名字相近、问题相反的指标\n\n- **Mean@k**：跑 k 次取平均通过率，排行榜上的就是它，回答「平均有多好」\n- **Pass@k**：k 次里至少成功一次，乐观，适合能验证、能重试的场景\n- **Pass^k**：k 次全部成功，悲观，回答真实用户关心的那个问题——「我再问一遍，它还行吗」\n\n三者永远满足 Pass^k ≤ Mean@k ≤ Pass@k。作者强调这不是换个更大的模型就能修的能力问题，而是**一条正交的轴**：一个智能体可以既能干又不稳定。\n\n## 为什么温度设成 0 也没用\n\n每一次决策——调哪个接口、传什么参数、要不要重试——都来自下一个 token 的概率分布，要紧的是分布的**形状**。尖锐的分布把大部分概率压在一个选项上，一次次跑出来都一样；平坦的分布让几个选项几乎打平，谁胜出接近抛硬币。\n\nGPU 浮点运算的非结合性、请求批处理这类平台侧的微小扰动，推不动尖锐分布，却足以让平坦分布里的近似平局换个顺序。**一条轨迹串着几十个决策，每步一点点翻转的概率就会累积成某次运行走偏的很大概率**——24 个点的差距就是这么来的。贪心解码和固定随机种子管的是「怎样把分布变成 token」，管不到分布本身；在托管端点上，同一个提示词、同一个模型、温度为零，今天和明天也可能把同一个近似平局判成不同的结果。他们的实验本身就跑在温度 0.0 下。\n\n## 诊断，再修\n\n他们做了一个一致性分析器：**只需要一条已记录的轨迹、不需要标准答案**，在轨迹的每个决策点上用一次调用请求 k 个候选（默认 5 个），找出那些「差一次采样就会做别的事」的易翻转决策点，而不是把整个任务重新跑一遍。\n\n诊断结果再被转成一类新的行为指引，注入推理时的上下文。结果：**一致性差距从 24.4 个点降到 12.0 个点，减半**；同任务 Pass^5 提升 16.0 个点、相似任务提升 13.0 个点，**平均准确率没有任何损失**。\n\n这是本站 8 月 24 日那条 IBM ALTK-Evolve 信号的续篇。那一篇说智能体记忆是需要按模型标定的剂量；作者这次自己承认，那一篇的结果也只回答了「平均情况」这一个问题。\n\n## 放在这一轮里看\n\n这一轮另外几条信号讲的都是：看一次、看一方的记录，不等于知道发生了什么。这一条是它最日常的形态——**跑一次成功，不等于它会成功**。平均值不会说谎，但它只报了一半；另一半要靠同一个任务多跑几遍才看得见。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-09-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "IBM Research",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-benchmarks"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-ws-a28a8a56",
+        "knowledge-latency-tradeoffs",
+        "knowledge-execution-based-eval"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-20T20:18:01.230Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "平均成功率回答的是「平均有多好」，而用户问的是「我再问一遍它还行吗」。77.4% 与 53.0% 之间的 24.4 个点，是一个几乎没有基准报告的差距。更实用的是两点：温度设成 0 挡不住它，因为平台侧的微小扰动足以翻转平坦分布里的近似平局；以及诊断只需要一条轨迹、不需要标准答案，任何在生产里跑智能体的团队都能照着做。",
+      "whoShouldCare": [
+        "把智能体用在对账、合同审查等需要结果稳定的任务上的团队",
+        "设计智能体评测、需要决定报哪个指标的工程师",
+        "以为把温度设成 0 就能得到确定结果的开发者"
+      ],
+      "technicalContext": "Mean@k 为 k 次运行的平均通过率，Pass@k 为至少一次成功，Pass^k 为全部成功，恒有 Pass^k ≤ Mean@k ≤ Pass@k。一致性分析器在已记录轨迹的每个决策点上单次调用请求 k 个候选（默认 5），定位易翻转的决策点，不需重跑整个任务、不需标准答案；由此生成的一致性指引注入推理上下文。实验在 AppWorld test_normal 上、温度 0.0 下进行，方法与完整评测见 arXiv 技术报告。",
+      "impactAreas": [
+        "智能体评测",
+        "可靠性",
+        "生产部署"
+      ],
+      "learningPath": [
+        "先分清 Mean@k、Pass@k、Pass^k：同样的字母，问的是相反的问题",
+        "理解为什么温度 0 挡不住：分布的形状比解码设置更要紧",
+        "读本站 8 月 24 日那条 ALTK-Evolve：这一条是它的一致性续篇",
+        "在你自己的评测里，对同一批任务多跑几遍，报出五次全对的比例"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "只报平均成功率，评估闭环就看不见一致性这条轴，改进也可能只是在平均值上。",
+        "knowledge-ws-e251051e": "一次成功不是完成判定可靠的证据，五次全对才更接近用户真正需要的那个判定。",
+        "knowledge-ws-a28a8a56": "一致性指引与此前的行为指引一样注入上下文，属于同一套从轨迹里蒸馏经验的记忆机制。",
+        "knowledge-latency-tradeoffs": "用一次调用取 k 个候选代替整任务重跑，是在诊断成本与覆盖之间做的一次取舍。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "「这个平均值配没配 Pass^k」是评测时可以直接追问的问题。",
+        "skill-ws-f741f122": "一条已记录的轨迹就能诊断易翻转决策点，记录因此不只是事后查账的材料。",
+        "skill-agent-design": "几十个决策串联会放大每一步的微小翻转，流程越长越需要在关键决策点上压平分布。",
+        "skill-ws-a9e80194": "请求批处理本身就是扰动来源之一，服务侧的调度选择会影响智能体结果的稳定性。"
+      },
+      "followUpQuestions": [
+        "你的智能体在关键任务上五次全对的比例是多少？",
+        "换一个托管端点或调整批处理，一致性差距会变大还是变小？",
+        "一致性指引在其他基准和其他模型上是否同样能把差距减半？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+      "createdAt": "2026-09-19T13:09:20.720Z",
+      "updatedAt": "2026-10-20T20:18:01.230Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "slug": "olmo-core-3",
+      "title": {
+        "original": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+        "zh": "Olmo-core 3：开源 MoE 训练框架，吞吐提升到原来的 2.7 倍",
+        "en": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs"
+      },
+      "summary": {
+        "original": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+        "zh": "Allen AI 10 月 1 日发布 Olmo-core 3，开源的大规模 MoE 训练框架。它从全分片数据并行（FSDP）改为数据并行加专家并行、流水线并行与分布式优化器，在 8 块 B300 上把吞吐从每卡每秒 1.94 万 token 提到 5.2 万 token，约 2.7 倍；MXFP8 比 BF16 再快 21%。在 512 块 GPU 上把模型扩到 1.2 万亿总参数（每 token 激活 584 亿），实验最高到 2.38 万亿。Allen AI 自己说明，万亿参数那次测试证明的是能扩到多大，不是持续训练的性能。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\n10 月 1 日 Allen AI 在 Hugging Face 博客上发布 Olmo-core 3，代码在 GitHub（allenai/olmo-core）。下一代 Olmo 模型就是用它训练的，模型本身还没有发布。\n\n## 改了什么\n\n上一版用的是全分片数据并行（FSDP）：每块 GPU 只存一部分参数，计算时再临时聚齐。这次改为普通的数据并行，加上：\n\n- **专家并行**：不同的专家放在不同的 GPU 上，并支持按行切分专家\n- **流水线并行**和**分布式优化器**\n- 路由放在 GPU 上计算、分组矩阵乘法、MXFP8 低精度训练\n\n## 数字\n\n- 8 块 B300：每卡每秒 5.2 万 token，上一版 1.94 万，约 **2.7 倍**\n- MXFP8 比 BF16 吞吐再高 21%；峰值显存从 103 GiB 降到 95 GiB\n- 观测到的最高算力：每卡 858 TFLOP/s\n- 规模：512 块 GPU 上 1.2 万亿总参数、每 token 激活 584 亿；实验最高到 2.38 万亿\n\n## 它自己说的局限\n\n- 万亿参数那次测试「证明的是能扩到多大，不是持续训练的性能」\n- 让通信和计算重叠进行，「并不总能让训练更快」\n\n## 为什么值得注意\n\n能训练万亿参数 MoE 的开源框架很少，大多数实验室的训练代码不公开。Olmo-core 3 是完全开放的那一类：代码、配置和方法都公开，所以它的数字可以被别人复现，这一点比数字本身更有价值。\n\n## 对读者意味着什么\n\n1. 如果你在训练或微调 MoE 模型，可以对照它的并行方案，看看自己的瓶颈在通信还是计算。\n2. 2.7 倍是在 8 卡、特定模型上测的；换成你的规模和网络，要重新量。\n3. 等下一代 Olmo 发布后，可以看它在这套框架上的实际训练效率。"
+      },
+      "type": "tool",
+      "publishDate": "2026-10-01",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/allenai/olmocore3",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ai2",
+      "publisherType": "research-lab",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-training"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-34da6116",
+        "knowledge-system-design",
+        "knowledge-reproducibility"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-84837d46",
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-20T20:18:01.071Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "能训练万亿参数 MoE 的训练代码，大多数实验室都不公开。Olmo-core 3 把并行方案、低精度训练和实测数字一起开源，别人可以照着复现。它自己也说清楚了局限：万亿参数那次只证明能扩到多大，不是持续训练的性能。",
+      "whoShouldCare": [
+        "训练或继续预训练 MoE 模型的研究团队",
+        "负责大规模训练集群效率的基础设施工程师",
+        "关注开放模型训练方法的研究者"
+      ],
+      "technicalContext": "大模型训练要把计算分到很多块 GPU 上。数据并行是每块卡处理不同的数据；全分片数据并行再把参数也切开，省显存但通信更多；专家并行把 MoE 的不同专家放在不同卡上；流水线并行按层切分模型。吞吐通常用每卡每秒处理的 token 数衡量。",
+      "impactAreas": [
+        "MoE 训练",
+        "训练效率",
+        "开放模型"
+      ],
+      "learningPath": [
+        "读《混合专家模型（MoE）架构》，理解专家并行要解决的问题",
+        "读《模型量化与数值精度》，看 MXFP8 为什么能比 BF16 快 21%",
+        "对照你自己的训练任务，看瓶颈在通信还是计算",
+        "等下一代 Olmo 发布后，看它在这套框架上的实际训练效率"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Olmo-core 3 的主要改动都围绕 MoE：专家并行、按行切分专家、GPU 上算路由。",
+        "knowledge-ws-34da6116": "MXFP8 低精度训练带来了 21% 的额外吞吐和更低的显存占用。",
+        "knowledge-system-design": "从 FSDP 换成数据并行加专家并行，是在显存和通信之间重新选了一个平衡点。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-84837d46": "做后训练或继续预训练的团队，可以直接参考它的并行配置。",
+        "skill-ws-a9e80194": "2.7 倍的吞吐提升会直接改变训练集群的容量估算，但要在你的规模上重测。"
+      },
+      "followUpQuestions": [
+        "你的训练瓶颈在通信还是计算？换成数据并行加专家并行会不会更好？",
+        "2.7 倍是 8 卡上测的，在你的规模和网络上还剩多少？",
+        "你会为了 21% 的吞吐，接受 MXFP8 带来的数值风险吗？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "createdAt": "2026-10-02T00:39:50.093Z",
+      "updatedAt": "2026-10-20T20:18:01.071Z",
+      "editorialNotes": [
+        "2026-10-01 编辑轮（盲评，10-02 处置）：数字核对自 huggingface.co/blog/allenai/olmocore3；来源地址从 hf-mirror 改为 huggingface.co，与 Holo4 一致。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502654",
       "slug": "memento-3-arc-agi-3-rsi",
@@ -703,127 +1284,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "slug": "meta-muse-glimmer",
-      "title": {
-        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
-        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
-      },
-      "summary": {
-        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
-        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
-      },
-      "content": {
-        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
-        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
-      },
-      "type": "model",
-      "publishDate": "2026-08-10",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://huggingface.co/blog/muse-glimmer",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Meta",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-multimodal",
-        "tag-open-weights"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-68963f7f",
-        "knowledge-tool-use",
-        "knowledge-kv-cache",
-        "knowledge-distillation",
-        "knowledge-open-weights",
-        "knowledge-execution-based-eval"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a",
-        "skill-ws-dddaf80c",
-        "skill-ws-84837d46",
-        "skill-open-weights-self-hosting"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-20T03:11:47.606Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
-      "whoShouldCare": [
-        "在本地或私有环境部署智能体的工程团队",
-        "正在评估开放权重能否替代闭源 API 的技术决策者",
-        "关注蒸馏与模型压缩路线的研究者"
-      ],
-      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
-      "impactAreas": [
-        "本地智能体部署",
-        "开放权重模型选型",
-        "推理引擎适配",
-        "模型蒸馏与压缩"
-      ],
-      "learningPath": [
-        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
-        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
-        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
-        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
-        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
-        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
-        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
-        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
-        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
-      },
-      "followUpQuestions": [
-        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
-        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
-        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "createdAt": "2026-08-11T03:11:13.706Z",
-      "updatedAt": "2026-10-20T03:11:47.606Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
       "slug": "constraint-aware-gpu-allocator",
       "title": {
@@ -1273,120 +1733,6 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
         "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-      "slug": "agent-consistency-gap-pass-k",
-      "title": {
-        "original": "Your Agent Aced the Task. Will It Do It Again?",
-        "zh": "平均成功率 77%，五次全对只有 53%：智能体的一致性差距"
-      },
-      "summary": {
-        "original": "IBM Research measures the consistency gap between Mean@k and Pass^k for LLM agents and halves it with guidelines distilled from flip-prone decision points.",
-        "zh": "IBM Research 指出，几乎所有基准只报平均成功率：AppWorld 上一个 GPT-4.1 的 ReAct 智能体五次运行平均成功 77.4%，但五次全对的任务只有 53.0%，差 24.4 个点，难任务上达 30 个点。原因在于决策分布的形状——平坦分布里的近似平局会被 GPU 浮点、批处理等平台侧扰动翻转，几十个决策串起来就累积成很大的走偏概率，所以温度设成 0 也没用。他们用一条轨迹、无需标准答案就能找出易翻转决策点，并据此生成指引，把差距从 24.4 降到 12.0 个点，平均准确率不降。"
-      },
-      "content": {
-        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
-        "zh": "## 一个几乎没人报的数字\n\n你的智能体在彩排时成功了，现场演示时却走了另一条路，同一个任务失败了。台上这叫尴尬；生产里这叫可靠性问题——一个成功过一次的流程，下一次用户提出同样的请求时可能就失败。\n\nIBM Research 给了一个具体的数：在 AppWorld 上，一个用 GPT-4.1 的 ReAct 智能体在五次重复运行中**平均成功率 77.4%**，但**五次全部成功的任务只有 53.0%**。两者之差 **24.4 个百分点**，他们称之为「一致性差距」；在难任务上达到 30 个百分点。几乎所有基准只报前一个数。\n\n## 三个名字相近、问题相反的指标\n\n- **Mean@k**：跑 k 次取平均通过率，排行榜上的就是它，回答「平均有多好」\n- **Pass@k**：k 次里至少成功一次，乐观，适合能验证、能重试的场景\n- **Pass^k**：k 次全部成功，悲观，回答真实用户关心的那个问题——「我再问一遍，它还行吗」\n\n三者永远满足 Pass^k ≤ Mean@k ≤ Pass@k。作者强调这不是换个更大的模型就能修的能力问题，而是**一条正交的轴**：一个智能体可以既能干又不稳定。\n\n## 为什么温度设成 0 也没用\n\n每一次决策——调哪个接口、传什么参数、要不要重试——都来自下一个 token 的概率分布，要紧的是分布的**形状**。尖锐的分布把大部分概率压在一个选项上，一次次跑出来都一样；平坦的分布让几个选项几乎打平，谁胜出接近抛硬币。\n\nGPU 浮点运算的非结合性、请求批处理这类平台侧的微小扰动，推不动尖锐分布，却足以让平坦分布里的近似平局换个顺序。**一条轨迹串着几十个决策，每步一点点翻转的概率就会累积成某次运行走偏的很大概率**——24 个点的差距就是这么来的。贪心解码和固定随机种子管的是「怎样把分布变成 token」，管不到分布本身；在托管端点上，同一个提示词、同一个模型、温度为零，今天和明天也可能把同一个近似平局判成不同的结果。他们的实验本身就跑在温度 0.0 下。\n\n## 诊断，再修\n\n他们做了一个一致性分析器：**只需要一条已记录的轨迹、不需要标准答案**，在轨迹的每个决策点上用一次调用请求 k 个候选（默认 5 个），找出那些「差一次采样就会做别的事」的易翻转决策点，而不是把整个任务重新跑一遍。\n\n诊断结果再被转成一类新的行为指引，注入推理时的上下文。结果：**一致性差距从 24.4 个点降到 12.0 个点，减半**；同任务 Pass^5 提升 16.0 个点、相似任务提升 13.0 个点，**平均准确率没有任何损失**。\n\n这是本站 8 月 24 日那条 IBM ALTK-Evolve 信号的续篇。那一篇说智能体记忆是需要按模型标定的剂量；作者这次自己承认，那一篇的结果也只回答了「平均情况」这一个问题。\n\n## 放在这一轮里看\n\n这一轮另外几条信号讲的都是：看一次、看一方的记录，不等于知道发生了什么。这一条是它最日常的形态——**跑一次成功，不等于它会成功**。平均值不会说谎，但它只报了一半；另一半要靠同一个任务多跑几遍才看得见。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-09-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "IBM Research",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability",
-        "tag-benchmarks"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e",
-        "knowledge-ws-a28a8a56",
-        "knowledge-latency-tradeoffs",
-        "knowledge-execution-based-eval"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-f741f122",
-        "skill-agent-design",
-        "skill-ws-a9e80194"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-20T03:11:46.933Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "平均成功率回答的是「平均有多好」，而用户问的是「我再问一遍它还行吗」。77.4% 与 53.0% 之间的 24.4 个点，是一个几乎没有基准报告的差距。更实用的是两点：温度设成 0 挡不住它，因为平台侧的微小扰动足以翻转平坦分布里的近似平局；以及诊断只需要一条轨迹、不需要标准答案，任何在生产里跑智能体的团队都能照着做。",
-      "whoShouldCare": [
-        "把智能体用在对账、合同审查等需要结果稳定的任务上的团队",
-        "设计智能体评测、需要决定报哪个指标的工程师",
-        "以为把温度设成 0 就能得到确定结果的开发者"
-      ],
-      "technicalContext": "Mean@k 为 k 次运行的平均通过率，Pass@k 为至少一次成功，Pass^k 为全部成功，恒有 Pass^k ≤ Mean@k ≤ Pass@k。一致性分析器在已记录轨迹的每个决策点上单次调用请求 k 个候选（默认 5），定位易翻转的决策点，不需重跑整个任务、不需标准答案；由此生成的一致性指引注入推理上下文。实验在 AppWorld test_normal 上、温度 0.0 下进行，方法与完整评测见 arXiv 技术报告。",
-      "impactAreas": [
-        "智能体评测",
-        "可靠性",
-        "生产部署"
-      ],
-      "learningPath": [
-        "先分清 Mean@k、Pass@k、Pass^k：同样的字母，问的是相反的问题",
-        "理解为什么温度 0 挡不住：分布的形状比解码设置更要紧",
-        "读本站 8 月 24 日那条 ALTK-Evolve：这一条是它的一致性续篇",
-        "在你自己的评测里，对同一批任务多跑几遍，报出五次全对的比例"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "只报平均成功率，评估闭环就看不见一致性这条轴，改进也可能只是在平均值上。",
-        "knowledge-ws-e251051e": "一次成功不是完成判定可靠的证据，五次全对才更接近用户真正需要的那个判定。",
-        "knowledge-ws-a28a8a56": "一致性指引与此前的行为指引一样注入上下文，属于同一套从轨迹里蒸馏经验的记忆机制。",
-        "knowledge-latency-tradeoffs": "用一次调用取 k 个候选代替整任务重跑，是在诊断成本与覆盖之间做的一次取舍。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "「这个平均值配没配 Pass^k」是评测时可以直接追问的问题。",
-        "skill-ws-f741f122": "一条已记录的轨迹就能诊断易翻转决策点，记录因此不只是事后查账的材料。",
-        "skill-agent-design": "几十个决策串联会放大每一步的微小翻转，流程越长越需要在关键决策点上压平分布。",
-        "skill-ws-a9e80194": "请求批处理本身就是扰动来源之一，服务侧的调度选择会影响智能体结果的稳定性。"
-      },
-      "followUpQuestions": [
-        "你的智能体在关键任务上五次全对的比例是多少？",
-        "换一个托管端点或调整批处理，一致性差距会变大还是变小？",
-        "一致性指引在其他基准和其他模型上是否同样能把差距减半？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-      "createdAt": "2026-09-19T13:09:20.720Z",
-      "updatedAt": "2026-10-20T03:11:46.933Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
       ]
     },
     {
@@ -4773,110 +5119,6 @@
         "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
         "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
         "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
-      "slug": "olmo-core-3",
-      "title": {
-        "original": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
-        "zh": "Olmo-core 3：开源 MoE 训练框架，吞吐提升到原来的 2.7 倍",
-        "en": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs"
-      },
-      "summary": {
-        "original": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
-        "zh": "Allen AI 10 月 1 日发布 Olmo-core 3，开源的大规模 MoE 训练框架。它从全分片数据并行（FSDP）改为数据并行加专家并行、流水线并行与分布式优化器，在 8 块 B300 上把吞吐从每卡每秒 1.94 万 token 提到 5.2 万 token，约 2.7 倍；MXFP8 比 BF16 再快 21%。在 512 块 GPU 上把模型扩到 1.2 万亿总参数（每 token 激活 584 亿），实验最高到 2.38 万亿。Allen AI 自己说明，万亿参数那次测试证明的是能扩到多大，不是持续训练的性能。"
-      },
-      "content": {
-        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
-        "zh": "## 发生了什么\n\n10 月 1 日 Allen AI 在 Hugging Face 博客上发布 Olmo-core 3，代码在 GitHub（allenai/olmo-core）。下一代 Olmo 模型就是用它训练的，模型本身还没有发布。\n\n## 改了什么\n\n上一版用的是全分片数据并行（FSDP）：每块 GPU 只存一部分参数，计算时再临时聚齐。这次改为普通的数据并行，加上：\n\n- **专家并行**：不同的专家放在不同的 GPU 上，并支持按行切分专家\n- **流水线并行**和**分布式优化器**\n- 路由放在 GPU 上计算、分组矩阵乘法、MXFP8 低精度训练\n\n## 数字\n\n- 8 块 B300：每卡每秒 5.2 万 token，上一版 1.94 万，约 **2.7 倍**\n- MXFP8 比 BF16 吞吐再高 21%；峰值显存从 103 GiB 降到 95 GiB\n- 观测到的最高算力：每卡 858 TFLOP/s\n- 规模：512 块 GPU 上 1.2 万亿总参数、每 token 激活 584 亿；实验最高到 2.38 万亿\n\n## 它自己说的局限\n\n- 万亿参数那次测试「证明的是能扩到多大，不是持续训练的性能」\n- 让通信和计算重叠进行，「并不总能让训练更快」\n\n## 为什么值得注意\n\n能训练万亿参数 MoE 的开源框架很少，大多数实验室的训练代码不公开。Olmo-core 3 是完全开放的那一类：代码、配置和方法都公开，所以它的数字可以被别人复现，这一点比数字本身更有价值。\n\n## 对读者意味着什么\n\n1. 如果你在训练或微调 MoE 模型，可以对照它的并行方案，看看自己的瓶颈在通信还是计算。\n2. 2.7 倍是在 8 卡、特定模型上测的；换成你的规模和网络，要重新量。\n3. 等下一代 Olmo 发布后，可以看它在这套框架上的实际训练效率。"
-      },
-      "type": "tool",
-      "publishDate": "2026-10-01",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://huggingface.co/blog/allenai/olmocore3",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Allen AI",
-      "publisherType": "research-lab",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-training"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-34da6116",
-        "knowledge-system-design",
-        "knowledge-reproducibility"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-84837d46",
-        "skill-ws-a9e80194"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-02T00:45:09.645Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "能训练万亿参数 MoE 的训练代码，大多数实验室都不公开。Olmo-core 3 把并行方案、低精度训练和实测数字一起开源，别人可以照着复现。它自己也说清楚了局限：万亿参数那次只证明能扩到多大，不是持续训练的性能。",
-      "whoShouldCare": [
-        "训练或继续预训练 MoE 模型的研究团队",
-        "负责大规模训练集群效率的基础设施工程师",
-        "关注开放模型训练方法的研究者"
-      ],
-      "technicalContext": "大模型训练要把计算分到很多块 GPU 上。数据并行是每块卡处理不同的数据；全分片数据并行再把参数也切开，省显存但通信更多；专家并行把 MoE 的不同专家放在不同卡上；流水线并行按层切分模型。吞吐通常用每卡每秒处理的 token 数衡量。",
-      "impactAreas": [
-        "MoE 训练",
-        "训练效率",
-        "开放模型"
-      ],
-      "learningPath": [
-        "读《混合专家模型（MoE）架构》，理解专家并行要解决的问题",
-        "读《模型量化与数值精度》，看 MXFP8 为什么能比 BF16 快 21%",
-        "对照你自己的训练任务，看瓶颈在通信还是计算",
-        "等下一代 Olmo 发布后，看它在这套框架上的实际训练效率"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "Olmo-core 3 的主要改动都围绕 MoE：专家并行、按行切分专家、GPU 上算路由。",
-        "knowledge-ws-34da6116": "MXFP8 低精度训练带来了 21% 的额外吞吐和更低的显存占用。",
-        "knowledge-system-design": "从 FSDP 换成数据并行加专家并行，是在显存和通信之间重新选了一个平衡点。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-84837d46": "做后训练或继续预训练的团队，可以直接参考它的并行配置。",
-        "skill-ws-a9e80194": "2.7 倍的吞吐提升会直接改变训练集群的容量估算，但要在你的规模上重测。"
-      },
-      "followUpQuestions": [
-        "你的训练瓶颈在通信还是计算？换成数据并行加专家并行会不会更好？",
-        "2.7 倍是 8 卡上测的，在你的规模和网络上还剩多少？",
-        "你会为了 21% 的吞吐，接受 MXFP8 带来的数值风险吗？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
-      "createdAt": "2026-10-02T00:39:50.093Z",
-      "updatedAt": "2026-10-02T00:45:09.645Z",
-      "editorialNotes": [
-        "2026-10-01 编辑轮（盲评，10-02 处置）：数字核对自 huggingface.co/blog/allenai/olmocore3；来源地址从 hf-mirror 改为 huggingface.co，与 Holo4 一致。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
       ]
     },
     {
@@ -11113,131 +11355,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-      "slug": "muse-glimmer-local-agent-model",
-      "title": {
-        "original": "本地运行、支持视觉与工具调用：Meta 开源智能体模型",
-        "zh": "Muse Glimmer 开源：30B 压进消费级显卡，报错不停下"
-      },
-      "summary": {
-        "original": "Meta AI Research 发布 Muse Glimmer，300 亿参数、Apache 2.0 开放权重，面向常驻本地的智能体工作流。",
-        "zh": "Meta 发布 Muse Glimmer：300 亿参数、Apache 2.0 开放权重，专为常驻本地的智能体工作流设计。4 位动态量化把 55GB 以上的显存需求压到 17 至 20GB，配合 DFlash 推测解码在 M5 Max 与 RTX 5090 上把吞吐提到最多 3.1 倍。真正值得注意的不是尺寸，而是它把「工具调用失败之后怎么办」写进了训练目标：API 或终端命令报错时，模型诊断故障并另找路径，而不是终止执行。"
-      },
-      "content": {
-        "original": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。",
-        "zh": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。"
-      },
-      "type": "model",
-      "publishDate": "2026-08-21",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/aGfkSN1YlmLrUQMPea9L?utm_source=rss&utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Meta AI Research",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-multimodal",
-        "tag-inference",
-        "tag-open-weights",
-        "tag-efficient-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-34da6116",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing",
-        "knowledge-ws-e251051e",
-        "knowledge-latency-tradeoffs",
-        "knowledge-rl-post-training",
-        "knowledge-distillation",
-        "knowledge-fine-tuning",
-        "knowledge-open-weights",
-        "knowledge-execution-based-eval"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a",
-        "skill-ws-dddaf80c",
-        "skill-tool-integration",
-        "skill-open-weights-self-hosting",
-        "skill-inference-speedup-verification"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-09-06T08:22:07.848Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能装下」，而是「装下之后还剩不剩得下上下文」。Muse Glimmer 把量化、推测解码和感知编码器的内存开销一起算进了 24 至 32GB 这个消费级预算里，并且首日就有 llama.cpp、MLX、Ollama、vLLM 等运行时支持——这让「本地跑一个能用的智能体」第一次不需要先做一轮工程适配。",
-      "whoShouldCare": [
-        "在自己机器或工作站上跑智能体、不想把数据交给云 API 的开发者",
-        "需要为 24 至 32GB 显存预算选模型的端侧工程师",
-        "关心开放权重模型在工具调用可靠性上追到哪一步的技术决策者"
-      ],
-      "technicalContext": "训练路径分四段：从更大的 Muse Spark 做 logit 蒸馏迁移基础推理能力；中期训练用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像、以及多步工具调用轨迹；后训练结合 SFT、同策略蒸馏与强化学习，优化代码生成、工具使用和结构化规划。一个 18 亿参数的感知编码器让它原生处理交错多模态输入，因此本地智能体可以在执行代码或自动化流程时直接读截图、图表和文档。",
-      "impactAreas": [
-        "端侧推理",
-        "智能体工程",
-        "开放权重生态"
-      ],
-      "learningPath": [
-        "先算内存账：权重之外还要留出 KV 缓存、感知嵌入和 DFlash 草稿模型的开销，这一步决定你的机器跑不跑得动",
-        "读《模型量化与数值精度》：4 位动态量化把 55GB 压到 17 至 20GB 是这条信号成立的前提，也是精度风险所在",
-        "读《推测解码与推理加速技术》：草稿模型并行验证是那 3.1 倍的来源，也决定了它在什么条件下不成立",
-        "在你自己的任务上复测失败恢复行为：报错后另找路径是能力还是基准特例，只有你的工具链能回答",
-        "读《模型与推理引擎的支持路径》，把「首日支持」按四级口径拆开，判断你要等的是哪一级"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-34da6116": "4 位动态量化把 55GB 压到 17 至 20GB，是这条信号能成立的前提而不是附注。",
-        "knowledge-ws-68963f7f": "DFlash 的草稿模型一次提多个 token 并行验证，最多 3.1 倍吞吐就来自这里。",
-        "knowledge-model-sizing": "决定跑不跑得动的不是参数量，而是权重加 KV 缓存、感知嵌入与草稿模型的总开销。",
-        "knowledge-ws-e251051e": "厂商把「这一步做完了吗」当成可训练目标，而不是等它作为副产物涌现。",
-        "knowledge-latency-tradeoffs": "3.1 倍没有附上下文长度与批量，速度永远是「在某组条件下的速度」。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "量化档位、运行时路径、显存余量三件事在这条信号里是一起被决定的，正是这条技能的单机口径。",
-        "skill-ws-7796779a": "首日就有 llama.cpp、MLX、vLLM 的原生支持，等于一上来就落在「有性能路径」那一级。",
-        "skill-ws-dddaf80c": "公告给的是相对表述而非逐项分数，正是「哪些数字可直接比」这一问要处理的情况。",
-        "skill-tool-integration": "报错后诊断并另找路径，是把失败吸收在工具层之外、由模型自己承担的那一半。"
-      },
-      "followUpQuestions": [
-        "在你的真实任务上，失败恢复行为是稳定的能力还是基准里的特例？",
-        "4 位量化之后，工具调用的结构化输出正确率下降了多少？",
-        "3.1 倍吞吐是在什么上下文长度和批量下测出来的？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-23T16:09:54.672Z",
-      "updatedAt": "2026-09-06T08:22:07.848Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
       "slug": "gemini-3-7-flash",
       "title": {
@@ -11786,121 +11903,6 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
         "draft-candidate-rss-https-www-qbitai-com-p-474381"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "slug": "llm-0-32-agent-shaped",
-      "title": {
-        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
-        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
-      },
-      "summary": {
-        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
-        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
-      },
-      "content": {
-        "original": "I released LLM 0.32 this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the llm-anthropic, llm-gemini, and llm-openrouter plugins, each with substantial updates of their own. Headline features for LLM CLI users Running LLM against reasoning models now displays their reasoning traces to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add -R/--hide-reasoning to turn this off. …",
-        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-04",
-      "sourceName": "Simon Willison's Weblog",
-      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Simon Willison",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability",
-        "tag-agent-infra"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-f741f122",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-17T17:32:48.111Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
-      "whoShouldCare": [
-        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
-        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
-        "关心长对话日志成本与可回放性的基础设施负责人",
-        "在评估 MCP 生态实际落地形态的架构师"
-      ],
-      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
-      "impactAreas": [
-        "本地优先的智能体工具链",
-        "MCP 生态的落地形态",
-        "长时程对话的日志与成本",
-        "命令行与管道式工作流集成"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
-        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
-        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
-        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
-        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
-        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
-        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
-        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
-      },
-      "followUpQuestions": [
-        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
-        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
-        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "createdAt": "2026-08-05T08:38:57.526Z",
-      "updatedAt": "2026-08-17T17:32:48.111Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
       ]
     },
     {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T03:26:15.125Z",
+  "updatedAt": "2026-10-20T20:18:01.975Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -11196,6 +11196,15 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "新模型训练时针对 DeepSeek Harness 做了专项优化，Harness 同步升到 0.2.1"
+    },
+    {
+      "id": "rel-ws-297ed8b6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一次发布的后续报道：补充 30B 量化压进消费级显卡与 DFlash 提速的细节。"
     }
   ]
 }

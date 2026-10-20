@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T17:38:48.574Z",
+  "updatedAt": "2026-10-20T20:18:02.865Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -2531,7 +2531,7 @@
       "enabled": false,
       "description": "Ai2（Allen AI）博客：开放模型与科研工具（2026-10-12 信源试跑后加入）。 2026-10-13 停用：allenai.org 按客户端指纹拦截，Node 发出的请求一律 403（curl 能过，换请求头无效）；Ai2 的大发布仍会经 Hugging Face 博客进来。",
       "language": "en",
-      "publisherName": "Allen AI",
+      "publisherName": "Ai2",
       "publisherType": "research-lab",
       "defaultTags": [
         "tag-open-weights"
@@ -2542,7 +2542,7 @@
       "consecutiveFailureCount": 1,
       "totalImportedCount": 0,
       "createdAt": "2026-10-12T03:10:35.314Z",
-      "updatedAt": "2026-10-13T07:43:41.456Z",
+      "updatedAt": "2026-10-20T20:18:02.864Z",
       "maxItems": 12,
       "lastErrorMessage": "请求失败（HTTP 403）：https://allenai.org/rss.xml",
       "lastFetchedAt": "2026-10-13T00:45:24.008Z",
