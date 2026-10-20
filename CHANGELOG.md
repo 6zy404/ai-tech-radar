@@ -12,6 +12,53 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Housekeeping after the watchdog night
+
+- **2026-10-21. The tunnel watchdog's alert lines decode.** The two `[alert]`
+  lines the watchdog writes after calling `send-ops-alert.ts` reached
+  `config/tunnel-watchdog.log` as mojibake (`鏁版嵁鐩綍…`). Reproduced in a
+  fresh `powershell.exe` started the way the scheduled task starts it: its
+  console is code page 936 (GB2312), node writes UTF-8 to the pipe, and
+  `Out-String` decoded the bytes as GBK before `Write-Log` re-encoded them as
+  UTF-8. `Send-Alert` in `scripts/tunnel-watchdog.ps1` now sets
+  `[Console]::OutputEncoding` to UTF-8 for the length of that one call and
+  restores it; under the fix the same capture read
+  「未设置 OPS_ALERT_CHANNEL_ID」 correctly. Parse-checked and run in
+  `-DryRun`. The 5-minute task runs the script from the main checkout, so the
+  fix is live as soon as it is on `main`. The night before, the proxy dropped
+  from 20:38 to 21:28 and the then-current logic restarted a healthy tunnel
+  three times (20:53, 21:08, 21:23); the no-answer rule landed at 21:41 and
+  has not yet seen a real outage.
+- **2026-10-21. Mistral AI News disabled.** Added 2026-10-12, the source never
+  produced a candidate: 7 scheduled attempts, 7 connection timeouts to
+  `mistral.ai:443` (`UND_ERR_CONNECT_TIMEOUT`), and on 10-21 the host answered
+  neither directly nor through the proxy from this machine. Each day it turned
+  the scheduled import's status to `partial`. Disabled through the workspace
+  (`PATCH /api/workspace/sources/source-mistral-ai-news/enabled`), so its
+  configuration and history stay; 15 sources enabled. Re-enable when the host
+  is reachable.
+- **2026-10-21. LICENSE and SECURITY.md.** The public repository had neither
+  (review finding docs-10). `LICENSE` is MIT; `SECURITY.md` asks for private
+  vulnerability reporting through GitHub's Security tab (the owner still has
+  to turn that on in the repository settings) and names the scope; both READMEs
+  end with a licence section saying the licence covers the code, not the
+  third-party articles the site quotes.
+- **2026-10-21. Triage prompt stays v2.** Decided on the 10-20 held-out
+  numbers: v3 is more accurate overall (48.6% against 40.0%) but missed 3 of
+  11 publishes, that round's headline among them, at 1.9× the tokens; a missed
+  headline costs a round more than a few extra 「发布」 suggestions.
+  `TRIAGE_PROMPT_VERSION` unchanged.
+- **2026-10-21. First batch of review fixes dispatched.** The 2026-10-14
+  review's open list was recomputed from its source data (`report.json` plus
+  the review branch's `fixes.json`, minus what the 10-14 → 10-20 rounds fixed
+  since): 137 findings not fixed — P1 4, P2 50, P3 83 — 27 of them owner
+  decisions. Three feature windows started on non-overlapping file areas: A
+  public-page screen-reader and keyboard access (ui-static-1/2/4/6/7/8/9/10/
+  14/15), B performance and crashes (perf-1/4/8, dev-public-2/6/7), C
+  operations and data safety (ops-host-3, dev-arch-1/13, sec-internal-3,
+  ops-data-7/8/9). The full list lives outside the repository, in
+  `ai-tech-radar-hub/pending/pending-findings.md`.
+
 ## Three evaluations re-measured on data they were not tuned on
 
 - **2026-10-20. Triage prompts v2 and v3, scored on the two blind rounds
