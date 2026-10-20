@@ -8,7 +8,7 @@ That was the only caller when this page was written (2026-06). It is no longer: 
 
 ## Who calls the provider
 
-**Setting a real `LLM_API_KEY` also opens four public, unauthenticated routes that spend it per request.** Their only cost guards are the per-client rate limit (`PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR` in `.env.example`, defaults 10 and 40 per route) and, for three of them, a result cache. Review the limit before configuring a real key; the reasoning is in `docs/security-boundary.md` → "Public LLM Feature Boundary".
+**Setting a real `LLM_API_KEY` also opens four public, unauthenticated routes that spend it per request.** Their only cost guards are the per-client rate limit (`PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR` in `.env.example`, defaults 10 and 40 per route), a site-wide daily total for the four together (`PUBLIC_AI_DAILY_LIMIT`, default 500 model calls per Asia/Shanghai day, 2026-10-20) and, for three of them, a result cache. Review the limit before configuring a real key; the reasoning is in `docs/security-boundary.md` → "Public LLM Feature Boundary".
 
 Public:
 

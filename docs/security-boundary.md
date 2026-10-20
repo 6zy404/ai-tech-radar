@@ -514,7 +514,7 @@ rather than gated behind `WORKSPACE_ACCESS_TOKEN`, because:
   `disclaimer` field, and the client widgets render it in the same paint as
   the result so unlabeled AI content is never visible.
 
-Two cost controls apply, in this order:
+Three cost controls apply, in this order:
 
 1. **Rate limit** (added 2026-07-27, `src/lib/rate-limit.ts` +
    `src/lib/public-ai-rate-limit.ts`). Each route runs a per-client
@@ -530,14 +530,41 @@ Two cost controls apply, in this order:
    explain). Override with `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` /
    `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. The `429` body carries only a generic
    Chinese message; it leaks no provider, quota, or client detail.
-2. **Per-key result cache**, unchanged. The combined cache space remains
+2. **Site-wide daily cap** (added 2026-10-20, `src/lib/public-ai-daily-cap.ts`).
+   The per-client limit bounds one address; nothing bounded the total, so a
+   caller with many addresses had no ceiling. Now the four routes together
+   make at most `PUBLIC_AI_DAILY_LIMIT` model calls per Asia/Shanghai
+   calendar day (default 500, `PUBLIC_AI_DAILY_LIMIT_DEFAULT`; an unset or
+   invalid value means the default), then `429` with the same generic
+   message and `Retry-After` set to the seconds until 00:00 Beijing time.
+   The check runs in `guardPublicAiRequest` **after** the per-client limit
+   and before the body is read, so one address burning the budget is stopped
+   by its own bucket first and a refused cross-site call never counts.
+   **A cache hit does not count**: the check only reads the count; the three
+   cached routes count in a hook that fires once the cache lookup has missed,
+   right before the provider is called (`AiGenerationCallHooks.onProviderCall`),
+   and `/api/ask`, which has no cache, counts every well-formed question just
+   before it runs. The count is the file `config/public-ai-usage.json`
+   (`{ day, total, byRoute, updatedAt }`, git-ignored, one `runtime_configs`
+   row under SQLite), written temp-then-rename like every store, so the
+   2–3-second restart of a deploy does not start the day over; a record from
+   another day reads as zero and is replaced by the next counted call. A file
+   that does not parse reads as zero (logged) — the one store where falling
+   back to empty is right, since throwing would turn every public AI request
+   into a `500` over one day's count. Two requests arriving together can
+   both pass the check and both count, so the day can end a few calls over
+   the limit; it is a budget, not a lock. `/workspace/operations` shows the
+   count (今日公开 AI 调用 N / 500, per route) and pins a warning at 80% and a
+   critical item at 100%; `/api/health` does not carry it.
+3. **Per-key result cache**, unchanged. The combined cache space remains
    bounded: technology pairs (compare), published technologies × 3 levels
    (explain), and published technologies × 1 (learning path).
 
 What the limiter deliberately does **not** claim to be: it is in-memory and
-per-process (a multi-instance deployment multiplies the effective budget). It is
-a cost guardrail, not bot protection; deployment-level rate limiting stays on
-the gap list below. Before configuring a real-cost provider for a publicly
+per-process (a multi-instance deployment multiplies the effective budget; the
+daily cap, being a file in the data directory, is shared by every process that
+reads that directory). It is a cost guardrail, not bot protection;
+deployment-level rate limiting stays on the gap list below. Before configuring a real-cost provider for a publicly
 reachable deployment, review the budgets against expected traffic rather than
 assuming the defaults fit.
 
@@ -578,7 +605,9 @@ nothing.
 
 The fourth public LLM route, and the first with **no result cache**: every
 question is new, so the per-client rate limit (route id `ask`, same 10/minute
-and 40/hour defaults) and a 700-token cap per round are the whole cost guard.
+and 40/hour defaults), the site-wide daily cap (2026-10-20; every well-formed
+question counts, since nothing is cached) and a 700-token cap per round are
+the whole cost guard.
 Measured on the eval set, a question costs about 4,000 prompt tokens over 3.3
 tool calls. Like the other three it is checked before the body is read.
 

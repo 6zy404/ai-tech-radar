@@ -717,7 +717,10 @@ The product is split into two subsystems:
   while enabled, the last import in which a source succeeded is over 36 hours
   old, or `nextRunAt` is over 6 hours past) and a candidate backlog (warning —
   over 20 undecided candidates or the oldest over 7 days, linking to
-  `/workspace/editorial-round`). Thresholds are constants in
+  `/workspace/editorial-round`). Since 2026-10-20 it also shows today's
+  public AI model calls against the site-wide daily cap (今日公开 AI 调用
+  N / 500, split by route) and pins an item at 80% (warning) and 100%
+  (critical). Thresholds are constants in
   `src/lib/operations-metrics.ts`; see [`docs/operations.md`](operations.md).
 - **Structured data (JSON-LD)** — signal pages carry a schema.org
   `NewsArticle` (isBasedOn the original announcement, further source
@@ -828,8 +831,12 @@ Public, user-facing routes:
   `POST /api/technologies/learning-path` and `POST /api/ask` — public, unauthenticated by design
   (they only operate on already-published technology content), but rate
   limited per client per route (default 10/minute and 40/hour, override with
-  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`); see
-  [`docs/security-boundary.md`](security-boundary.md) for the boundary
+  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`) and,
+  all four together, capped at `PUBLIC_AI_DAILY_LIMIT` model calls per
+  Asia/Shanghai day (default 500; a cache hit is not a model call and does
+  not count; `429` with `Retry-After` to midnight once spent; the count
+  lives in `config/public-ai-usage.json` so a restart keeps it; 2026-10-20);
+  see [`docs/security-boundary.md`](security-boundary.md) for the boundary
   reasoning.
 
 Internal workspace / API routes (optionally token-protected):
@@ -1009,8 +1016,9 @@ records, link relation overrides, duplicate groups,
 daily digests, delivery, scheduled delivery, scheduled import, scheduled
 digest draft, task runner,
 workflow events, editorial enrichment suggestions, candidate triage
-suggestions, reader push subscriptions (git-ignored), and prompt versions. Set
-`LOCAL_DATA_DIR` to point at a different local directory.
+suggestions, reader push subscriptions (git-ignored), today's public AI call
+count against the daily cap (`public-ai-usage.json`, git-ignored), and prompt
+versions. Set `LOCAL_DATA_DIR` to point at a different local directory.
 
 ## Project structure
 

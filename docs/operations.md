@@ -80,6 +80,19 @@ Workspace only — never on public pages, feeds or `/api/health`. First check
 when one fires: the first line of the task runner log names the data
 directory it wrote to.
 
+### Public AI daily cap (2026-10-20)
+
+- 今日公开 AI 调用 (metric): today's model calls by the four public AI routes
+  together against `PUBLIC_AI_DAILY_LIMIT` (default 500), as `N / 500` with
+  the split by route (问雷达 / 对比 / 解释 / 学习路径). Read from
+  `config/public-ai-usage.json`; cache hits are not counted.
+- 公开 AI 接口今日额度接近用完 (warning) from
+  `PUBLIC_AI_DAILY_CAP_WARNING_RATIO` (80%) up; 公开 AI 接口今日额度已用完
+  (critical) at 100%, when the routes answer `429` until 00:00 Asia/Shanghai.
+  Pinned like the pipeline alerts and named in the health reasons; not part
+  of `check:pipeline`, and never on `/api/health`. To raise the cap, set the
+  variable and restart the server.
+
 ## WorkflowEvent browser
 
 `/workspace/operations/events` supports filtering by:

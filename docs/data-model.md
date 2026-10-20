@@ -805,6 +805,7 @@ Deployment configuration is not persisted as content. It is read from environmen
 - `TASK_RUNNER_INTERVAL_SECONDS`: default interval for `npm run tasks:watch`.
 - `DELIVERY_WEBHOOK_ENDPOINT` and `FEISHU_WEBHOOK_ENDPOINT`: optional operator references only; real channel endpoints are managed in the Internal Workspace.
 - `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: optional per-client, per-route request budgets for the four public AI routes (defaults 10 / 40). Not persisted state; the limiter's windows live in process memory only.
+- `PUBLIC_AI_DAILY_LIMIT` (2026-10-20): the site-wide total of model calls the four public AI routes may make together per Asia/Shanghai day (default 500, `PUBLIC_AI_DAILY_LIMIT_DEFAULT` in `src/lib/public-ai-daily-cap.ts`; unset or invalid means the default). Cache hits do not count. Unlike the per-client windows, the count is persisted — `config/public-ai-usage.json` — so a restart keeps the day's total.
 
 The workspace token and delivery endpoint secrets are not user-facing data fields and must not be rendered into public pages or public feeds.
 
@@ -1675,6 +1676,10 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
   `runtime_configs` row under SQLite)
 - `push-subscriptions.json` (2026-10-13; reader alert subscriptions,
   git-ignored; a `runtime_configs` row under SQLite)
+- `public-ai-usage.json` (2026-10-20; today's public AI model calls against
+  the site-wide daily cap — `{ day, total, byRoute, updatedAt }`, the day in
+  Asia/Shanghai; a record from another day reads as zero and is replaced by
+  the next counted call; git-ignored; a `runtime_configs` row under SQLite)
 - `technology-comparisons.json`
 - `technology-explanations.json`
 - `technology-learning-paths.json`

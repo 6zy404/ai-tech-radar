@@ -83,6 +83,57 @@ auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Fou
   node_modules junctions unlinked first; the main checkout's node_modules
   unchanged at 321 entries).
 
+## A site-wide daily cap on the public AI routes
+
+- **2026-10-20. The four public AI routes share one daily total.**
+  `POST /api/technologies/{compare,explain,learning-path}` and `POST /api/ask`
+  together make at most `PUBLIC_AI_DAILY_LIMIT` model calls per Asia/Shanghai
+  calendar day — default **500** (`PUBLIC_AI_DAILY_LIMIT_DEFAULT` in
+  `src/lib/public-ai-daily-cap.ts`; unset or invalid means the default) —
+  then `429` with the per-client limit's generic message and `Retry-After`
+  set to the seconds until 00:00 Beijing time. Until now the only limit was
+  per client per route (10/minute, 40/hour, in memory), so a caller with many
+  addresses had no ceiling while a real DeepSeek key was configured.
+- **Order.** The check is in `guardPublicAiRequest`, after the origin /
+  content-type check and the per-client limit and before the body is read:
+  a cross-site call is refused without counting, one address burning the
+  budget is stopped by its own bucket first, and a spent budget costs no body
+  read. **A cache hit does not count.** The guard only reads the count; the
+  three cached routes count in a hook the generators call once the cache
+  lookup has missed, right before the provider is called
+  (`AiGenerationCallHooks.onProviderCall`), and `/api/ask`, which has no
+  cache, counts every well-formed question just before it runs.
+- **The count survives a restart.** It is `config/public-ai-usage.json`
+  (`{ day, total, byRoute, updatedAt }`, git-ignored, a `runtime_configs`
+  row under SQLite), read-modify-write through the same temp-then-rename
+  store as everything else — a deploy restarts the server for 2–3 seconds
+  and an in-memory count would have started the day over. A record from
+  another day reads as zero and is replaced by the next counted call. A file
+  that does not parse reads as zero and is logged, rather than turning every
+  public AI request into a `500` over one day's count. Two requests arriving
+  together can both pass and both count, so a day can end a few calls over.
+- **Dashboard.** `/workspace/operations` shows 今日公开 AI 调用 `N / 500` with
+  the split by route (问雷达 / 对比 / 解释 / 学习路径), pins a warning item at
+  80% (`PUBLIC_AI_DAILY_CAP_WARNING_RATIO`) and a critical one at 100%, and
+  names it in the health reasons. Not in `check:pipeline`, never on
+  `/api/health`.
+- **Verified.** Tests: same-day accumulation, day rollover without a write,
+  the count re-read after a module reset, `429` + `Retry-After` (14 hours at
+  10:00 Beijing time), the env override and its fallbacks, the guard order
+  (403 before 429, the per-client bucket before the cap), the hook firing on
+  a miss and not on a hit for all three generators, the dashboard thresholds;
+  112 tests across the nine affected files, typecheck clean. Measured on
+  this worktree's own dev server (mock model, `PUBLIC_AI_DAILY_LIMIT=3`, the
+  worktree's data copy) at 10:46 Beijing time: ask → 1, compare (miss) → 2,
+  the same pair again (hit) → still 2, explain (miss) → 3, then learning-path,
+  ask and the cached pair all `429` with `Retry-After: 47616` (13 h 13 min
+  36 s to midnight, to the second) and the generic message; a cross-site call
+  while capped still gets `403`; `/api/health` carries no count;
+  `/workspace/operations` reads 今日公开 AI 调用 3 / 3 with the critical
+  item pinned. Once the cap is spent even a request that would have been a
+  cache hit is refused, because the guard refuses before it reads the body —
+  by design, a spent budget costs nothing. Not deployed.
+
 ## A site footer, ops guides, and third-party text out of the public history
 
 - **2026-10-15. CI passes for the first time.** All 27 runs since the
