@@ -106,3 +106,7 @@ npm run build:public   # 公开构建（不含内部路由），并校验构建�
 - [`docs/security-boundary.md`](docs/security-boundary.md)：公开 / 内部边界
 - [`docs/decisions.md`](docs/decisions.md)：设计决策记录
 - [`CHANGELOG.md`](CHANGELOG.md)：变更记录
+
+## 许可
+
+代码以 [MIT 许可证](LICENSE) 发布。站内引用的第三方文章（候选、信号的原文摘录、信源名称）归各自版权方所有，不在此许可之内。安全问题的报告方式见 [`SECURITY.md`](SECURITY.md)。

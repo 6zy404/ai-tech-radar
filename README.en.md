@@ -131,3 +131,7 @@ investigations and how their fixes were verified are in
 - [`docs/security-boundary.md`](docs/security-boundary.md) — public / internal boundary
 - [`docs/decisions.md`](docs/decisions.md) — design decisions
 - [`CHANGELOG.md`](CHANGELOG.md) — change history
+
+## License
+
+The code is released under the [MIT License](LICENSE). Third-party articles the site quotes (candidates, excerpts of signal originals, publisher names) remain their owners' and are not covered by it. See [`SECURITY.md`](SECURITY.md) for how to report a security problem.
