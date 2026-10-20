@@ -12,6 +12,77 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-20, a tunnel outage, and the reading-mark fix deployed
+
+- **2026-10-20.** 71 undecided candidates (accumulated since 10-14), all
+  dispositioned blind: 7 drafted with 「AI 起草」 and published, 42 marked
+  reviewed, 22 rejected. Published: **Gemini 4 Argon** general availability
+  with its pricing (pinned), Meta's **Muse Spark Open** (816B multimodal MoE),
+  Reflection's **Beam** (501B MoE, 1M context, Apache 2.0), **DeepSeek V4.1
+  Flash 1017**, Microsoft Research's **Agent Lightning v1.0**, **vLLM
+  v0.32.0** and Google Research's **Harness²**. Reviewed: the Argon safety /
+  robotics / InfoQ twins, eight Hugging Face model posts, OpenCode 2.0 and
+  its key leak, StartLux, MCP servers v2.0.0, ten Microsoft Research posts
+  and the release patches. Rejected: non-AI InfoQ items, QCon promotion, a
+  Copilot tutorial, ten OpenAI customer stories and 量子位's business
+  pieces. Digest 2026-10-20 carries the seven, Argon pinned, five September
+  leftovers excluded; the lede was drafted by 「AI 起草导语」 (613
+  characters) and cut to 343.
+- **Drafting prompt v2 (`candidate-draft-v2`).** The rubric now says to
+  retell in the model's own words — names, terms and numbers may be
+  borrowed, no run of 20 or more characters may match the source, media
+  exclamations are dropped — after the 10-14 review found the three 10-13
+  bodies 41–58% verbatim. Measured on today's seven drafts the longest
+  copied run was 0–48 characters, all of them names, code or figure lists.
+  The three 10-13 bodies were rewritten: CodeScene by the model (53% → 4%),
+  VISTA and Memento 3 by hand after three model passes stalled at 19–40%
+  (now 6% and 12%, the remainder being the paper title, author names and
+  term glosses); every number was checked against the source page.
+- **What still needed an editor:** every title (41–60 characters against the
+  prompt's 18–36), Agent Lightning's publisher (微软亚洲研究院 → Microsoft
+  Research), 「入门价格」 for Argon's launch price, 「agent」 left in Chinese
+  prose, and one sentence of figures copied whole on Harness². Titles were
+  measured on the real markup at 1265 and 390 before publishing: 低精度,
+  开源, 新模型 and the hyphenated `V4.1-Flash-1017` each broke inside a word
+  in some variant and were reworded — the splitter keeps dates together but
+  not hyphenated version tokens.
+- **Relations and the radar.** The seven got typed links (Argon 延伸 the
+  10-01 limited release, Muse Spark Open 渊源 Muse Glimmer, vLLM v0.32.0 续作
+  v0.30.0 and 印证 the Jev decision-model line, …). The 113 note-less
+  释义 / 印证 / 借助 / 必备 relations around the eight 2026-10-12 knowledge
+  items got one-line notes written by the model from each pair's titles and
+  summaries (109 by the model, 4 by hand applied, a sample read by the editor).
+  vLLM v0.32.0, Muse Spark Open, Beam and Agent Lightning were added as
+  evidence on six radar entries.
+- **The AI-draft model call failed twice with 「fetch failed」** on the
+  DeepSeek candidate and succeeded on the third try. The cause — an
+  `ECONNRESET` during the TLS handshake to api.deepseek.com through the
+  proxy — reached nobody, so `candidate-llm-draft-workflow.ts` now logs the
+  candidate id, message and cause server-side.
+- **25 published records' source links moved from hf-mirror.com to
+  huggingface.co** (the 23 the review listed plus the two Hugging Face
+  signals published today).
+- **The public site had been unreachable for two and a half days.** After
+  the 10-17 21:36 reboot, cloudflared resolved `region1.v2.argotunnel.com`
+  through the campus DNS (210.42.24.19), was handed the bogus address
+  10.3.33.253, and dialled it every minute for 61 hours while its DNS
+  refresh timed out every five minutes; the local server was healthy
+  throughout, so `/api/health` on 127.0.0.1 said nothing was wrong.
+  `Stop-ScheduledTask` does not stop cloudflared, because the task runs it
+  through `cmd /c … >> tunnel.log`. Fixed at 10:19 by killing the process
+  and starting the task again: three connections registered within 15
+  seconds and the public health check answered 200. A watchdog that
+  restarts the tunnel when the public check fails while the local one
+  passes, and an out-of-band alert, are being built in a feature window;
+  until the external uptime check on the owner's list exists, nothing
+  watches the public side.
+- **Deployed `biDAjOlPEtUBA_l3wbDd4`** (about 2.5 seconds of downtime): the
+  10-14 reading-mark button fix, cherry-picked from the `intelligent-mccarthy`
+  branch. The live stylesheet carries `align-items: center; margin-top:
+auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Four merged worktrees and their branches were removed (their
+  node_modules junctions unlinked first; the main checkout's node_modules
+  unchanged at 321 entries).
+
 ## A site footer, ops guides, and third-party text out of the public history
 
 - **2026-10-15. CI passes for the first time.** All 27 runs since the
