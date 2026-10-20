@@ -761,6 +761,10 @@ the middleware-location section above before going any further.
   such a send would have carried `http://localhost:3000` links.
 - `WORKSPACE_ACCESS_ENABLED`: enables minimal workspace/API token protection.
 - `WORKSPACE_ACCESS_TOKEN`: shared token for protected internal routes.
+- `WORKSPACE_ALLOWED_HOSTS`: comma-separated host names, besides the
+  loopback ones, that the workspace dev server may be addressed by outside
+  production; a write arriving under any other `Host` is refused
+  (2026-10-14, `docs/security-boundary.md` → "Minimal Access Protection").
 - `LOCAL_DATA_DIR`: local JSON workflow directory; defaults to `./config`.
 - `PERSISTENCE_DRIVER`: `json` by default; set to `sqlite` after running database initialization and migration.
 - `SQLITE_DATABASE_PATH`: optional SQLite database path; defaults to `./config/ai-tech-radar.sqlite`.
@@ -770,6 +774,15 @@ the middleware-location section above before going any further.
   ISO-8601 UTC time in front of every line the command prints — for the
   scheduled tasks' logs, which had none (2026-10-21, "Timestamps in the
   service logs" below). Off unless set.
+- `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY` / `NODE_USE_ENV_PROXY`: the
+  outbound proxy. The launcher reads the four from `.env.local` before any
+  command starts, probes the proxy and sets the flag itself when it answers;
+  an explicit `0` is the escape hatch ("Proxy for every entry point" below).
+  `PROXY_ENV_QUIET=1` silences the launcher's one `[proxy]` line.
+- `BACKUP_DIR` / `BACKUP_KEEP` / `BACKUP_FORCE`: where `backup:data`
+  writes, how many days of verified snapshots it keeps (default 14), and
+  whether to take a second snapshot on a day that already has one — "Daily
+  backup (Windows)" below.
 - `IMPORT_FETCH_ATTEMPTS`: source-fetch attempts before a source is marked
   failed (default `3`, capped at `5`). Retries cover transport failures,
   timeouts, `429`, and `5xx`; a `4xx` is treated as a configuration problem
