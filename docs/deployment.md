@@ -218,6 +218,10 @@ anything and get a fresh rate-limit bucket per request (see
 checks the binding after every restart and exits `2` when a listener is not a
 loopback address.
 
+**When the domain stops answering while port 3000 is fine, see "Tunnel
+watchdog" below** — the 2026-10-17 → 10-20 outage, and the task that now
+restarts `cloudflared` on its own.
+
 **Rebuild before it matters.** `npm run start` serves whatever `.next` holds,
 so it must be rebuilt after `NEXT_PUBLIC_SITE_URL` changes — and **never
 build into `.next` while this task is running**, since dev/build/start all
@@ -865,6 +869,12 @@ the middleware-location section above before going any further.
   `40`. Both are enforced in-process (see `docs/security-boundary.md` →
   "Public LLM Feature Boundary"); review them before configuring a real-cost
   provider, and keep a proxy/platform limit for anything abuse-shaped.
+- `OPS_ALERT_CHANNEL_ID`: the id of an enabled delivery channel in
+  `config/delivery.json` (created at `/workspace/delivery`) that
+  `check:pipeline` and the tunnel watchdog send their alerts to
+  (`src/lib/ops-alert.ts`; webhook, Feishu, Telegram or Discord). Unset,
+  they log one line and send nothing. The scripts run under plain Node, so
+  the value is read from the environment, else from `.env.local`.
 
 Do not commit real webhook tokens or LLM API keys. Neither local JSON nor the local SQLite file should be treated as a production secret store.
 
@@ -1130,6 +1140,113 @@ it with `npm run check:pipeline -- --test`. The task is
 (the log is git-ignored). `scripts/register-windows-tasks.ps1` does not create
 it — that script registers S4U tasks, which run in session 0 — so on a new
 machine it is registered by hand.
+
+### Tunnel watchdog (2026-10-20)
+
+**The site was unreachable for two and a half days while the server was
+healthy the whole time.** On 2026-10-17 at 21:37 the machine restarted and
+the tunnel task started `cloudflared` before the campus resolver
+(`210.42.24.19`) was answering properly. `cloudflared` resolved
+`region1.v2.argotunnel.com` to a **private address, `10.3.33.253`**, and from
+then on dialled `10.3.33.253:7844` about once a minute (`connectex: No
+connection could be made because the target machine actively refused it`)
+while its five-minute DNS refresh timed out every time (`Failed to refresh
+DNS local resolver … i/o timeout`), so it never re-resolved. The edge
+answered `530` (error 1033, no connector) until 2026-10-20 10:19, when
+someone looked. Port 3000 answered `200` throughout; the pipeline alert task
+knows nothing about the tunnel, and would only have shown a toast anyway.
+
+Two more things measured while fixing it by hand:
+
+- `Stop-ScheduledTask ai-tech-radar-tunnel` ends the task's `cmd` and leaves
+  the child `cloudflared.exe` running, because the action is
+  `cmd /c cloudflared … >> tunnel.log 2>&1`. While the old instance still
+  shows `Running`, a start is dropped (`MultipleInstances = IgnoreNew`), so
+  the process has to be stopped with `Stop-Process` first.
+- `https://aizyradar.cn/api/health` is reachable from this machine both
+  through the proxy and directly, so the public side can be checked from
+  here.
+
+**`scripts/tunnel-watchdog.ps1`**, run every 5 minutes by the task
+`ai-tech-radar-tunnel-watchdog`:
+
+1. `GET http://127.0.0.1:3000/api/health` — direct, never through a proxy.
+2. `GET https://aizyradar.cn/api/health` — through `HTTPS_PROXY` /
+   `HTTP_PROXY` (the environment, else `.env.local`) when a TCP connect to
+   the proxy succeeds within 1.5 s, direct otherwise — the rule
+   `with-proxy-env.mjs` applies.
+3. The last 20 lines of `tunnel.log`, for an `ERR` line that dials a private
+   address (`10/8`, `172.16/12`, `192.168/16`) on port 7844 — the 10-17
+   signature.
+
+The tunnel counts as broken on a run when the local check is `200` and the
+public check is not `200`, or the log shows a private dial. **Two
+consecutive broken runs** → `Stop-ScheduledTask`, `Stop-Process` every
+`cloudflared.exe`, wait for the task to leave `Running`,
+`Start-ScheduledTask`, wait 30 s, check the domain again, and send an
+off-site alert (`docs/operations.md` → "Off-site alerts") saying whether it
+recovered. Afterwards: no second restart within 15 minutes; while it stays
+down, one alert an hour at most, and one more when the domain comes back. A
+local check that is not `200` is not the tunnel's problem: the script then
+sends one alert on the second consecutive failure and does nothing else.
+
+State (`publicFailures`, `localFailures`, `lastRestartAt`, `lastAlertAt`, the
+last run's numbers) is `config/tunnel-watchdog-state.json`; every run appends
+one line to `config/tunnel-watchdog.log` (rotated to `.1` past 1 MB). Both
+are git-ignored and sit beside the other tasks' logs.
+
+**What it never does**, asserted at runtime before any `Stop-Process`: stop a
+process not named `cloudflared`; stop a process that owns a listener on port
+3000; call a task cmdlet with any name but the tunnel task's (it refuses
+`ai-tech-radar-server` outright); touch `.next`. `-DryRun` runs the three
+checks against the real endpoints and prints the decision — writing,
+stopping and sending nothing — and is the first thing to run after any edit:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun
+```
+
+Measured 2026-10-20 (dry runs, nothing touched, `cloudflared` kept its PID):
+a healthy pass reads `本机 200；公网 200（经代理 …）；私网拨号 0 行` and exits
+0; with the public URL pointed at a 404 and the incident's log lines as
+`-TunnelLog`, the run named both reasons, quoted the three `ERR` lines and
+printed the restart it would do; with the local URL pointed at a 404 it
+reported 本机不健康 and planned nothing.
+
+**Registering it** — `scripts/setup-tunnel-watchdog.ps1` prints the plan
+without `-Apply`; run it from the main checkout, since the task's action
+carries that path:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-tunnel-watchdog.ps1          # plan only
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-tunnel-watchdog.ps1 -Apply   # dry-run the watchdog, then register
+```
+
+S4U as the same user as the other tasks, `StartWhenAvailable`, not stopped
+on battery, a 4-minute execution limit and `MultipleInstances = IgnoreNew`
+(a hung run must not pile up behind the next), one `-Once` trigger with a
+5-minute repetition that never ends. The action is `powershell.exe -File …`
+with no `cmd` wrapper, so `Stop-ScheduledTask` ends the real process.
+`OPS_ALERT_CHANNEL_ID` has to be in the main checkout's `.env.local` for the
+alerts to go anywhere.
+
+**Suggested, not done: let `cloudflared` write its own log.** The tunnel
+task's action runs through `cmd /c … >> tunnel.log`, which is the only reason
+`Stop-ScheduledTask` cannot stop it. `cloudflared` has `--logfile`:
+
+```powershell
+$a = New-ScheduledTaskAction -Execute "C:\Program Files (x86)\cloudflared\cloudflared.exe" `
+  -Argument '--config C:\Users\Administrator\.cloudflared\config.yml --logfile C:\Users\Administrator\.cloudflared\tunnel.log tunnel run ai-tech-radar'
+Set-ScheduledTask -TaskName "ai-tech-radar-tunnel" -Action $a
+```
+
+With that, the task's process is `cloudflared.exe` itself,
+`Stop-ScheduledTask` stops it, and the watchdog's `Stop-Process` becomes a
+fallback rather than the mechanism. Not applied here: changing the action
+takes effect on the next start, which means restarting the tunnel, and that
+is the owner's call (`CLAUDE.md` → "Parallel windows"). Check first whether
+`--logfile` appends or truncates on start; the watchdog works with either
+shape of the task.
 
 ### Proxy for every entry point
 

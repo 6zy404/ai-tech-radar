@@ -93,6 +93,42 @@ directory it wrote to.
   of `check:pipeline`, and never on `/api/health`. To raise the cap, set the
   variable and restart the server.
 
+### Off-site alerts (2026-10-20)
+
+A toast is only seen by someone at the desk, and the tunnel outage of
+2026-10-17 → 10-20 ran for two and a half days that way.
+`src/lib/ops-alert.ts` sends a plain-text alert — title, body, time in
+Asia/Shanghai — through one of the delivery channels configured for the
+digest at `/workspace/delivery` (webhook, Feishu, Telegram, Discord), chosen
+by `OPS_ALERT_CHANNEL_ID` (`docs/deployment.md` → "Environment Variables").
+Unset, nothing is sent and the caller logs one line saying so.
+
+Who sends one:
+
+- `npm run check:pipeline` — the pipeline alerts above, once per alert per
+  day, beside the toast; `-- --test` sends a test alert when the channel is
+  configured. The npm script starts through `with-proxy-env.mjs` since this
+  date, because Telegram and Discord are reachable from this machine only
+  through the proxy.
+- `scripts/tunnel-watchdog.ps1` — when it restarts the tunnel (with the
+  outcome of its 30-second re-check), when the domain comes back after a
+  restart that did not fix it, and when the local server itself is unhealthy
+  twice in a row (`docs/deployment.md` → "Tunnel watchdog").
+- By hand: `npm run ops:alert -- --title "…" --body "…"`, or
+  `node scripts/run-ts.cjs scripts/send-ops-alert.ts --json <file>` with a
+  UTF-8 `{ "title", "body" }` file — how the watchdog passes Chinese without
+  going through the console code page. `--dry-run` prints the message and
+  sends nothing.
+
+Every piece of text goes through `maskSecretsInText` before it is sent and
+before it is logged, so a Telegram token or a webhook token quoted in an
+error cannot reach the chat. The alert reuses the adapters' `send` (the mock
+endpoints, the Telegram request URL, the 15-second timeout) with its own
+payload per platform; the operations dashboard is unchanged and never shows
+these sends. Still not covered: an outage of the whole machine, which only an
+external check can see (`docs/deployment.md` → "Health endpoint and uptime
+alerts").
+
 ## WorkflowEvent browser
 
 `/workspace/operations/events` supports filtering by:
@@ -155,7 +191,9 @@ Prometheus, Grafana, hosted alerting, log shipping, incident routing, and retent
 
 ## Later work
 
-- alert routing for critical operations states
+- alert routing for critical operations states (since 2026-10-20 the pipeline
+  alerts and the tunnel watchdog go to one off-site channel; the rest of the
+  dashboard does not)
 - event retention and archive policy
 - structured error taxonomy
 - recovery tools for replaying failed workflows

@@ -722,6 +722,12 @@ The product is split into two subsystems:
   N / 500, split by route) and pins an item at 80% (warning) and 100%
   (critical). Thresholds are constants in
   `src/lib/operations-metrics.ts`; see [`docs/operations.md`](operations.md).
+  Since 2026-10-20 those two alerts, and the tunnel watchdog
+  (`scripts/tunnel-watchdog.ps1`, which restarts `cloudflared` when the site
+  answers on 127.0.0.1:3000 but not through the domain), also go off-site as
+  a plain-text message through the delivery channel `OPS_ALERT_CHANNEL_ID`
+  names (`src/lib/ops-alert.ts`; webhook, Feishu, Telegram or Discord;
+  nothing without the variable).
 - **Structured data (JSON-LD)** — signal pages carry a schema.org
   `NewsArticle` (isBasedOn the original announcement, further source
   references as citation, the share card as image), digest pages a
@@ -920,7 +926,10 @@ node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)
 node scripts/run-ts.cjs scripts/type-fallback-relations.ts [--apply] # one-off: give the fallback 关联 edges a relation type, and two related signals to each of the seven signals that had none (dry run by default)
 node scripts/run-ts.cjs scripts/retag-signals.ts [--apply]           # one-off: put the nine 2026-10-12 topics on published signals, skills and knowledge, and narrow 智能体 / 前沿模型 / 推理与部署 (dry run by default)
-npm run check:pipeline   # Windows toast when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
+npm run check:pipeline   # Windows toast + off-site alert when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
+npm run ops:alert -- --title "…" --body "…"   # plain-text ops alert through the delivery channel OPS_ALERT_CHANNEL_ID names (--json <utf-8 file>, --dry-run; nothing sent without the variable)
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun        # the tunnel watchdog's three checks against the real endpoints, printing what a real run would do
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-tunnel-watchdog.ps1 [-Apply] # register the 5-minute ai-tech-radar-tunnel-watchdog task (plan only without -Apply)
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
 npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)

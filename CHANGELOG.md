@@ -134,6 +134,55 @@ auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Fou
   cache hit is refused, because the guard refuses before it reads the body —
   by design, a spent budget costs nothing. Not deployed.
 
+## Tunnel watchdog and off-site operations alerts
+
+- **2026-10-20. The site was unreachable for two and a half days while port
+  3000 answered 200 the whole time.** After the 2026-10-17 21:37 restart,
+  `cloudflared` resolved `region1.v2.argotunnel.com` through the campus
+  resolver to a private address, `10.3.33.253`, dialled it on port 7844
+  once a minute, and timed out on every five-minute DNS refresh, so it never
+  re-resolved; the edge answered 530 until 10-20 10:19, when someone looked.
+  `Stop-ScheduledTask` on the tunnel task ends only the `cmd` wrapper and
+  leaves `cloudflared.exe` running, so the fix by hand was `Stop-Process`,
+  then `Start-ScheduledTask`. The account is in `docs/deployment.md` →
+  "Tunnel watchdog", with a suggested (not applied) change to the tunnel
+  task: run `cloudflared` with `--logfile` instead of through `cmd`, so the
+  task's process is `cloudflared` itself.
+- **`scripts/tunnel-watchdog.ps1`**: every 5 minutes it checks
+  `127.0.0.1:3000/api/health` (direct), `aizyradar.cn/api/health` (through
+  the proxy when it answers, else direct) and the last 20 lines of
+  `tunnel.log` for a dial to a private address on 7844. Local 200 and public
+  not 200 (or the private dial) twice in a row → stop every `cloudflared`,
+  start the tunnel task, re-check after 30 s, log and alert. One restart per
+  15 minutes, one alert an hour while it stays down and one more on
+  recovery; a local failure gets one alert and no action. Runtime assertions
+  refuse to stop anything but `cloudflared`, anything holding port 3000, or
+  any task but the tunnel's. State in `config/tunnel-watchdog-state.json`,
+  one log line per run in `config/tunnel-watchdog.log`, both git-ignored.
+  `-DryRun` runs the checks and prints the decision.
+  `scripts/setup-tunnel-watchdog.ps1` registers the task
+  `ai-tech-radar-tunnel-watchdog` (S4U, 5-minute repetition, 4-minute limit)
+  with `-Apply`, plan only without. **Written and dry-run only**: this
+  change registered no task and restarted nothing. Dry runs on the live
+  machine: a healthy pass read 本机 200 / 公网 200 through the proxy; with a
+  404 public URL and the incident's log lines it named both reasons and
+  printed the restart it would do; with a 404 local URL it planned nothing;
+  `cloudflared` kept its PID through all three.
+- **Off-site alerts** (`src/lib/ops-alert.ts`, `scripts/send-ops-alert.ts`,
+  `npm run ops:alert`): a plain-text alert (title, body, Asia/Shanghai time)
+  through the delivery channel `OPS_ALERT_CHANNEL_ID` names — webhook (JSON
+  or text), Feishu, Telegram (HTML, cut as plain text before escaping so a
+  broken entity cannot get the message rejected) or Discord (one embed, no
+  mentions). Unset, one log line and nothing sent. Text in and out goes
+  through `maskSecretsInText`. `check:pipeline` sends it beside the toast
+  (and a test one on `--test`) and is now launched through
+  `with-proxy-env.mjs`; the watchdog calls the script with a UTF-8 JSON file
+  so Chinese survives PowerShell. Seven tests against a local fake HTTP
+  server cover the four channel types, the `.env.local` fallback, masking, a
+  500, a disabled and an unknown channel, and `--dry-run`. The live
+  `config/delivery.json` holds only the mock webhook; a real channel is the
+  owner's to add at `/workspace/delivery`.
+
 ## A site footer, ops guides, and third-party text out of the public history
 
 - **2026-10-15. CI passes for the first time.** All 27 runs since the
