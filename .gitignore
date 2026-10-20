@@ -79,6 +79,8 @@ config/candidate-triage-suggestions.json
 config/candidate-semantic-matches.json
 # Reader push subscriptions: the endpoints are bearer addresses (src/lib/push-subscriptions.ts)
 config/push-subscriptions.json
+# Today's count of public AI model calls against the daily cap (src/lib/public-ai-daily-cap.ts)
+config/public-ai-usage.json
 # Semantic dedup measurement: pairs a threshold would flag that have no label yet
 eval/dedup/unlabelled.jsonl
 # in-flight atomic writes (temp-then-rename); never left behind on a clean exit

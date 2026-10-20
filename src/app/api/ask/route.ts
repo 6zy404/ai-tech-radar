@@ -8,6 +8,7 @@ import {
 } from "@/lib/ask-radar";
 import { siteAskTools } from "@/lib/ask-radar-tools";
 import { createConfiguredChatStream } from "@/lib/llm/chat-clients";
+import { tryRecordPublicAiCall } from "@/lib/public-ai-daily-cap";
 import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 
 /**
@@ -18,7 +19,9 @@ import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
  * (see AskEvent). No event carries provider, model, prompt or token details.
  *
  * Stateless: a follow-up sends the earlier turns and the reference numbers
- * the page has shown (see ask-conversation.ts). Nothing is stored here.
+ * the page has shown (see ask-conversation.ts). Nothing is stored here —
+ * except one tick on the site-wide daily cap per question, since there is no
+ * cache and every question reaches the model.
  */
 
 export const dynamic = "force-dynamic";
@@ -40,6 +43,9 @@ export async function POST(request: Request) {
     parsed.priorSources,
     siteAskTools
   );
+
+  // No cache on this route: a well-formed question is a model call.
+  tryRecordPublicAiCall("ask");
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({

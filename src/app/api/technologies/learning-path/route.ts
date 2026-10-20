@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { tryRecordPublicAiCall } from "@/lib/public-ai-daily-cap";
 import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 import { generateOrGetTechnologyLearningPath } from "@/lib/technology-learning-path";
 
@@ -23,7 +24,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "缺少技术信号 id。" }, { status: 400 });
   }
 
-  const outcome = await generateOrGetTechnologyLearningPath(technologyId);
+  const outcome = await generateOrGetTechnologyLearningPath(technologyId, {
+    onProviderCall: () => tryRecordPublicAiCall("learning-path")
+  });
 
   if ("error" in outcome) {
     const status = outcome.error.code === "generation_failed" ? 500 : 400;

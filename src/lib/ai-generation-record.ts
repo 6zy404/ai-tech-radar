@@ -107,3 +107,13 @@ export function buildAiGenerationMetadata(
     updatedAt: now
   };
 }
+
+/**
+ * Hooks a caller of the three generate-or-get functions can pass. The
+ * public routes count the site-wide daily cap in `onProviderCall`: it runs
+ * only once the cache has missed, right before the provider is called, so a
+ * cached answer costs the reader nothing and counts for nothing.
+ */
+export interface AiGenerationCallHooks {
+  onProviderCall?: () => void;
+}

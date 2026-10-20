@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { tryRecordPublicAiCall } from "@/lib/public-ai-daily-cap";
 import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 import { generateOrGetTechnologyComparison } from "@/lib/technology-comparison";
 
@@ -32,7 +33,8 @@ export async function POST(request: Request) {
 
   const outcome = await generateOrGetTechnologyComparison(
     technologyIdA,
-    technologyIdB
+    technologyIdB,
+    { onProviderCall: () => tryRecordPublicAiCall("compare") }
   );
 
   if ("error" in outcome) {

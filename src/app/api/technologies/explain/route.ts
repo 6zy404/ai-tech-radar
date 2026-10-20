@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { tryRecordPublicAiCall } from "@/lib/public-ai-daily-cap";
 import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 import {
   generateOrGetTechnologyExplanation,
@@ -39,7 +40,8 @@ export async function POST(request: Request) {
 
   const outcome = await generateOrGetTechnologyExplanation(
     technologyId,
-    audienceLevel
+    audienceLevel,
+    { onProviderCall: () => tryRecordPublicAiCall("explain") }
   );
 
   if ("error" in outcome) {

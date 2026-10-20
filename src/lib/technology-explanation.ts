@@ -3,7 +3,8 @@ import { randomUUID } from "node:crypto";
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import {
   buildAiGenerationMetadata,
-  isReusableCachedAiRecord
+  isReusableCachedAiRecord,
+  type AiGenerationCallHooks
 } from "@/lib/ai-generation-record";
 import { getAllTechnologies } from "@/lib/content";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
@@ -54,7 +55,8 @@ export function toPublicExplanationResult(
 
 export async function generateOrGetTechnologyExplanation(
   technologyId: string,
-  audienceLevel: TechnologyExplanationAudienceLevel
+  audienceLevel: TechnologyExplanationAudienceLevel,
+  hooks: AiGenerationCallHooks = {}
 ): Promise<
   | { result: TechnologyExplanationPublicResult }
   | { error: TechnologyExplanationError }
@@ -98,6 +100,9 @@ export async function generateOrGetTechnologyExplanation(
       technology,
       audienceLevel
     });
+
+  // Past the cache: this request is about to spend a model call.
+  hooks.onProviderCall?.();
 
   try {
     const provider = createConfiguredLlmProvider();

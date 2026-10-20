@@ -3,7 +3,8 @@ import { randomUUID } from "node:crypto";
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import {
   buildAiGenerationMetadata,
-  isReusableCachedAiRecord
+  isReusableCachedAiRecord,
+  type AiGenerationCallHooks
 } from "@/lib/ai-generation-record";
 import {
   getAllKnowledge,
@@ -41,7 +42,8 @@ export function toPublicLearningPathResult(
 }
 
 export async function generateOrGetTechnologyLearningPath(
-  technologyId: string
+  technologyId: string,
+  hooks: AiGenerationCallHooks = {}
 ): Promise<
   | { result: TechnologyLearningPathPublicResult }
   | { error: TechnologyLearningPathError }
@@ -85,6 +87,9 @@ export async function generateOrGetTechnologyLearningPath(
       relatedKnowledge,
       relatedSkills
     });
+
+  // Past the cache: this request is about to spend a model call.
+  hooks.onProviderCall?.();
 
   try {
     const provider = createConfiguredLlmProvider();

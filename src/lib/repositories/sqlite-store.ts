@@ -143,9 +143,10 @@ export const sqliteStoreFileName = "ai-tech-radar.sqlite";
 /**
  * Stores kept whole as one `runtime_configs` row each: single objects with no
  * record list to split (the two schedule configs, the 本周总结 records, the
- * triage and semantic-match caches, reader push subscriptions). The read and
- * write routing and `migrateJsonStoresToSqlite` all go by this one list —
- * until 2026-10-14 the migration had its own and missed the last four.
+ * triage and semantic-match caches, reader push subscriptions, the public AI
+ * routes' daily usage count). The read and write routing and
+ * `migrateJsonStoresToSqlite` all go by this one list — until 2026-10-14 the
+ * migration had its own and missed the last four.
  */
 export const runtimeConfigStoreFileNames = [
   "scheduled-import.json",
@@ -153,7 +154,8 @@ export const runtimeConfigStoreFileNames = [
   "weekly-summaries.json",
   "candidate-triage-suggestions.json",
   "candidate-semantic-matches.json",
-  "push-subscriptions.json"
+  "push-subscriptions.json",
+  "public-ai-usage.json"
 ] as const;
 
 export type RuntimeConfigStoreFileName =

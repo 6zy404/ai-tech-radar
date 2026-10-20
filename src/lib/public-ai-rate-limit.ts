@@ -10,6 +10,7 @@
 
 import { NextResponse } from "next/server";
 
+import { checkPublicAiDailyCap } from "@/lib/public-ai-daily-cap";
 import {
   createRateLimiter,
   getRateLimitClientKey,
@@ -223,10 +224,13 @@ export type PublicAiGuardOutcome =
 
 // The opening every public AI route shares, in the order that matters: the
 // request-shape guard first (headers only, so a refused cross-site request
-// does not spend the visitor's budget), then the rate limit (so a spent budget
-// costs nothing, not even a body read), then the size-capped JSON body. Until
-// 2026-09-28 each of the four routes carried its own copy of these lines; one
-// function means a fifth route cannot get the order wrong or leave a step out.
+// does not spend the visitor's budget), then the per-client rate limit (so a
+// spent budget costs nothing, not even a body read), then the site-wide daily
+// cap (2026-10-20; after the per-client limit, so one address burning the
+// day's budget is stopped by its own bucket first and a refused cross-site
+// call never counts), then the size-capped JSON body. Until 2026-09-28 each of
+// the four routes carried its own copy of these lines; one function means a
+// fifth route cannot get the order wrong or leave a step out.
 export async function guardPublicAiRequest(
   request: Request,
   routeId: PublicAiRouteId
@@ -253,6 +257,23 @@ export async function guardPublicAiRequest(
         {
           status: 429,
           headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
+        }
+      )
+    };
+  }
+
+  // The cap only reads here; the call is counted where it is certain to
+  // happen (public-ai-daily-cap.ts), so a cache hit never spends the budget.
+  const dailyCap = checkPublicAiDailyCap();
+
+  if (!dailyCap.allowed) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: publicAiRateLimitMessage },
+        {
+          status: 429,
+          headers: { "Retry-After": String(dailyCap.retryAfterSeconds) }
         }
       )
     };
