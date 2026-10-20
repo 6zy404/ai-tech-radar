@@ -212,9 +212,12 @@ html[lang="en"] .radar-list__quadrant h2 span {
   display: none;
 }
 
-/* A quiet open/closed mark at the row's end, in place of the marker. */
+/* A quiet open/closed mark at the row's end, in place of the marker. The
+   empty alternative text keeps it out of the summary's accessible name —
+   Chromium reads generated content into it, and <details> already says
+   open or closed. */
 .radar-entry summary::after {
-  content: "+";
+  content: "+" / "";
   margin-left: auto;
   color: var(--dossier-muted);
   font-family: ui-monospace, monospace;
@@ -222,7 +225,7 @@ html[lang="en"] .radar-list__quadrant h2 span {
 }
 
 .radar-entry[open] summary::after {
-  content: "−";
+  content: "−" / "";
 }
 
 /* The same mark as the dot on the picture, so the list reads as its key. */
