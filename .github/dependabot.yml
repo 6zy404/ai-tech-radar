@@ -1,0 +1,51 @@
+# Weekly dependency-update pull requests (2026-10-21).
+#
+# CI already fails on a critical advisory in a production dependency
+# (`npm audit --omit=dev --audit-level=critical` in workflows/ci.yml, since
+# 2026-10-15); this is the other half: the upgrade arrives as a PR before
+# anyone has to notice. Until then the lock file sat still from June to
+# October, and Next's 2026-09-08 advisory went five weeks unnoticed.
+#
+# Grouped so an ordinary week is one PR per ecosystem, not fifteen: Next and
+# its ESLint config move together (they are released together), the rest by
+# production / development. Every PR runs the full CI (typecheck, lint,
+# tests, validators), so a green check is the review for a patch bump; a
+# `next` bump still deserves a read of its release notes before merging.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: deps
+    groups:
+      next:
+        patterns:
+          - next
+          - eslint-config-next
+          - "@next/*"
+      production:
+        dependency-type: production
+        exclude-patterns:
+          - next
+          - "@next/*"
+      development:
+        dependency-type: development
+        exclude-patterns:
+          - eslint-config-next
+          - "@next/*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Shanghai
+    commit-message:
+      prefix: ci
