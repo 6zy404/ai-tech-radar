@@ -4,9 +4,12 @@ import {
   CANDIDATE_BACKLOG_MAX_AGE_DAYS,
   CANDIDATE_BACKLOG_MAX_COUNT,
   IMPORT_STALL_THRESHOLD_HOURS,
+  PUBLIC_AI_DAILY_CAP_WARNING_RATIO,
   SCHEDULED_IMPORT_OVERDUE_HOURS,
   evaluateCandidateBacklog,
   evaluateImportStall,
+  evaluatePublicAiDailyCap,
+  formatPublicAiUsageByRoute,
   getLastCandidateIntakeAt
 } from "@/lib/operations-metrics";
 import type { ImportRun } from "@/types/content";
@@ -280,5 +283,58 @@ describe("evaluateCandidateBacklog", () => {
 
   it("is undefined for an empty pool", () => {
     expect(evaluateCandidateBacklog({ candidates: [], now })).toBeUndefined();
+  });
+});
+
+describe("evaluatePublicAiDailyCap", () => {
+  const byRoute = { ask: 300, compare: 80, explain: 20 };
+
+  it("is quiet below the warning ratio", () => {
+    expect(PUBLIC_AI_DAILY_CAP_WARNING_RATIO).toBe(0.8);
+    expect(
+      evaluatePublicAiDailyCap({ total: 399, limit: 500, byRoute })
+    ).toBeUndefined();
+    expect(
+      evaluatePublicAiDailyCap({ total: 0, limit: 500, byRoute: {} })
+    ).toBeUndefined();
+  });
+
+  it("warns from the ratio up, naming the counts per route", () => {
+    const item = evaluatePublicAiDailyCap({ total: 400, limit: 500, byRoute });
+
+    expect(item).toMatchObject({
+      id: "public-ai-daily-cap",
+      severity: "warning",
+      source: "公开 AI 额度",
+      href: "/workspace/operations"
+    });
+    expect(item?.description).toContain("400 / 500");
+    expect(item?.description).toContain(
+      "问雷达 300 · 对比 80 · 解释 20 · 学习路径 0"
+    );
+  });
+
+  it("is critical once the cap is reached or passed", () => {
+    expect(
+      evaluatePublicAiDailyCap({ total: 500, limit: 500, byRoute })
+    ).toMatchObject({
+      severity: "critical",
+      title: "公开 AI 接口今日额度已用完"
+    });
+    expect(
+      evaluatePublicAiDailyCap({ total: 503, limit: 500, byRoute })
+    ).toMatchObject({ severity: "critical" });
+    expect(
+      evaluatePublicAiDailyCap({ total: 3, limit: 3, byRoute: { ask: 3 } })
+    ).toMatchObject({ severity: "critical" });
+  });
+
+  it("lists every route in a fixed order, zeros included", () => {
+    expect(formatPublicAiUsageByRoute({})).toBe(
+      "问雷达 0 · 对比 0 · 解释 0 · 学习路径 0"
+    );
+    expect(formatPublicAiUsageByRoute({ "learning-path": 2, ask: 1 })).toBe(
+      "问雷达 1 · 对比 0 · 解释 0 · 学习路径 2"
+    );
   });
 });

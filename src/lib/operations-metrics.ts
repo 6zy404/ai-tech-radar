@@ -5,6 +5,12 @@ import {
 import { getDeliveryRuns } from "@/lib/delivery-workflow";
 import { getDailyDigests } from "@/lib/digest-workflow";
 import {
+  getPublicAiDailyUsage,
+  type PublicAiDailyUsageSummary,
+  type PublicAiUsageByRoute
+} from "@/lib/public-ai-daily-cap";
+import type { PublicAiRouteId } from "@/lib/public-ai-rate-limit";
+import {
   evaluateCandidateQuality,
   evaluateSourcesQuality
 } from "@/lib/quality-signals";
@@ -101,6 +107,8 @@ export interface OperationsDashboardData {
   failedWorkflowEvents: WorkflowEvent[];
   recentEvents: WorkflowEvent[];
   taskRunnerSummary: TaskRunnerSummary;
+  /** Today's public AI model calls against the site-wide daily cap. */
+  publicAiUsage: PublicAiDailyUsageSummary;
 }
 
 const recentActivityActions = new Set([
@@ -360,6 +368,77 @@ export const IMPORT_STALL_THRESHOLD_HOURS = 36;
 export const SCHEDULED_IMPORT_OVERDUE_HOURS = 6;
 export const CANDIDATE_BACKLOG_MAX_COUNT = 20;
 export const CANDIDATE_BACKLOG_MAX_AGE_DAYS = 7;
+
+/**
+ * 公开 AI 接口的全站每日总额度（2026-10-20，`src/lib/public-ai-daily-cap.ts`，
+ * `PUBLIC_AI_DAILY_LIMIT`，默认 500）：用量到这个比例提醒（warning），到
+ * 100% 报严重（critical）。额度本身不在这里改。
+ */
+export const PUBLIC_AI_DAILY_CAP_WARNING_RATIO = 0.8;
+
+const publicAiRouteOrder: PublicAiRouteId[] = [
+  "ask",
+  "compare",
+  "explain",
+  "learning-path"
+];
+
+const publicAiRouteLabels: Record<PublicAiRouteId, string> = {
+  ask: "问雷达",
+  compare: "对比",
+  explain: "解释",
+  "learning-path": "学习路径"
+};
+
+/** 「问雷达 5 · 对比 3 · 解释 1 · 学习路径 0」, every route, fixed order. */
+export function formatPublicAiUsageByRoute(
+  byRoute: PublicAiUsageByRoute
+): string {
+  return publicAiRouteOrder
+    .map(
+      (routeId) => `${publicAiRouteLabels[routeId]} ${byRoute[routeId] ?? 0}`
+    )
+    .join(" · ");
+}
+
+export function evaluatePublicAiDailyCap(
+  usage: Pick<PublicAiDailyUsageSummary, "total" | "limit" | "byRoute">
+): OperationsAttentionItem | undefined {
+  if (
+    usage.limit <= 0 ||
+    usage.total / usage.limit < PUBLIC_AI_DAILY_CAP_WARNING_RATIO
+  ) {
+    return undefined;
+  }
+
+  const spent = usage.total >= usage.limit;
+  const counts = `今日公开 AI 调用 ${usage.total} / ${usage.limit}（按路由 ${formatPublicAiUsageByRoute(usage.byRoute)}）`;
+
+  return {
+    id: "public-ai-daily-cap",
+    severity: spent ? "critical" : "warning",
+    title: spent
+      ? "公开 AI 接口今日额度已用完"
+      : "公开 AI 接口今日额度接近用完",
+    description: spent
+      ? `${counts}。四个公开 AI 接口到北京时间次日 00:00 前都回 429；缓存命中不受影响。要放宽就改 PUBLIC_AI_DAILY_LIMIT 并重启服务。`
+      : `${counts}，已过 ${Math.round(PUBLIC_AI_DAILY_CAP_WARNING_RATIO * 100)}%。用完后四个公开 AI 接口回 429，到北京时间次日 00:00 自动恢复。`,
+    href: "/workspace/operations",
+    source: "公开 AI 额度"
+  };
+}
+
+function getPublicAiUsageStatus(
+  usage: Pick<PublicAiDailyUsageSummary, "total" | "limit">
+): OperationsHealthStatus {
+  if (usage.total >= usage.limit) {
+    return "critical";
+  }
+
+  return usage.total / usage.limit >= PUBLIC_AI_DAILY_CAP_WARNING_RATIO
+    ? "warning"
+    : "healthy";
+}
 
 const hourMs = 60 * 60 * 1000;
 const dayMs = 24 * hourMs;
@@ -664,6 +743,8 @@ export function getSystemHealthSummary({
     importStall: importStallItems,
     candidateBacklog: candidateBacklogItem
   } = getPipelineAlerts({ now });
+  const publicAiUsage = getPublicAiDailyUsage(now);
+  const publicAiCapItem = evaluatePublicAiDailyCap(publicAiUsage);
   const attentionItems = getAttentionRequiredItems({
     failedImports,
     failedDeliveries,
@@ -671,7 +752,8 @@ export function getSystemHealthSummary({
     failedWorkflowEvents,
     pinnedItems: [
       ...importStallItems,
-      ...(candidateBacklogItem ? [candidateBacklogItem] : [])
+      ...(candidateBacklogItem ? [candidateBacklogItem] : []),
+      ...(publicAiCapItem ? [publicAiCapItem] : [])
     ]
   });
   const goodSources = Object.values(sourceQualityById).filter(
@@ -746,6 +828,12 @@ export function getSystemHealthSummary({
 
   if (candidateBacklogItem) {
     warningReasons.push("未处置候选积压，该跑一轮编辑轮了。");
+  }
+
+  if (publicAiCapItem?.severity === "critical") {
+    criticalReasons.push(`${publicAiCapItem.title}。`);
+  } else if (publicAiCapItem) {
+    warningReasons.push(`${publicAiCapItem.title}。`);
   }
 
   const hasNoSignals =
@@ -849,6 +937,12 @@ export function getSystemHealthSummary({
         value: String(failedWorkflowEvents.length),
         detail: "条带失败信号的审计事件",
         status: statusForCount(failedWorkflowEvents.length)
+      },
+      {
+        label: "今日公开 AI 调用",
+        value: `${publicAiUsage.total} / ${publicAiUsage.limit}`,
+        detail: `按路由 ${formatPublicAiUsageByRoute(publicAiUsage.byRoute)}`,
+        status: getPublicAiUsageStatus(publicAiUsage)
       }
     ],
     attentionItems,
@@ -857,6 +951,7 @@ export function getSystemHealthSummary({
     failedScheduledRuns,
     failedWorkflowEvents,
     recentEvents: getOperationsRecentWorkflowEvents(),
-    taskRunnerSummary
+    taskRunnerSummary,
+    publicAiUsage
   };
 }
