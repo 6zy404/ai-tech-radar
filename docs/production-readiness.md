@@ -231,8 +231,9 @@ be editing through the UI — two concurrent writers to unlocked JSON.
 - ✓ Addressed (2026-08-10), for (a) — the part that was actually missing.
   `npm run backup:data` (`scripts/backup-local-data.mjs`, no dependencies)
   writes a timestamped copy of `LOCAL_DATA_DIR` outside the repo, **verifies it
-  by comparing SHA-256 per file against the source**, writes a manifest, prunes
-  to `BACKUP_KEEP` (default 14), and exits non-zero on failure. Registration for
+  by comparing SHA-256 per file against the source**, writes a manifest, keeps
+  the newest `BACKUP_KEEP` days that have a verified snapshot (default 14; by
+  count until 2026-10-21), and exits non-zero on failure. Registration for
   a daily 07:45 Windows task — 20 minutes ahead of the 08:05 import, so the
   snapshot is of a settled store — is in `docs/deployment.md` → "Daily backup
   (Windows)". Verified end to end: a real 22-file / 7.8 MB snapshot at

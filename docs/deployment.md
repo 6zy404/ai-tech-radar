@@ -1365,7 +1365,12 @@ What it does, and why each part is there:
   snapshot that shows it;
 - refuses to write an **empty** backup, so a mis-set `LOCAL_DATA_DIR` cannot
   quietly push good snapshots out of the retention window;
-- prunes to `BACKUP_KEEP` (default 14), newest kept;
+- keeps the newest `BACKUP_KEEP` **days** that have a verified snapshot
+  (default 14) — every snapshot taken on those days stays, verified or not,
+  and everything older goes, including failed copies. Until 2026-10-21 it kept
+  the newest 14 _snapshots_, so five manual `BACKUP_FORCE=1` copies on
+  2026-10-12 pushed four real days out of the window (14 snapshots on disk
+  covered 9 days). `scripts/backup-retention.mjs` holds the rule, with tests;
 - takes **one verified snapshot per day** (since 2026-09-24): if a snapshot
   from today already has a manifest, the run logs it and exits 0.
   `BACKUP_FORCE=1` takes another one anyway. This exists because the task now

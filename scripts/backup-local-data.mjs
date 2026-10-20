@@ -17,7 +17,8 @@
  * Environment:
  *   LOCAL_DATA_DIR   source directory (default: <repo>/config)
  *   BACKUP_DIR       destination root (default: <userprofile>/ai-tech-radar-backups)
- *   BACKUP_KEEP      how many snapshots to retain (default: 14)
+ *   BACKUP_KEEP      how many days to retain (default: 14): the newest days
+ *                    that have a verified snapshot, every snapshot on them
  *
  * Exit code is non-zero on any failure so Task Scheduler records it as failed
  * instead of silently reporting success.
@@ -38,12 +39,12 @@ import { homedir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { planSnapshotRetention, SNAPSHOT_PREFIX } from "./backup-retention.mjs";
+
 const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   ".."
 );
-
-const SNAPSHOT_PREFIX = "config-";
 
 function resolveSourceDir() {
   const configured = process.env.LOCAL_DATA_DIR;
@@ -63,7 +64,7 @@ function resolveBackupRoot() {
   );
 }
 
-function resolveKeepCount() {
+function resolveKeepDays() {
   const raw = Number(process.env.BACKUP_KEEP ?? 14);
 
   return Number.isFinite(raw) && raw >= 1 ? Math.floor(raw) : 14;
@@ -180,31 +181,40 @@ function findVerifiedSnapshotForDay(backupRoot, day) {
     .pop();
 }
 
-function pruneOldSnapshots(backupRoot, keepCount) {
+/**
+ * Retention is by day, not by count (`backup-retention.mjs` says why): the
+ * newest `keepDays` days with a verified snapshot stay whole, so a handful of
+ * manual `BACKUP_FORCE=1` copies on one day can no longer shorten the window.
+ */
+function pruneOldSnapshots(backupRoot, keepDays) {
   const snapshots = readdirSync(backupRoot, { withFileTypes: true })
     .filter(
       (entry) => entry.isDirectory() && entry.name.startsWith(SNAPSHOT_PREFIX)
     )
-    .map((entry) => entry.name)
-    .sort();
+    .map((entry) => ({
+      name: entry.name,
+      verified: existsSync(
+        path.join(backupRoot, entry.name, "backup-manifest.json")
+      )
+    }));
+  const plan = planSnapshotRetention(snapshots, keepDays);
 
-  const removable = snapshots.slice(
-    0,
-    Math.max(0, snapshots.length - keepCount)
-  );
-
-  for (const name of removable) {
+  for (const name of plan.remove) {
     rmSync(path.join(backupRoot, name), { recursive: true, force: true });
   }
 
-  return { removed: removable, retained: snapshots.length - removable.length };
+  return {
+    removed: plan.remove,
+    retained: plan.keep.length,
+    retainedDays: plan.keptDays.length
+  };
 }
 
 function main() {
   const startedAt = new Date();
   const sourceDir = resolveSourceDir();
   const backupRoot = resolveBackupRoot();
-  const keepCount = resolveKeepCount();
+  const keepDays = resolveKeepDays();
 
   if (!existsSync(sourceDir) || !statSync(sourceDir).isDirectory()) {
     throw new Error(`数据目录不存在：${sourceDir}`);
@@ -221,7 +231,8 @@ function main() {
   // One verified snapshot per day is enough. The task now also fires on
   // logon (added 2026-09-24, after a morning the machine slept through both
   // the backup and the import), and without this guard every logon would add
-  // a snapshot and push a real day out of the 14-slot retention window.
+  // a snapshot; until retention went by day (2026-10-21) each one pushed a
+  // real day out of the window.
   // BACKUP_FORCE=1 takes another one anyway, for a manual pre-change copy.
   const existingToday = findVerifiedSnapshotForDay(backupRoot, startedAt);
 
@@ -276,7 +287,10 @@ function main() {
     "utf8"
   );
 
-  const { removed, retained } = pruneOldSnapshots(backupRoot, keepCount);
+  const { removed, retained, retainedDays } = pruneOldSnapshots(
+    backupRoot,
+    keepDays
+  );
 
   console.log(
     `备份成功：${snapshotName}（${sourceFiles.length} 个文件，` +
@@ -284,7 +298,7 @@ function main() {
   );
   console.log(`备份目录：${backupRoot}`);
   console.log(
-    `保留 ${retained} 份（上限 ${keepCount}）` +
+    `保留 ${retained} 份，覆盖 ${retainedDays} 天（上限 ${keepDays} 天）` +
       (removed.length > 0
         ? `，清理 ${removed.length} 份：${removed.join(", ")}`
         : "")
