@@ -58,6 +58,20 @@ For per-topic deep dives, see the `docs/` directory.
   operations and data safety (ops-host-3, dev-arch-1/13, sec-internal-3,
   ops-data-7/8/9). The full list lives outside the repository, in
   `ai-tech-radar-hub/pending/pending-findings.md`.
+- **2026-10-21. Two content findings fixed on the live data by the
+  dispatcher.** content-5: one organisation under two names split the
+  publisher directory. 「Allen AI」 (the olmo-core-3 signal and the
+  `source-ai2-blog` configuration) is now 「Ai2」 like the other three
+  signals, 「Meta AI Research」 on InfoQ's Muse Glimmer report is 「Meta」,
+  IBM Research's second signal is `research-lab` like its first, and the
+  one `Simon Willison's Weblog` sourceName is `Simon Willison Blog` like the
+  other eleven; `/sources` shows one card each for Meta, Ai2, IBM Research
+  and Simon Willison. content-6: the two Muse Glimmer signals (the Hugging
+  Face announcement of 08-10 and InfoQ's report of 08-21) now list each
+  other and carry a 延伸 relation with a note. Every write went through the
+  workspace API on a dev server pointed at the live data, and each record's
+  diff was checked to touch only the intended field plus the re-evaluated
+  `priority` and `updatedAt`.
 
 ## Review batch B: performance and crashes — four no longer reproduce, two finished
 
