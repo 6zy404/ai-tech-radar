@@ -16,6 +16,7 @@
 - **2026-10-20 线上断了两天半**（10-17 21:36 至 10-20 10:19）：机器重启后 cloudflared 向校园网 DNS 拿到假地址 `10.3.33.253` 一直重拨，本机 3000 全程健康，没人知道。杀掉进程再 `Start-ScheduledTask ai-tech-radar-tunnel` 即恢复（`Stop-ScheduledTask` 停不掉它，任务经 `cmd /c … >> tunnel.log` 起）。当天上线看门狗：计划任务 `ai-tech-radar-tunnel-watchdog` 每 5 分钟跑 `scripts/tunnel-watchdog.ps1`，本机 200 而公网（边缘有应答但）非 200 连续两次就重启隧道并告警，重启不见效则 15/30/60/120 分钟递增退避；探测完全无响应（代理与直连都连不上）算本机网络问题、不重启——当晚代理掉线一小时，旧逻辑把健康的隧道重启了三次，已修；日志 `config/tunnel-watchdog.log`（UTF-8 无 BOM，`Get-Content -Encoding UTF8`；其中 `[alert]` 行曾是乱码——任务控制台按 GBK 解码 node 的 UTF-8 输出——10-21 修复）；新规则进 main 后还没经历过真实掉线；站外告警 `src/lib/ops-alert.ts` 走 `OPS_ALERT_CHANNEL_ID` 指定的投递渠道，真渠道还没建（§5）。
 - **2026-10-20 编辑轮**（盲评，起草提示词 v2「用自己的话」）：71 条，发 7 条（Gemini 4 Argon 全面开放置顶、Muse Spark Open、Beam、DeepSeek V4.1 Flash 1017、Agent Lightning、vLLM v0.32.0、Harness²），标已看 42、拒 22，出 10-20 简报。同日：10-13 三条 AI 起草正文改写完（逐字取自原文 41–58% → 4–12%）；8 条新知识的 113 处关系补附注；25 条原文链接 hf-mirror.com → huggingface.co；雷达 6 条补依据；稍后读 / 已读按钮修复上线；公开 AI 接口每日总额度上线（默认 500 次 / 天）。模型调用偶发 `fetch failed`（代理到 api.deepseek.com 的 TLS 被重置），重试即可，原因进服务器日志。
 - **2026-10-21 审查批次 B 已结**（性能与崩溃）：perf-1 / perf-8 / dev-public-6 / dev-public-7 在 10-14 已修、复测不复现；perf-4 补了关系覆盖层解析缓存（页面关系查询再降约 60–65%，vitest 1357 用例全过）；dev-public-2 的清理脚本 `purge-mock-ai-cache.ts` 10-21 对线上跑过，删掉 7 月 mock 模型写进三个 AI 缓存的 9 条模板答案（7 条解读、1 条对比、1 条学习路径），三个缓存现在是空的。perf-4 的代码等批次 A / C 一起部署。
+- **2026-10-21 审查批次 A 已结**（公开页读屏与键盘，10 条）：8 条已被 10-14 晚的 93127f5 修过（当时没记 CHANGELOG）；本轮补全站 scroll-padding（落点不变）、雷达 +/− 不进读屏名、筛选无结果链接下划线、当前视图加强调条、对比下拉框英文名，主控在窗格里复核过视图条、雷达、技能筛选三页。Shift+Tab 落到顶栏后面只在 Firefox / Safari 发生，没真机验证；关系网络 166 个节点的 Tab 顺序仍按数组（审查没给修法）。代码待部署。
 - **2026-10-02 停机约 20 分钟**：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户，服务的计划任务（S4U）随之起不来。截图用预览窗格；`npm run deploy` / `deploy:rollback` 先查 10 分钟内的 4625 事件，有就拒绝。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，不健康自动回滚）；`deploy:rollback` 回上一版；`.next-old` 始终是上一版。二十余次实跑停机 1.7–3.4 秒。**依赖变了时 deploy 不重装**：先停服务、主检出 `npm ci`、再 deploy（10-14 实测停机约 1.5 分钟）。说明在 `docs/deployment.md` →「Deploy with one command」。
 - **本机探测用 `127.0.0.1`，别用 `localhost`**（IPv6 先试被拒，首次约 2 秒）。2026-09-28 演练脚本误停过线上 78 秒，已加防护。
@@ -43,7 +44,7 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已并入 main，待部署）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9），做完由主控 cherry-pick 并部署。下一批候选：SEO、文档过期、内容与文案小错。
+- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已并入 main，待部署）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已并入 main，待部署）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9），做完由主控 cherry-pick 并部署。下一批候选：SEO、文档过期、内容与文案小错。
 
 - 部署脚本的自动回滚只在替身服务上演练过，真环境里还没触发过。
 
