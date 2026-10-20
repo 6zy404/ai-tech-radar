@@ -930,8 +930,8 @@ npm run check:pipeline   # Windows toast + off-site alert when the scheduled imp
 npm run ops:alert -- --title "…" --body "…"   # plain-text ops alert through the delivery channel OPS_ALERT_CHANNEL_ID names (--json <utf-8 file>, --dry-run; nothing sent without the variable)
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun        # the tunnel watchdog's three checks against the real endpoints, printing what a real run would do
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-tunnel-watchdog.ps1 [-Apply] # register the 5-minute ai-tech-radar-tunnel-watchdog task (plan only without -Apply)
-npm run build:triage-dataset # rebuild the triage eval set from git history
-npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
+npm run build:triage-dataset # rebuild the triage eval set from the live snapshot + git history (-- --history <clone of the full-history bundle> for the rounds before 2026-10-15)
+npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample; -- --prompt v3 --fresh --since 2026-10-13 for one prompt on the blind rows from a day on)
 npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)
 npm run eval:ask         # score 问雷达: citation validity, grounding, refusals (EVAL_ENV_FILE to borrow a .env.local)
 

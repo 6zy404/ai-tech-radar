@@ -1,0 +1,1016 @@
+{
+  "promptVersion": "candidate-triage-v2",
+  "fresh": true,
+  "since": "2026-10-13",
+  "model": "deepseek-chat",
+  "ranAt": "2026-10-20T09:17:53.256Z",
+  "testItems": 105,
+  "sampled": false,
+  "fewShotIds": [
+    "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+    "candidate-rss-https-github-blog-p-97686",
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+    "candidate-rss-https-openai-com-index-responding-next-frontier-critical-cyber-capabilities",
+    "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist-atom-entries",
+    "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
+    "candidate-rss-https-openai-com-index-hsp-gruppe",
+    "candidate-rss-https-github-blog-p-98013",
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6"
+  ],
+  "baselines": {
+    "majority": {
+      "label": "reject",
+      "report": {
+        "total": 105,
+        "failed": 0,
+        "accuracy": 0.3142857142857143,
+        "macroF1": 0.15942028985507248,
+        "perClass": {
+          "publish": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "support": 11,
+            "predicted": 0
+          },
+          "review": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "support": 61,
+            "predicted": 0
+          },
+          "reject": {
+            "precision": 0.3142857142857143,
+            "recall": 1,
+            "f1": 0.4782608695652174,
+            "support": 33,
+            "predicted": 105
+          }
+        },
+        "confusion": {
+          "publish": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 11
+          },
+          "review": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 61
+          },
+          "reject": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 33
+          }
+        }
+      }
+    },
+    "prereleaseRule": {
+      "fires": 0,
+      "editorsRejected": 0
+    }
+  },
+  "report": {
+    "total": 105,
+    "failed": 0,
+    "accuracy": 0.4,
+    "macroF1": 0.4036714975845411,
+    "perClass": {
+      "publish": {
+        "precision": 0.2,
+        "recall": 1,
+        "f1": 0.33333333333333337,
+        "support": 11,
+        "predicted": 55
+      },
+      "review": {
+        "precision": 0.6428571428571429,
+        "recall": 0.14754098360655737,
+        "f1": 0.24,
+        "support": 61,
+        "predicted": 14
+      },
+      "reject": {
+        "precision": 0.6111111111111112,
+        "recall": 0.6666666666666666,
+        "f1": 0.6376811594202899,
+        "support": 33,
+        "predicted": 36
+      }
+    },
+    "confusion": {
+      "publish": {
+        "none": 0,
+        "publish": 11,
+        "review": 0,
+        "reject": 0
+      },
+      "review": {
+        "none": 0,
+        "publish": 38,
+        "review": 9,
+        "reject": 14
+      },
+      "reject": {
+        "none": 0,
+        "publish": 6,
+        "review": 5,
+        "reject": 22
+      }
+    }
+  },
+  "publishVsNot": {
+    "total": 105,
+    "failed": 0,
+    "accuracy": 0.580952380952381,
+    "macroF1": 0.5138888888888888,
+    "perClass": {
+      "publish": {
+        "precision": 0.2,
+        "recall": 1,
+        "f1": 0.33333333333333337,
+        "support": 11,
+        "predicted": 55
+      },
+      "skip": {
+        "precision": 1,
+        "recall": 0.5319148936170213,
+        "f1": 0.6944444444444444,
+        "support": 94,
+        "predicted": 50
+      }
+    },
+    "confusion": {
+      "publish": {
+        "none": 0,
+        "publish": 11,
+        "skip": 0
+      },
+      "skip": {
+        "none": 0,
+        "publish": 44,
+        "skip": 50
+      }
+    }
+  },
+  "confident": {
+    "threshold": 0.8,
+    "items": 83,
+    "correct": 33
+  },
+  "usage": {
+    "promptTokens": 213762,
+    "completionTokens": 4120
+  },
+  "latencyMs": {
+    "p50": 1002,
+    "p95": 1250
+  },
+  "predictions": [
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502649",
+      "title": "智谱新模型，490 tokens/s！",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.8,
+      "reason": "新模型仍为灰度试用，速度数据仅来自网友截图，无官方发布或可核对评测。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-v1-0-0",
+      "title": "v1.0.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "MCP 旧版服务器最终发布 v1.0.0，含安全修复与包清单，影响依赖这些 server 的工程团队。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-3",
+      "title": "v0.40.3",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "仅告警文案与后台升级暂停等小改动，属补丁版本，无实质工程能力信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502644",
+      "title": "用不着Ctrl+F了！全新AI论文工具，帮你在原文献里海里捞针",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "属介绍性工具报道与用法教程，无一手评测数据或工程复盘，非新技术信号"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502594",
+      "title": "陶哲轩：数学2.0时代已至！",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "仅观点论述与二手转述，无一手研究或可核对数据，属评论而非技术信号"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502584",
+      "title": "王的猜想，刚刚扩展到四维",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "OpenAI公开722篇数学手稿含四维挂谷猜想证明，有具体论文和Lean证明可核对，属一手研究结果。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502585",
+      "title": "硅谷AI现状：谁有算力谁是爹",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "行业八卦与算力经济论述，无一手数据或可核对的工程进展，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502550",
+      "title": "下架8个月，GPT-4o的拯救行动居然还在继续",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "粉丝请愿与社区运动报道，无技术实物或数据，不属技术雷达范畴"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502544",
+      "title": "DeepSeek Bot来了！民间版，DSH装个插件就能用",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "第三方插件，属社区玩法演示，非官方发布，无实质能力数据，不属本站信号"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-sorobi5sjdttum95zljk-utm-source-rss-amp-utm-medium-article",
+      "title": "利用 AI 代码智能体优化软件架构的五种方法",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "只是方法论经验文章，没有可核对的实物、数据或失败细节，不属于本站要关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-19-0",
+      "title": "Release v5.19.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Transformers 正式版新增多模态嵌入模型与破坏性变更说明，有实质能力与细节可核对。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-18-0",
+      "title": "Release 5.18.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Transformers 5.18.0 正式版新增开源说话人分离模型等实质模型与能力。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-17-0",
+      "title": "Release 5.17.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Transformers 正式版新增780B MoE模型架构支持，含具体参数与实现细节可核对，影响工程团队。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-16-1",
+      "title": "Release v5.16.1",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.92,
+      "reason": "Transformers 正式版 v5.16.1 新增 GLM-5.3-Flash 原生多模态模型支持，含架构细节与基准数据，属实质能力更新。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-16-0",
+      "title": "Release: v5.16.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "Transformers v5.16.0 正式版新增 Qwen4-Exp 等模型，含架构细节，属实质性能力版本。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-15-1",
+      "title": "Patch release: v5.15.1",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "标题即补丁版本 v5.15.1，仅修复少量 bug，属补丁版本，不发布"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-15-0",
+      "title": "Release: v5.15.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "正式版本含新开源模型 Meta Muse Glimmer（30B、Apache 2.0）及多模型支持，有可核对实物。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-14-1",
+      "title": "Patch release: v5.14.1",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "Transformers 补丁版本，仅修 bug，属于应拒绝的补丁版本。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-14-0",
+      "title": "Release v5.14.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Transformers 正式版新增开源权重模型（Inkling 975B/41B激活）及破坏性变更，属实质能力版本。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-13-1",
+      "title": "Patch release v5.13.1",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "补丁版本更新，仅做兼容性修复，无实质能力变化，不构成新技术信号"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99409",
+      "title": "GitHub Copilot app for Beginners: How to teach Copilot about your codebase",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "面向初学者的用法教程，无实质技术进展，不属于本站关注范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-dpieqj598ydxqc8ymjso-utm-source-rss-amp-utm-medium-article",
+      "title": "从 Agent 到 Loop：AI 正如何重构软件工程？｜QCon 上海 2026 即将开幕",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "QCon 大会推广与议程介绍，无实物无数据，属会议推广。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-hs5x7edo6pnhk367zzv3-utm-source-rss-amp-utm-medium-article",
+      "title": "SvelteKit 3 进入 RC：svelte.config.js 没了，$lib 也要退休",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.85,
+      "reason": "SvelteKit 3 候选发布版，按规则预发布版本不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-d5x9bkq9aoizq5mf6ln0-utm-source-rss-amp-utm-medium-article",
+      "title": "Meta ZGateway 在每秒处理超过 10 亿次操作的同时，将 ZippyDB 的连接数减少了 19 倍",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一手工程架构细节，含10亿OPS、连接数降19倍等可核对数据，值得工程团队关注"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-h86bnjsbdjrbywxp4xgt-utm-source-rss-amp-utm-medium-article",
+      "title": "Radicle 披露了可能导致私有仓库以明文形式暴露的关键漏洞",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.92,
+      "reason": "一手漏洞披露，附代码级根因与帧抓包证据，直接影响私有仓库保密性，工程团队需立即处置。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-4hyrs8shakpahyztgq92-utm-source-rss-amp-utm-medium-article",
+      "title": "阿里巴巴中国电商事业群/飞猪CTO陈烨博士已确认出席QCon上海，分享“从 Coding 到消费：AI 的下一场革命”",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.97,
+      "reason": "QCon大会演讲预告与议程推广，无实物或数据，属会议推广。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-csnmcsceutwcgqhzcl7d-utm-source-rss-amp-utm-medium-article",
+      "title": "Artifactory 漏洞正被积极利用，可以绕过身份验证并获取管理员权限",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.72,
+      "reason": "安全漏洞报道属运维安全话题，非本站关注的 AI 工程新技术信号，且无一手研究或评测数据。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-oct-12-python-3-15",
+      "title": "Hello Python 3.15, goodbye 3.10, and now I can use 3.11",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "Python 3.15 正式版发布，原文详列 PEP 810 惰性导入等语言特性，是影响工程团队判断的一手新进展。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-2sngaihok808v22dl5sj-utm-source-rss-amp-utm-medium-article",
+      "title": "Uber 在 Kubernetes 平台上将扩容意图与执行操作解耦",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "Uber生产级ServiceScale控制器架构与三条失败细节复盘，含具体规模数字，值得工程团队参考"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ftttlqvzjemie03iowfp-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 时代的移动端稳定性保障 —— 柯南 AI Agent 实践｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "QCon 演讲预告与会议推广，无实物或可核对数据，不属于本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502541",
+      "title": "西门子将亮相2026工博会：以软硬协同的工业全栈能力，推动物理AI加速落地",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "展会预告与企业宣传，无实物或可核对数据，不属于新技术信号"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502654",
+      "title": "华为AI靠RSI通关25款游戏！操作次数比人类少56%",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一手研究，ARC-AGI-3公开集25款游戏183关全通关，RHAE 100分、操作数7518对比人类17135，有可核对数据。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502628",
+      "title": "何恺明团队发布多模态Harness框架",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.78,
+      "reason": "一手论文含VISTA方法及ARC-AGI-3带数字评测结果，工程团队可核对参考。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 智能体三周重构 30 万行代码，Code Health 从 5.6 升至 10.0：代码真的变好了吗？",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "含可核对数据：30万行C代码、2903次提交、52万行改动、Code Health 5.6→10.0、4000美元成本及合并细节，属工程复盘。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-504116",
+      "title": "端侧跑通超千亿大模型！联想YOGA Pro 15 RTX Spark超级AIPC今日正式发售",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "消费级笔记本发售营销稿，无工程可核对数据，属产品公告"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503880",
+      "title": "清华特奖得主AI创业再+1：GeoPT一作入局物理世界模型",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.92,
+      "reason": "融资创业与人物履历报道，无实物或可核对数据，不属于本站范围"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503865",
+      "title": "从“看懂世界”到“预演下一步”：世界模型与 VLA，如何让机器人拥有真正的“具身大脑”？",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.75,
+      "reason": "行业综述与落地宣传稿，虽含成功率数字但为转述厂商发布，无一手可核对细节。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503861",
+      "title": "说真话就能拿10万？网易叭哥说重金求“真需求”，不卡专业学历",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.93,
+      "reason": "网易产品营销稿，以征集用户建议和奖金为噱头，无技术细节或可核对数据，不属于本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503893",
+      "title": "科技企业出海，为啥我推荐你去迪拜？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.96,
+      "reason": "迪拜招商与出海推介，属会议推广和营销稿，与AI工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99556",
+      "title": "How to continue a GitHub Copilot app session in VS Code",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "属用法教程，讲如何迁移会话，无实物或数据，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-2ug3w14thqtlhb5vou51-utm-source-rss-amp-utm-medium-article",
+      "title": "阿里云 7 个样板间，探索 AI 原生研发组织的实践",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.8,
+      "reason": "论坛回顾与组织理念分享，无具体工程数据或可核对实物，属论述总结。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-zbfzqbuxfmp1qripzwtg-utm-source-rss-amp-utm-medium-article",
+      "title": "随着可观测性模式日趋成熟，OpenTelemetry 将 Kubernetes Attribute Processor 提升为稳定版本",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "OpenTelemetry K8s Attribute Processor 正式发布 1.0.0，属性改名带来迁移影响，属于可核对的规范级进展。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ozhrjyasxvjozxrwlt6t-utm-source-rss-amp-utm-medium-article",
+      "title": "打造生产级的 Agent｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "QCon 大会演讲预告与门票推广，无实物或数据，属会议推广。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-uyj6ossb7gldtxoorlxx-utm-source-rss-amp-utm-medium-article",
+      "title": "谷歌广告如何将一个开源的 macOS 术语误判为恶意内容并予以暂停",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一手工程复盘，详述自动化安全扫描误判开源工具的具体失败细节与申诉死锁，有核对价值。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-4t84hfyjyp6gq9knwe60-utm-source-rss-amp-utm-medium-article",
+      "title": "Kubernetes多集群项目Karmada完成CNCF毕业",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "CNCF毕业与企业采用类项目公告，非AI工程新技术信号，虽提AI调度但无实测数据。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-amp-beyond-coding",
+      "title": "Amp puts AI agents to work beyond code with OpenAI models",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.82,
+      "reason": "客户案例式营销稿，讲Amp用OpenAI模型，无工程实物或数据"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-sentinelone",
+      "title": "SentinelOne cuts malware analysis from weeks to hours",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例营销稿，无技术细节，原文不可核对，不属本站"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-third-moment-research",
+      "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "客户案例式宣传稿，原文取不到且无技术细节，非工程团队关注的信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-block-ai-powered-security",
+      "title": "How Block is building AI-powered security with OpenAI technology",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.92,
+      "reason": "客户案例宣传稿，无工程细节与可核对数据，不属于本站"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-the-eus-next-chapter-in-ai-is-agentic",
+      "title": "The EU’s next chapter in AI is agentic",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "政策与市场推广稿，无实物也无数据可供核对，不属于工程信号"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-teaching-students-to-think-and-learn-through-questions",
+      "title": "Teaching students to think and learn through questions",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "教育场景宣传稿，无工程实物或数据，不属于本站关注范围"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-sullivan-cromwell",
+      "title": "Sullivan & Cromwell brings legal expertise into agreement review",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例与营销稿，非本站关注的技术信号"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-stack-overflow-chatgpt-plugin",
+      "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "客户案例与增长营销稿，非工程信号，且原文403无法核对"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-benefit-street-partners",
+      "title": "Benefit Street Partners answers questions faster with Codex",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例营销稿，非技术进展，原文仅客户使用叙述，不属于本站。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-itau-generative-ai",
+      "title": "How Itaú is building generative AI for its entire customer base",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "银行客户的AI应用案例宣传，属于营销与客户案例，不属于本站关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-6-0",
+      "title": "proto-v0.6.0",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "proto-v0.6.0 为预发布/孵化原型标签，且原文无实质变更内容可核对"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503965",
+      "title": "智谱新模型，懂法方面全球第一了",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.75,
+      "reason": "开源法律专用模型，附Vals AI榜单具体任务通过率与准确率数据，可核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503935",
+      "title": "清华开源！智能体操作系统任务成本降83%，AI记忆可查可改",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.5,
+      "reason": "清华开源智能体操作系统，有评测数据与成本降幅，属可核对的工程实物"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-503910",
+      "title": "Claude半小时解开密码学悬案，学界集体走偏20年",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Claude复现NIST椭圆曲线种子生成方式，有具体方法与时间戳证据，属一手研究结果，值得工程团队关注"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-504136",
+      "title": "VAST开源实时世界模型EdenLive！单消费级显卡、720P超24FPS",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "开源实时世界模型权重与推理代码+技术报告，含单卡720P超24FPS可核对数据"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99413",
+      "title": "GitHub’s model for secret detection: Finding more secrets with less noise",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一线研究结果，含可核对数据：加权接受率提升11.5%、扫描耗时下降86%，影响密钥检测工程判断"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-on-device-ai-scam-detection-mddi",
+      "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "政府合作案例，原文摘录仅剩合作背景，未见可核对模型或数据细节"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-developing-gemini-4-argon-responsibly-and-safely",
+      "title": "Developing Gemini 4 Argon responsibly and safely",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "安全与责任框架说明，无模型权重、数据或可核对评测细节，非工程实质进展。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-gemini-4-argon-for-robotics",
+      "title": "Gemini 4 Argon for Robotics",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "原文只给出一个基准分数和提示示例，没有可核对的模型、权重或工程数据，属于能力通告与演示。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-accelerating-antimicrobial-discovery",
+      "title": "Accelerating the search for antimicrobial peptides with Google Antigravity",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "一手研究，介绍了用智能体平台发现一种新抗菌肽候选（待湿实验验证），有工作流与具体发现可核对。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm25-24b-a2b",
+      "title": "Run fast, private agents on-device with LFM2.5-24B-A2B",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "发布新开源模型 LFM2.5-24B-A2B（24B 总参/2B 激活），有模型实物，影响端侧 agent 工程选型。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-swiss-ai-apertus-v15-release-notes",
+      "title": "Apertus 1.5 Release Notes",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "Apertus 1.5 发布 8B/70B 开放权重，含多模态、长上下文与训练数据细节，可核对。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-flux-3",
+      "title": "Welcome FLUX.3 Image Klein in Diffusers",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "开源图像模型权重发布，Diffusers 首日支持，含实测推理速度与量化权重，可直接影响工程选型"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-hiro-acev2",
+      "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "有模型、论文和可核对的定量结果（3km分辨率、成本约为X-SHiELD的1/300），属可影响工程判断的新进展。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-scaling-indic-pretraining",
+      "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.8,
+      "reason": "发布大规模多语言预训练数据集与开源数据生成管线，含2.8万亿token具体数字，具工程参考价值。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-ibm-granite-granite-switch-4-1",
+      "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "发布新模型 Granite Switch 4.1，含 OpenASR 榜单最快的 ASR 与对比数据，属可核对的实物进展"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-4ipptjpxqqx5lr77ubfz-utm-source-rss-amp-utm-medium-article",
+      "title": "DoorDash的Flux在云端智能体上运行130000个工程任务",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "DoorDash Flux 云端智能体工程复盘，含13万任务/2.5万周审等具体数据与架构细节。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ddda0df68laqfoqa4lju-utm-source-rss-amp-utm-medium-article",
+      "title": "Cloudflare 推出面向 AI 代理的 CLI，并逐步停用 Wrangler",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.75,
+      "reason": "cf CLI 仍是公开测试版，且为二手报道，尚无正式版本或可核对数据。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-lkxbovojwmqgmqemuorx-utm-source-rss-amp-utm-medium-article",
+      "title": "Gemini 4 Argon：为您解决最棘手的问题",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "Gemini 4 Argon 经 API 公开发布，含定价、多项带数字的工程实证（代码提交+35%、回滚-1/3、Gemma 推理2.85倍），可核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ik5awdwovcu5lx3e3mhc-utm-source-rss-amp-utm-medium-article",
+      "title": "OpenCode 2.0 正式发布：一次“重大改造”，旧插件全部报废",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.72,
+      "reason": "OpenCode 2.0 稳定版发布，架构重写并破坏旧插件，影响工程团队选型与迁移。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-k5j7yb60djwkm6vuzqwq-utm-source-rss-amp-utm-medium-article",
+      "title": "大批API账户被刷爆！OpenCode遭黑客围攻48小时，官方甩锅“蒸馏攻击”被质疑",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "一手安全事故复盘：API密钥泄露、具体账单与时间线，对工程团队有警示价值"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-brofcyfpijqqvbz4nqdi-utm-source-rss-amp-utm-medium-article",
+      "title": "Jev迎来中国挑战者：StartLux登顶决策模型榜单，还学会了“拿不准再想”",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.8,
+      "reason": "有榜单排名与具体分数，可核对评测数据，属新模型进展。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-v2-0-0",
+      "title": "v2.0.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.8,
+      "reason": "官方 MCP servers 正式发布 v2.0.0，全面适配新规范并保持旧客户端兼容，属规范实质修订"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-blog-gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models",
+      "title": "GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.78,
+      "reason": "发布开源病理基础模型蒸馏版，明确降低算力需求且保持性能，有实物可核对，影响医学AI工程选型"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1186724",
+      "title": "Improving synthesis prediction of small molecules at scale with RetroChimera",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "Nature 论文、开源实现与权重，是化学合成预测模型的实质进展，并带盲测数据"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1186774",
+      "title": "Offloaded inference for real-world physical AI robotics",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "微软研究院实测表明，将推理卸载到边缘或云端可提高任务成功率、延长续航，并发布基于Kubernetes的工具链，属于可核对的一手工程结果。"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1186958",
+      "title": "Introducing Quine: An AI research system designed for the complexity of biology",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.72,
+      "reason": "微软研究院一手研究，含湿实验验证的候选化合物数据，属可核对的新进展"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1186954",
+      "title": "One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "研究院周年回顾与合作伙伴宣传，无新技术实物或数据，不属本站"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1186605",
+      "title": "Forecasting space weather risks on power grids",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "主题为科学预测而非AI工程，虽有数据但与站内AI工程方向关联弱，未做实质工程评估"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1188632",
+      "title": "What AI gets wrong and what failure teaches us",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.85,
+      "reason": "播客访谈，只有论述与个人经历，无可核对的实物或数据，不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1185936",
+      "title": "Simulating student learning for better AI tutoring",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "研究员系统 StudentSim，在棋类、写作、数学任务上超越基线并给出可核对评测结果，属一手研究成果。"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1189337",
+      "title": "Proof-based general-purpose computing with Magnetar",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一手研究，支持 Rust/Go/C 的通用零知识证明，速度提升 10-39 倍，有数据可核对。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-6-0",
+      "title": "v4.6.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "正式版发布，含新的 decision 任务类型（校准概率输出）和多个新模型支持，属实质能力更新"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-4",
+      "title": "v0.40.4",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.75,
+      "reason": "正式版v0.40.4，新增CLI决策模型与MLX/推理性能改进，含具体能力变更"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-5",
+      "title": "v0.40.5",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "Ollama 正式版本新增 Nemotron 3.5 系列模型支持与兼容性修复，含具体参数与能力，工程可用。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-6",
+      "title": "v0.40.6",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "链接中的对比区间显示为 v0.40.5...v0.40.6-rc0，说明这是预发布版本，按规则应拒绝。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-introducing-the-rosalind-academic-plan",
+      "title": "Bringing GPT-Rosalind to academic research labs",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "学术赞助计划与产品准入公告，无实物或数据，不属工程技术信号"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-low-resource-programming-languages",
+      "title": "Advancing coding in low‑resource programming languages",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "原文取不到，摘要仅泛提新评测无具体数据，无法核对实物，先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-22",
+      "title": "v0.5.22",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.92,
+      "reason": "推理引擎正式版，含多项带数字的性能提升与新模型支持，工程团队可据此评估升级。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-1",
+      "title": "Release v5.20.1",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "补丁版本发布，仅修 bug 并附带模型收录，非实质能力版本"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-0",
+      "title": "Release v5.20.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "正式版 v5.20.0，新增多模态 MoE 大模型（816B 总参/42B 激活）等，且含可核对的模型规格与 checkpoint 格式。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-2",
+      "title": "Patch release v5.20.2",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.72,
+      "reason": "补丁版本发布，仅含小型修复，属日常维护更新，不构成优先关注信号"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "title": "Gemini 4 Argon: Built to solve your hardest problems",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "前沿模型正式发布，含API定价与基准数据，属影响工程判断的实质进展。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-4-argon",
+      "title": "Gemini 4 Argon: Built to solve your hardest problems",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "新前沿模型正式发布，给出定价与Vals Index排名等可核对数据，影响工程团队选型。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.95,
+      "reason": "Meta 开源 816B MoE 多模态权重模型，含架构与参数等可核对信息，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "title": "Welcome Beam: a 501B open model you can own, customize, and scale",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.95,
+      "reason": "首批开放权重501B MoE模型，含Apache 2.0许可、推理与后训练配方，属可核对的开放模型发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "title": "谷歌开源Harness，支持 OpenCode 和 Codex：国内开发者接入Jev实测“真行”",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "谷歌开源Harness²框架，Apache 2.0，含三个基准测试的具体提升数字，工程团队可核对。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "title": "v0.32.0",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.92,
+      "reason": "vLLM 正式版更新，含 814 commits 与具体吞吐、KV 显存数据，会影响推理引擎选型判断。"
+    },
+    {
+      "id": "candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.88,
+      "reason": "开源轻量框架v1.0，含SWE-bench具体提升数据与K8s部署细节，工程可核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-504067",
+      "title": "突发！DeepSeek新模型发布，超级性价比斩杀一切",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.6,
+      "reason": "新模型版本上线，有基准测试与成本数据，但营销味重需核实官方数据"
+    }
+  ]
+}

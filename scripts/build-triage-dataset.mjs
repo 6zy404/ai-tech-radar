@@ -17,8 +17,13 @@
  * the stores; it only writes those two files.
  *
  * Since 2026-10-15 the snapshot is not in the public history (it held
- * third-party article text, removed from every commit), so this needs a clone
- * of the private full-history bundle — see eval/triage/README.md.
+ * third-party article text, removed from every commit), and it is no longer
+ * committed, so a decided candidate's text lives in one of two places: the
+ * live snapshot in the data directory (rounds since 10-15, until the rolling
+ * window drops them) or a commit in the private full-history bundle (rounds
+ * before). The live file is read first; the history is walked in the current
+ * repository, or in the clone `--history <git dir>` (or TRIAGE_HISTORY_REPO)
+ * names — see eval/triage/README.md.
  */
 
 import { execFileSync } from "node:child_process";
@@ -56,11 +61,23 @@ const labelByStatus = {
   rejected: "reject"
 };
 
-function git(args) {
+function git(args, cwd = process.cwd()) {
   return execFileSync("git", args, {
+    cwd,
     encoding: "utf8",
     maxBuffer: 256 * 1024 * 1024
   });
+}
+
+/** The repository whose history holds the snapshot commits. */
+function readHistoryRepo() {
+  const index = process.argv.indexOf("--history");
+
+  if (index >= 0 && process.argv[index + 1]) {
+    return path.resolve(process.argv[index + 1]);
+  }
+
+  return process.env.TRIAGE_HISTORY_REPO?.trim() || process.cwd();
 }
 
 function toPlainText(value) {
@@ -114,25 +131,38 @@ function main() {
     );
   };
 
-  const shas = git(["log", "--format=%H", "--", SNAPSHOT])
+  const historyRepo = readHistoryRepo();
+  const shas = git(["log", "--format=%H", "--", SNAPSHOT], historyRepo)
     .trim()
     .split("\n")
     .filter(Boolean);
+  const newestCopy = new Map();
 
-  if (shas.length === 0) {
+  // The live snapshot first: it is newer than any commit, and since
+  // 2026-10-15 it is the only place the latest rounds' candidates exist.
+  for (const candidate of readLiveStore("imported-candidates.live.json", {})
+    .candidates ?? []) {
+    newestCopy.set(candidate.id, candidate);
+  }
+
+  if (shas.length === 0 && newestCopy.size === 0) {
     console.error(
-      `No commit in this repository holds ${SNAPSHOT}. It left the public history on 2026-10-15; run this in a clone of the full-history bundle (eval/triage/README.md).`
+      `No commit in ${historyRepo} holds ${SNAPSHOT} and the data directory has no live snapshot. The snapshot left the public history on 2026-10-15; pass --history <clone of the full-history bundle> (eval/triage/README.md).`
     );
     process.exit(1);
   }
 
-  const newestCopy = new Map();
+  if (shas.length === 0) {
+    console.warn(
+      `No commit in ${historyRepo} holds ${SNAPSHOT}: only the live snapshot's candidates will have text. Pass --history <clone of the full-history bundle> for the rounds before 2026-10-15.`
+    );
+  }
 
   for (const sha of shas) {
     let snapshot;
 
     try {
-      snapshot = JSON.parse(git(["show", `${sha}:${SNAPSHOT}`]));
+      snapshot = JSON.parse(git(["show", `${sha}:${SNAPSHOT}`], historyRepo));
     } catch {
       continue;
     }
@@ -187,7 +217,11 @@ function main() {
       fresh:
         decidedAt.slice(0, 10) >= FRESH_FROM &&
         !autoRejected.has(id) &&
-        !isAnchored(id, decision)
+        !isAnchored(id, decision),
+      // Decided in the console's blind mode (no suggestion shown), as the
+      // review state records it; every blind row is fresh, not every fresh
+      // row is blind.
+      blind: Boolean(decision.blind)
     });
   }
 
@@ -238,7 +272,13 @@ function main() {
     FEW_SHOT_OUTPUT,
     JSON.stringify(
       fewShot.map(
-        ({ split: _split, content: _content, fresh: _fresh, ...row }) => row
+        ({
+          split: _split,
+          content: _content,
+          fresh: _fresh,
+          blind: _blind,
+          ...row
+        }) => row
       ),
       null,
       2
@@ -252,7 +292,7 @@ function main() {
         (!split || row.split === split) && (!label || row.label === label)
     ).length;
 
-  console.log(`snapshots walked: ${shas.length}`);
+  console.log(`snapshots walked: ${shas.length} (history: ${historyRepo})`);
   console.log(`decisions: ${Object.keys(decisions).length}`);
   console.log(`rows written: ${rows.length} -> ${OUTPUT}`);
   console.log(

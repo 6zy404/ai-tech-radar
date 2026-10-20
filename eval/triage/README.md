@@ -8,7 +8,7 @@ against the project's own recorded editorial decisions.
 
 | File             | What it is                                                                | Tracked          |
 | ---------------- | ------------------------------------------------------------------------- | ---------------- |
-| `dataset.jsonl`  | one decided candidate per line: text, label, decision time, split         | no, local only   |
+| `dataset.jsonl`  | one decided candidate per line: text, label, decision time, split, flags  | no, local only   |
 | `fewshot.json`   | the 9 examples shown to the model (3 per label, one per source per label) | yes              |
 | `results/*.json` | one report per prompt version × model, with every prediction              | yes, real runs   |
 | `cache/*.jsonl`  | successful answers, so a run resumes and a re-run costs nothing           | no (git-ignored) |
@@ -21,8 +21,20 @@ repository is public, so they were removed from every commit of the history
 and are git-ignored. They stay on the owner's machine, and the history they
 came from is kept in a private bundle there
 (`Desktop/ai-tech-radar-full-history-2026-10-15.bundle`). To rebuild the
-dataset, clone that bundle and run `npm run build:triage-dataset` in the clone;
-in this repository the script stops and says so.
+dataset here, point the script at a clone of that bundle for the history:
+
+```bash
+git clone --bare <the bundle> .cache/full-history.git      # once; .cache/ is git-ignored
+npm run build:triage-dataset -- --history .cache/full-history.git
+```
+
+Since 2026-10-20 the script reads the data directory's live snapshot first —
+after 10-15 the snapshot is never committed, so the candidates of every later
+round exist only there, until the rolling window drops them — and then walks
+the snapshot's commits in the `--history` repository (or `TRIAGE_HISTORY_REPO`,
+default: this one). Without either it stops when neither has anything, and
+warns when only the live file does. Each row also carries `blind`: decided in
+the console's blind mode, as the review state records it.
 
 `config/candidate-review-state.json` records each decision (`converted` →
 publish, `reviewed` → review, `rejected` → reject) but **not the candidate
@@ -47,7 +59,15 @@ npm run build:triage-dataset          # only needed after new rounds are committ
 npm run eval:triage -- --limit 40     # a sample spread across the whole period
 npm run eval:triage                   # the full test split
 npm run eval:triage -- --prompt v3 --fresh   # a given prompt on the blind rows
+npm run eval:triage -- --prompt v3 --fresh --since 2026-10-13
+                                             # … only those decided from a day on
 ```
+
+`--since YYYY-MM-DD` keeps the rows decided on or after that day; with
+`--fresh` that is how a prompt is scored on the blind rounds it was not written
+against. The result file carries the date (`…__fresh__since2026-10-13.json`),
+and the answer cache is shared with the full runs, so a later full `--fresh`
+run re-asks nothing for these rows.
 
 It uses whatever `LLM_*` variables are set (it reads `.env.local`). With the
 mock provider it prints numbers but writes no result file — the mock is a
@@ -299,6 +319,117 @@ What the run shows, read with that in mind:
 - **Cost.** About 3,500 prompt tokens per item against v2's 2,060, almost all
   of it the title list. It sits at the end of the system prompt so the rubric
   and examples stay a cacheable prefix.
+
+## v2 against v3 on rows neither was written against (2026-10-20)
+
+Two blind rounds were decided after v3 was committed: 2026-10-13 (34
+candidates) and 2026-10-20 (71). They are the first rows v3 was not shaped on,
+and the numbers below are the held-out ones the section above asked for.
+
+**The set.** `--fresh --since 2026-10-13` gives **105 rows: publish 11 / review
+61 / reject 33**. 104 are the two rounds' blind decisions; the 105th is the
+DeepMind copy of the Gemini 4 Argon launch post, converted as the non-primary
+of a duplicate group together with the Google AI Blog copy — one signal, two
+rows labelled publish, the second without the blind flag because the group
+resolution converted it, but with no suggestion stored, so `fresh` by the
+dataset's rule. 35 rows carry no text beyond the title. Articles were readable
+for 91 of 105 (12 pages answer 403 — the OpenAI customer stories among them —
+and 2 have no readable body). The pre-release rule fires on none: the task
+runner's auto-rejections are not fresh rows. **Always "reject" scores 31.4%
+here and always "review" 58.1%**: these two rounds marked most of what they saw
+_reviewed_ (58%, against 25% of the earlier fresh rows), which moves every
+number below and is the first thing to read them against.
+
+**Rebuilding the set.** The dataset grew from 880 to 997 rows, built from the
+live snapshot plus the full-history bundle (`--history`): all 34 rows of the
+10-13 round came back, 24 of them only from the bundle's 10-13 commit, because
+seven later imports had already rolled them out of the snapshot; the 10-20
+round's 71 came from the live snapshot. 89 earlier rows changed `publishDate`
+by a day (the 2026-10-14 time-zone fix) or their text (the 10-12 entity
+repair) because the live copy is the newest; `fewshot.json` was left as
+committed, so each prompt is byte for byte the one measured on 10-12. Still
+unrecoverable: 11 rows of the 10-11 round, whose snapshot was committed after
+the next import had replaced them, and 4 auto-rejected rc tags.
+
+**Cost, estimated before the run and then measured.** Estimate: one call per
+row per prompt, 105 × ~2,100 (v2) and 105 × ~3,500 (v3) prompt tokens from
+the 10-12 per-row averages, ~600k in all, about ¥1. Measured: v2 213,762 in /
+4,120 out, v3 401,968 in / 4,059 out, 106 calls each (one retry), 28 seconds
+each at concurrency 4, p50 1.0 s / 0.95 s. v3 ran 9% over its estimate: each
+row now sees 36–42 published titles (10-12: 15–40, median 32), the 30-day
+window holding more.
+
+```bash
+npm run eval:triage -- --prompt v2 --fresh --since 2026-10-13
+npm run eval:triage -- --prompt v3 --fresh --since 2026-10-13
+```
+
+| rows neither prompt saw                  | held-out, 105 (11 / 61 / 33) |           | 10-12 run, 254 (33 / 63 / 158) |           |
+| ---------------------------------------- | ---------------------------: | --------: | -----------------------------: | --------: |
+|                                          |                           v2 |        v3 |                             v2 |        v3 |
+| accuracy                                 |                        40.0% | **48.6%** |                          64.2% | **72.8%** |
+| macro-F1                                 |                        0.404 | **0.455** |                          0.564 | **0.636** |
+| publish recall                           |                    **11/11** |      8/11 |                          24/33 | **27/33** |
+| publish precision                        |                        11/55 |      8/42 |                          24/69 |     27/57 |
+| publish vs not, accuracy                 |                        58.1% | **64.8%** |                          78.7% | **85.8%** |
+| "publish" on an item the editor rejected |                            6 |     **0** |                             17 |     **5** |
+| "publish" on an item the editor reviewed |                           38 |        34 |                             28 |        25 |
+| reject at confidence ≥ 0.85              |                        20/29 |     30/46 |                        106/112 |   124/135 |
+| — of which actually published            |                            0 |         2 |                              1 |         2 |
+| prompt tokens per row                    |                        2,036 |     3,828 |                          2,060 |     3,500 |
+
+By round: on the 10-13 rows
+(34: 3 / 20 / 11) v2 scores 29.4% and v3 52.9%, both find all 3 publishes,
+publish-vs-not 61.8% against 79.4%; on the 10-20 rows (71: 8 / 41 / 22) v2
+45.1% and v3 46.5%, publish recall 8/8 against 5/8, publish-vs-not 56.3%
+against 57.7%.
+
+**What held.** The direction and roughly the size of v3's gain over v2 on
+accuracy: +8.6 points here, +8.6 on 10-12; publish-vs-not +6.7 against +7.1.
+The scope note still does what it says: v3 suggests publish for **none** of
+the 33 rejected items, v2 for 6 — Meta's ZGateway, the Radicle vulnerability,
+Python 3.15, Uber's Kubernetes controller, OpenTelemetry's processor going
+stable, Google Ads' false positive: engineering, not AI, every one. v3's
+reject recall is 32/33.
+
+**What did not.** The publish-recall gain reversed: v2 found all 11, v3 8.
+Of the 3 it rejected, 2 are the Gemini 4 Argon launch post, each citing an
+already-published signal: the Google AI Blog copy was judged the same release
+as the 10-02 signal on Argon's staged launch to security teams (a genuine
+miss — the general-availability post was the round's headline), and the
+DeepMind copy saw, in its list, the signal the pair had become 18 ms earlier
+(the same-round artifact the 10-12 section describes; the console generates
+suggestions before a round and would not have it). The third is 量子位's
+report of DeepSeek V4.1 Flash 1017, rejected at 0.7 as a second-hand piece
+without checkable detail; the editor published it from that report. So the
+confident-reject band is not clean here either: 30 of 46 at ≥ 0.85 were
+rejected, 2 were published (the Argon pair), 14 were reviewed.
+
+**What neither prompt can do** is the error that dominates this set: 34–38 of
+the 61 _reviewed_ items get "publish". Who they are: Transformers releases
+(v3: 8 of 13, every one marked reviewed since the source was added on 10-12),
+Microsoft Research posts (6 of 9), Hugging Face model posts (5 of 6), InfoQ
+(4), 量子位 (3), and the Ollama / MCP / SGLang / ms-swift releases (6). Each
+is a real release or a real paper; what made the editor mark it reviewed was
+the round's own selectivity — 7–8 published per round — and, for the two new
+sources, a back catalogue reaching to July that the round marked reviewed in
+bulk. Publish precision is 1 in 5 for both prompts, so on these rounds a
+"publish" suggestion is a shortlist to read, not a decision.
+
+**Is v3 worth switching the console to?** On rows it never saw it is better
+than v2 on every aggregate — accuracy, macro-F1, publish-vs-not, and above all
+zero publishes suggested on rejected items — at 1.9× the prompt tokens
+(about ¥0.3 more for a 70-candidate round). It is worse on one thing that
+matters, publish recall, by 3 of 11: one artifact that cannot occur in the
+console, one debatable call, one real miss on the round's headline. The
+case for switching is the scope rule and the already-published rule working
+as designed on new rows; the case against is that the headline-size miss comes
+from the rule that is v3's whole addition, and that neither prompt moves the
+precision that decides how useful a "publish" suggestion is. **This report
+does not change `TRIAGE_PROMPT_VERSION`**; that is the owner's call. If the
+console switches, `runCandidateTriage`'s call site must pass
+`selectRecentPublishedTitles` as of the round's start, and the 「发布」
+suggestion should be read as the 1-in-5 shortlist it measured as.
 
 ## Known limits, stated up front
 

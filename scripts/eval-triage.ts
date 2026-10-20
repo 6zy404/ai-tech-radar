@@ -3,6 +3,8 @@
  *
  *   npm run eval:triage                 # full test split
  *   npm run eval:triage -- --limit 40   # a quick sample
+ *   npm run eval:triage -- --prompt v3 --fresh --since 2026-10-13
+ *                                       # one prompt, blind rows from a date on
  *
  * Reads eval/triage/dataset.jsonl and eval/triage/fewshot.json (both produced
  * by `npm run build:triage-dataset`), runs the configured provider over the
@@ -93,6 +95,12 @@ function readArgs() {
     throw new Error(`unknown --prompt ${prompt}; use v1, v2 or v3`);
   }
 
+  const since = value("--since");
+
+  if (since !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(since)) {
+    throw new Error(`--since takes a YYYY-MM-DD date, got ${since}`);
+  }
+
   return {
     limit: Number(value("--limit") ?? 0) || undefined,
     concurrency: Math.max(1, Number(value("--concurrency") ?? 4) || 4),
@@ -100,7 +108,10 @@ function readArgs() {
     // --fresh scores only the decisions made after the v1 eval with no
     // suggestion on screen: the one set a v2 prompt was not fitted to. v3 was
     // written after reading v2's errors on it, so for v3 it is not held out.
-    fresh: args.includes("--fresh")
+    fresh: args.includes("--fresh"),
+    // --since keeps only rows decided on or after a day: with --fresh, the
+    // blind rounds a prompt was not written against (v3: 2026-10-13 on).
+    since
   };
 }
 
@@ -257,14 +268,16 @@ function loadLocalEnv() {
 
 async function main() {
   loadLocalEnv();
-  const { limit, concurrency, promptVersion, fresh } = readArgs();
+  const { limit, concurrency, promptVersion, fresh, since } = readArgs();
   const dataset = readDataset();
   const examples = JSON.parse(
     fs.readFileSync(path.join(evalDir, "fewshot.json"), "utf8")
   ) as TriageExample[];
   const exampleSplit = dataset.filter((row) => row.split === "examples");
-  let testSplit = dataset.filter((row) =>
-    fresh ? row.fresh : row.split === "test"
+  let testSplit = dataset.filter(
+    (row) =>
+      (fresh ? row.fresh : row.split === "test") &&
+      (!since || row.decidedAt.slice(0, 10) >= since)
   );
 
   if (promptVersion !== "candidate-triage-v1") {
@@ -311,7 +324,7 @@ async function main() {
     `triage eval — prompt ${promptVersion}, provider ${provider.name}, model ${provider.modelName}`
   );
   console.log(
-    `${fresh ? "fresh" : "test"} items ${testSplit.length}${limit ? ` (sampled from ${dataset.filter((r) => r.split === "test").length})` : ""}, few-shot examples ${examples.length}, cached ${cache.size}`
+    `${fresh ? "fresh" : "test"} items ${testSplit.length}${since ? ` (decided since ${since})` : ""}${limit ? ` (sampled from ${dataset.filter((r) => r.split === "test").length})` : ""}, few-shot examples ${examples.length}, cached ${cache.size}`
   );
 
   if (shownCounts.length > 0) {
@@ -467,7 +480,7 @@ async function main() {
   const resultFile = path.join(
     evalDir,
     "results",
-    `${runKey}${fresh ? "__fresh" : ""}${limit ? `__sample${limit}` : ""}.json`
+    `${runKey}${fresh ? "__fresh" : ""}${since ? `__since${since}` : ""}${limit ? `__sample${limit}` : ""}.json`
   );
   fs.mkdirSync(path.dirname(resultFile), { recursive: true });
   fs.writeFileSync(
@@ -476,6 +489,7 @@ async function main() {
       {
         promptVersion,
         fresh,
+        ...(since ? { since } : {}),
         model: provider.modelName,
         ranAt: new Date().toISOString(),
         testItems: testSplit.length,

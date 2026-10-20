@@ -12,6 +12,33 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Three evaluations re-measured on data they were not tuned on
+
+- **2026-10-20. Triage prompts v2 and v3, scored on the two blind rounds
+  decided after v3 was written** (10-13 and 10-20: 105 rows, publish 11 /
+  review 61 / reject 33 — these rounds marked 58% of what they saw
+  _reviewed_, against 25% of the earlier fresh rows). v3 over v2: accuracy
+  48.6% against 40.0%, macro-F1 0.455 against 0.404, publish-vs-not 64.8%
+  against 58.1%, "publish" on a rejected item 0 against 6 — the same
+  direction and about the same size as the 10-12 run (72.8% / 64.2%) — but
+  publish recall 8/11 against 11/11: two rows are the Gemini 4 Argon launch
+  post, which v3 called the same release as the 10-02 staged-launch signal
+  (one of the two copies also saw, in its list, the signal the pair had just
+  become — the same-round artifact the console cannot have), the third
+  量子位's DeepSeek V4.1 Flash report. Both prompts call 34–38 of the 61
+  reviewed items "publish" (Transformers releases, Microsoft Research and
+  Hugging Face posts), so publish precision is 1 in 5 either way. Cost:
+  213,762 + 401,968 prompt tokens, 106 calls each, p50 about 1 s; estimated
+  before the run at 220k + 370k. `TRIAGE_PROMPT_VERSION` is unchanged; the
+  verdict is in `eval/triage/README.md` → "v2 against v3 on rows neither was
+  written against". To build the set, `build-triage-dataset` now reads the
+  live snapshot first and walks the snapshot's history in the repository
+  `--history` names (a bare clone of the private full-history bundle; the
+  10-13 round's 34 rows came back only from its 10-13 commit), and marks
+  each row `blind`; `eval:triage` takes `--since YYYY-MM-DD`. The dataset
+  grew from 880 to 997 rows; `fewshot.json` is unchanged, so every prompt is
+  byte for byte the one measured on 10-12.
+
 ## Editorial round 2026-10-20, a tunnel outage, and the reading-mark fix deployed
 
 - **2026-10-20.** 71 undecided candidates (accumulated since 10-14), all
