@@ -14,10 +14,6 @@ import {
 } from "@/lib/technology-draft-workflow";
 import { technologyItems } from "@/data/technologies";
 import {
-  getLocalStoreFingerprint,
-  getStoreRevision
-} from "@/lib/repositories/local-json-store";
-import {
   getPersistenceDriver,
   readSqliteKnowledgeItems,
   readSqliteSeedTechnologies,
@@ -29,6 +25,7 @@ import {
   getAllLinkRelations
 } from "@/lib/link-relation-workflow";
 import { getMergedPublicSkills } from "@/lib/skill-workflow";
+import { memoizeStoreRead } from "@/lib/store-read-memo";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
   ContentKind,
@@ -51,59 +48,41 @@ const contentPathMap: Record<ContentKind, string> = {
 
 /**
  * The stores the three public pools are merged from, memoized per store
- * revision.
+ * revision (`memoizeStoreRead`).
  *
- * Why: `resolveTitle` and `resolveSlug` each call one of the `getAllX()`
- * getters and then `.find()` the single item they want, and every caller of
- * those resolvers is a per-item loop — `getContentGraph` runs both for **every
- * node**. Measured 2026-08-18 on `/network`: 72 nodes × 2 resolvers = 144 full
- * reads of `technology-workspace.json` (524 KB, 2.6ms each) plus the skill and
- * knowledge overlays, which is the whole of that page's 355-382ms inside
- * `getContentGraph`. Same family as the `/workspace` block fixed the day
- * before: a whole-store read sitting inside a per-item helper.
+ * Why: until 2026-10-14 `getContentGraph` resolved every node's title and
+ * slug through a helper that called one of the `getAllX()` getters and then
+ * `.find()` the single item it wanted. Measured 2026-08-18 on `/network`: 72
+ * nodes × 2 resolvers = 144 full reads of `technology-workspace.json` (524
+ * KB, 2.6ms each) plus the skill and knowledge overlays, which is the whole
+ * of that page's 355-382ms inside `getContentGraph`. Same family as the
+ * `/workspace` block fixed the day before: a whole-store read sitting inside
+ * a per-item helper.
  *
  * The memo is on the **source reads**, not on the returned pools, so each
  * getter still builds and sorts a fresh array and no caller can mutate another
  * caller's copy. The key is the same two-part one the candidate cache uses —
  * an in-process write counter plus a file fingerprint, so a write from the
- * task runner invalidates it too.
+ * task runner invalidates it too (`content-pool-cache.test.ts` holds both).
  */
-function memoizePerStoreRevision<T>(load: () => T): () => T {
-  let cached: { key: string; value: T } | undefined;
-
-  return () => {
-    const key = `${getStoreRevision()}::${getLocalStoreFingerprint(
-      contentPoolSources
-    )}`;
-
-    if (cached?.key === key) {
-      return cached.value;
-    }
-
-    const value = load();
-    cached = { key, value };
-
-    return value;
-  };
-}
-
 const contentPoolSources = [
   "technology-workspace.json",
   "skill-workspace.json",
   "knowledge-workspace.json"
 ];
 
-const loadPublishedTechnologyRecords = memoizePerStoreRevision(() =>
-  getPublishedTechnologyWorkspaceRecords()
+const loadPublishedTechnologyRecords = memoizeStoreRead(
+  contentPoolSources,
+  () => getPublishedTechnologyWorkspaceRecords()
 );
 
-const loadMergedSkills = memoizePerStoreRevision(() =>
+const loadMergedSkills = memoizeStoreRead(contentPoolSources, () =>
   getMergedPublicSkills(
     getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems
   )
 );
 
-const loadMergedKnowledge = memoizePerStoreRevision(() =>
+const loadMergedKnowledge = memoizeStoreRead(contentPoolSources, () =>
   getMergedPublicKnowledge(
     getPersistenceDriver() === "sqlite"
       ? readSqliteKnowledgeItems()
@@ -239,40 +218,15 @@ function withoutTechnologyPriorityInternals(
   return publicItem;
 }
 
-function resolveTitle(kind: ContentKind, id: string): string | undefined {
-  if (kind === "technology") {
-    const technology = getAllTechnologies().find((item) => item.id === id);
-
-    return technology ? getPreferredTechnologyTitle(technology) : undefined;
-  }
-
-  if (kind === "skill") {
-    return getAllSkills().find((item) => item.id === id)?.title;
-  }
-
-  return getAllKnowledge().find((item) => item.id === id)?.title;
-}
-
-function resolveSlug(kind: ContentKind, id: string): string | undefined {
-  if (kind === "technology") {
-    return getAllTechnologies().find((item) => item.id === id)?.slug;
-  }
-
-  if (kind === "skill") {
-    return getAllSkills().find((item) => item.id === id)?.slug;
-  }
-
-  return getAllKnowledge().find((item) => item.id === id)?.slug;
-}
-
 type TargetLookup = Map<string, { title: string; slug: string }>;
 
 /**
  * Title and slug by id for one pool, so a per-item loop resolves each target
- * with a map lookup instead of `resolveTitle`/`resolveSlug`, which rebuild
- * (and for technologies re-sort) the whole pool on every call. Measured
- * 2026-10-14: `getContentGraph` spent 46ms of its time there, and the sitemap
- * ran it once per topic.
+ * with a map lookup instead of a `.find()` over a getter that rebuilds (and
+ * for technologies re-sorts) the whole pool on every call — the
+ * `resolveTitle` / `resolveSlug` pair removed 2026-10-21, by then unused.
+ * Measured 2026-10-14: `getContentGraph` spent 46ms of its time there, and
+ * the sitemap ran it once per topic.
  */
 function indexTargets<TItem extends { id: string; slug: string }>(
   items: TItem[],
@@ -365,37 +319,6 @@ export function buildRelationItems({
         href: `${contentPathMap[targetType]}/${slug}`,
         relationType: relation?.relationType ?? defaultRelationType,
         note: relation?.note ?? defaultNote
-      };
-    })
-    .filter((item): item is RelationListItem => Boolean(item));
-}
-
-export function getRelationItemsFor(
-  fromId: string,
-  fromType: ContentKind,
-  targetType: ContentKind
-): RelationListItem[] {
-  return getAllLinkRelations()
-    .filter(
-      (relation) =>
-        relation.fromId === fromId &&
-        relation.fromType === fromType &&
-        relation.toType === targetType
-    )
-    .map((relation) => {
-      const title = resolveTitle(relation.toType, relation.toId);
-      const slug = resolveSlug(relation.toType, relation.toId);
-
-      if (!title || !slug) {
-        return undefined;
-      }
-
-      return {
-        id: relation.id,
-        title,
-        href: `${contentPathMap[relation.toType]}/${slug}`,
-        relationType: relation.relationType,
-        note: relation.note
       };
     })
     .filter((item): item is RelationListItem => Boolean(item));

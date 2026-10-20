@@ -11,6 +11,7 @@ import {
   type RelationDefaultsMap,
   type RelationDirection
 } from "@/lib/relation-defaults";
+import { memoizeStoreRead } from "@/lib/store-read-memo";
 import { tryRecordWorkflowEvent } from "@/lib/workflow-events";
 import type { ContentKind, LinkRelation, RelationType } from "@/types/content";
 
@@ -31,8 +32,9 @@ export interface LinkRelationTargetUpdate {
   direction?: RelationDirection;
 }
 
+const linkRelationWorkspaceStoreFileName = "link-relation-workspace.json";
 const linkRelationWorkspaceStorePath = getLocalStoreFilePath(
-  "link-relation-workspace.json"
+  linkRelationWorkspaceStoreFileName
 );
 
 const relationTypes: RelationType[] = [
@@ -110,19 +112,45 @@ function normalizeRelation(
   };
 }
 
+/**
+ * The parsed override store, memoized per store revision.
+ *
+ * Why: every `getAllLinkRelations()` call parsed and normalized the whole
+ * file — 487 KB, 1,195 overrides, 2.3 ms measured 2026-10-21 — and a skill
+ * page did that twice (its relation lookups and the prerequisite chain), a
+ * topic page three times with the content graph. The memo is on the parse,
+ * not on the merged list: `getAllLinkRelations` still builds a fresh array
+ * per call, so no caller can reorder another's and `findRelationIn`'s index
+ * is keyed on the array it was given. The key is the two-part one the content
+ * pools use (an in-process write counter plus the file's mtime and size), so a
+ * write from the task runner or an editing dev server invalidates it too —
+ * `link-relation-store-cache.test.ts` holds both write paths.
+ */
+const loadLinkRelationWorkspaceStore = memoizeStoreRead(
+  [linkRelationWorkspaceStoreFileName],
+  (): { updatedAt?: string; relations: LinkRelation[] } => {
+    const store = readLocalJsonFile<Partial<LinkRelationWorkspaceStore>>(
+      linkRelationWorkspaceStorePath,
+      { relations: [] }
+    );
+
+    return {
+      updatedAt: store.updatedAt,
+      relations: (store.relations ?? [])
+        .map((record) =>
+          normalizeRelation(record as unknown as Record<string, unknown>)
+        )
+        .filter((relation): relation is LinkRelation => Boolean(relation))
+    };
+  }
+);
+
 export function readLinkRelationWorkspaceStore(): LinkRelationWorkspaceStore {
-  const store = readLocalJsonFile<LinkRelationWorkspaceStore>(
-    linkRelationWorkspaceStorePath,
-    { updatedAt: getTimestamp(), relations: [] }
-  );
+  const store = loadLinkRelationWorkspaceStore();
 
   return {
     updatedAt: store.updatedAt ?? getTimestamp(),
-    relations: (store.relations ?? [])
-      .map((record) =>
-        normalizeRelation(record as unknown as Record<string, unknown>)
-      )
-      .filter((relation): relation is LinkRelation => Boolean(relation))
+    relations: [...store.relations]
   };
 }
 
