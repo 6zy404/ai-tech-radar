@@ -8,9 +8,10 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* The jump chips land on these; clear the sticky nav, as 本页目录 does. */
+/* The jump chips land on these, 86px down with the html scroll-padding,
+   as 本页目录 targets do. */
 .about-page .skills-library-section__header h2[id] {
-  scroll-margin-top: 86px;
+  scroll-margin-top: 14px;
 }
 
 /* Nothing on this page is a card you can open, so none of them lifts. */

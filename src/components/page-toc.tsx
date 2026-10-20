@@ -26,9 +26,10 @@ interface PageTocProps {
 }
 
 /**
- * Pixels below where an anchor jump lands a section (its scroll-margin-top)
- * at which it counts as the current one. A little slack, so the section just
- * jumped to is current even after sub-pixel rounding.
+ * Pixels below where an anchor jump lands a section (the html
+ * scroll-padding-top plus its own scroll-margin-top) at which it counts as
+ * the current one. A little slack, so the section just jumped to is current
+ * even after sub-pixel rounding.
  */
 const activationSlack = 16;
 
@@ -53,9 +54,10 @@ function useActiveTocId(ids: string[]) {
     // callbacks already arrive once per frame, and a dozen rect reads is
     // cheap.
     const update = () => {
-      const landing =
-        Number.parseFloat(getComputedStyle(elements[0]).scrollMarginTop) || 0;
       const root = document.documentElement;
+      const landing =
+        (Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0) +
+        (Number.parseFloat(getComputedStyle(elements[0]).scrollMarginTop) || 0);
       const atBottom =
         window.innerHeight + window.scrollY >= root.scrollHeight - 2;
 

@@ -3,11 +3,11 @@
    that page does not have. */
 
 /* The publisher name is the card's fragment target (/sources#publisher-…);
-   so are the section headings, from the jump chips. Land both clear of the
-   sticky nav, as 本页目录 does. */
+   so are the section headings, from the jump chips. Land both 86px down
+   with the html scroll-padding, as 本页目录 targets do. */
 .sources-card h3[id],
 .sources-page .skills-library-section__header h2[id] {
-  scroll-margin-top: 86px;
+  scroll-margin-top: 14px;
 }
 
 /* The feeds a publisher came through: a caption, quieter than the card's

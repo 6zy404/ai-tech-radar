@@ -3,10 +3,11 @@
    signal-shortcut-help.tsx). Every colour is a dossier token, so the dark
    scheme follows from dossier-scope.css with no rules of its own. */
 
-/* j / k scroll the current card into view with block: "nearest"; the
-   margin keeps it clear of the sticky top nav instead of sliding under it. */
+/* j / k scroll the current card into view with block: "nearest". The html
+   scroll-padding keeps it clear of the sticky top nav; this is the room past
+   it, 96px in all. */
 .dossier-technology-card {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 24px;
   scroll-margin-bottom: 24px;
 }
 

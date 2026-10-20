@@ -31,9 +31,10 @@
   margin-bottom: 40px;
 }
 
-/* The jump chips land here; clear the sticky nav, as 本页目录 does. */
+/* The jump chips land here, 86px down with the html scroll-padding, as
+   本页目录 targets do. */
 .timeline-topic__heading h2[id] {
-  scroll-margin-top: 86px;
+  scroll-margin-top: 14px;
 }
 
 .timeline-topic__more {

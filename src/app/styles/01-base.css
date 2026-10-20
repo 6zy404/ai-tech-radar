@@ -46,6 +46,13 @@
 
 html {
   font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* The top nav is sticky and 61px tall (65px at phone widths, where the
+     brand wraps). This keeps every scroll that brings something into view —
+     an anchor jump, scrollIntoView, and the scroll the browser itself makes
+     when focus moves, which Shift+Tab relies on — from landing it under the
+     bar. A target's own scroll-margin adds to it, so the targets that had
+     one (86px / 96px) keep only what was above the bar. */
+  scroll-padding-top: 72px;
 }
 
 body {

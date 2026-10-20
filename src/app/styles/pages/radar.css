@@ -192,10 +192,10 @@ html[lang="en"] .radar-list__quadrant h2 span {
   border-top: 1px dashed var(--dossier-line);
 }
 
-/* Opened from the picture, an entry scrolls to its top: clear of the
-   sticky nav, as 本页目录 targets are. */
+/* Opened from the picture, an entry scrolls to its top: 86px down with
+   the html scroll-padding, as 本页目录 targets are. */
 .radar-entry {
-  scroll-margin-top: 86px;
+  scroll-margin-top: 14px;
 }
 
 .radar-entry summary {

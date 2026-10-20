@@ -123,8 +123,9 @@
   touch-action: none;
   /* A /network?focus= node below the fold is scrolled to with
      block: "nearest"; this keeps it (and its label, which sits above the dot)
-     clear of the viewport edge and of the 60px sticky top nav. */
-  scroll-margin-block: 96px;
+     clear of the viewport edge. At the top the html scroll-padding clears
+     the sticky nav and this adds the label's room, 96px in all. */
+  scroll-margin-block: 24px 96px;
   transition: opacity 140ms ease;
 }
 

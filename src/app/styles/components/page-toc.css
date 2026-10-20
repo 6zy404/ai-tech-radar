@@ -9,11 +9,12 @@
    column for widths where the aside has dropped below the article. Every
    colour is a dossier token, so the dark scheme needs no rules of its own. */
 
-/* An anchor jump lands a section's top here: just under the sticky top nav,
-   level with the top the sticky table itself holds. */
+/* An anchor jump lands a section's top 86px down — the html scroll-padding
+   (72px, clear of the sticky top nav) plus this — level with the top the
+   sticky table itself holds. */
 :is(.user-article-layout__main, .skill-detail-main, .daily-digest-reading)
   > [id] {
-  scroll-margin-top: 86px;
+  scroll-margin-top: 14px;
 }
 
 /* With a table in it, the aside stops being one sticky block: it is taller
