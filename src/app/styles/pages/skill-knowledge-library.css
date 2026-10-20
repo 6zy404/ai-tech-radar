@@ -203,7 +203,18 @@
   margin: 0;
 }
 
+/* Underlined, as a link inside a sentence is site-wide (content-body): the
+   accent reads 1.35:1 against the muted sentence around it (1.12:1 in the
+   dark scheme), so colour alone does not mark the way out. */
 .library-filter__status a {
   margin-left: 4px;
   color: var(--dossier-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.library-filter__status a:hover {
+  text-decoration-color: currentColor;
 }
