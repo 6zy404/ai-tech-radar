@@ -199,6 +199,92 @@ src/lib/i18n` (37 tests), prettier and eslint on every changed file. No
   pane against this worktree's copy of the data. Five fix commits, one per
   item, plus this entry.
 
+## Review batch C: operations and data safety
+
+Seven findings from the 2026-10-14 review, group C (P2 ops-host-3,
+dev-arch-1, dev-arch-13, sec-internal-3; P3 ops-data-7, ops-data-8,
+ops-data-9), each re-checked against the code of 2026-10-21 before anything
+was changed. One commit per finding; typecheck, the touched test files,
+prettier and eslint green on each.
+
+- **2026-10-21. ops-host-3 — already fixed.** `writeFileAtomically` has
+  `fsync`ed the temp file before the rename since 2026-10-14 (commit
+  7bfa510c), `local-json-store.test.ts` pins the `fsync → rename` order and
+  the cleanup when `fsync` throws, and `docs/production-readiness.md` I2
+  says so. What the report asked to measure: on this disk a 7.3 MB store
+  (the candidate snapshot's size) takes a median 7.3 ms to write with the
+  flush against 3.6 ms without, worst case 32 ms against 4 ms; a 0.6 MB
+  store 4.0 ms against 1.5 ms (ten writes each). Nothing changed.
+- **2026-10-21. dev-arch-1 — the sending processes get the site address,
+  and refuse a local one.** The address was defined twice
+  (`site-metadata.ts`, `digest-delivery.ts`), and only Next read
+  `NEXT_PUBLIC_SITE_URL` from `.env.local`: the task runner that sends
+  scheduled digests runs under plain Node, so its links would have read
+  `http://localhost:3000`, and the push sender's VAPID subject fell back to
+  the same address, which RFC 8292 does not allow. `src/lib/site-url.ts` is
+  now the one definition (the two old names re-export it, so fourteen
+  importers are unchanged); the launcher reads `NEXT_PUBLIC_SITE_URL` from
+  `.env.local` with the proxy keys (`scripts/env-file.mjs`, tested;
+  `LOCAL_DATA_DIR` deliberately not); a digest send to a real service is
+  refused as a failed `DeliveryRun` that names the variable while the
+  address is unset or loopback (`mock://` and loopback stand-ins still send,
+  so the four delivery validators pass unchanged); and `runPushForDate`
+  throws `PushSubjectError` (a 503) when the subject is not
+  `mailto:`/`https:`. Playbook Step 0/7b and `docs/deployment.md` name the
+  two lines a round needs. 20 new tests.
+- **2026-10-21. dev-arch-13 — mostly fixed since; the rest filled.**
+  `.env.example` and `docs/deployment.md` already carried the push keys with
+  the never-replace / back-up-separately note, `SEMANTIC_DEDUP_TIMEOUT_MS`,
+  the three `IMPORT_FETCH_*`, `OPS_ALERT_CHANNEL_ID` and
+  `PUBLIC_AI_DAILY_LIMIT`. Still missing from both, now added:
+  `WORKSPACE_ALLOWED_HOSTS`, the four proxy variables and `PROXY_ENV_QUIET`
+  (the launcher reads them from `.env.local`, which no template said),
+  `BACKUP_DIR` / `BACKUP_KEEP` / `BACKUP_FORCE`, and the new
+  `LOG_TIMESTAMPS`. Checked against the 43 variables the code reads.
+  `docs/data-model.md` → "Deployment Configuration" still lists the 2026-07
+  set (not this batch's file).
+- **2026-10-21. sec-internal-3 — half fixed since; the other half added.**
+  CI has failed on a critical advisory in a production dependency since
+  2026-10-15 (`npm audit --omit=dev --audit-level=critical`). Added
+  `.github/dependabot.yml`: weekly on Monday 09:00 Asia/Shanghai, `next` +
+  `eslint-config-next` + `@next/*` as one group, the rest by production /
+  development, five open PRs at most; GitHub Actions the same day.
+- **2026-10-21. ops-data-7 — timestamps, and the tunnel log's rotation
+  worked out.** `pipeline-alert.log` had been git-ignored on 2026-10-20.
+  `check:pipeline` now prints 运行时间 (Asia/Shanghai) first. The launcher
+  gains `LOG_TIMESTAMPS=1`: it pipes the child's stdout and stderr and writes
+  an ISO-8601 UTC time in front of every line (`scripts/log-lines.mjs`;
+  blank lines stay blank, a trailing partial line is flushed, the exit code
+  is the child's; proven by spawning the launcher both ways). Opt-in, so the
+  live server's start is unchanged until its task's command line carries the
+  variable — the two `Set-ScheduledTask` commands are in
+  `docs/deployment.md` → "Timestamps in the service logs", and
+  `register-windows-tasks.ps1` registers the server task with it. The tunnel
+  log (6.8 MB on 2026-10-21, appended through `cmd /c … >>`, so un-renameable
+  while the tunnel runs): cloudflared's source says `--logfile` appends and
+  never rotates while `--log-directory` rotates `cloudflared.log` at 1 MB
+  keeping 5, so the watchdog section's suggested action now uses the
+  rotating form and names what moves with it (the watchdog's `-TunnelLog`,
+  the service-account script's redirect). No scheduled task was changed.
+- **2026-10-21. ops-data-8 — `/api/health` reads what the home page
+  reads.** It read the published signals alone, so a damaged candidate
+  snapshot or digest file would 500 the home page while the monitor stayed
+  green. It now also reads the news lane, the latest published digest and
+  the skill and knowledge pools (the pages' own memoized reads, nothing
+  extra) and answers `{ publishedSignals, newsItems, latestDigest, skills,
+knowledge }`, or `503` with `{ ok: false, failed: ["news"] }` naming the
+  read, never a path. Five tests; `deploy.ps1` keeps reading
+  `checks.store.publishedSignals`. `lastIntakeAt` is deliberately not
+  exposed (the owner's call, per the report).
+- **2026-10-21. ops-data-9 — backup retention by day.** `BACKUP_KEEP` now
+  counts days: the newest N days with a verified snapshot stay whole and
+  everything older goes, failed copies included; by count, five manual
+  `BACKUP_FORCE=1` copies on 2026-10-12 had pushed four real days out of the
+  fourteen slots. `scripts/backup-retention.mjs`, eight tests; against the
+  same planted snapshots with `BACKUP_KEEP=3` the old script kept 3
+  snapshots over 2 days, the new one keeps 5 over 3 days and removes the 3
+  older ones, leaving a non-snapshot folder alone.
+
 ## Three evaluations re-measured on data they were not tuned on
 
 - **2026-10-20. Triage prompts v2 and v3, scored on the two blind rounds
