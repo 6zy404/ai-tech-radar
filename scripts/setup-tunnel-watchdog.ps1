@@ -119,9 +119,11 @@ if ($dryRunCode -eq 3) {
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $argument -WorkingDirectory $RepoRoot
 $start = (Get-Date).AddMinutes(1)
+# No RepetitionDuration: on Windows 10/11 an omitted duration repeats
+# indefinitely, while [TimeSpan]::MaxValue serialises to a duration the Task
+# Scheduler rejects (0x80041318, seen 2026-10-20 at registration).
 $trigger = New-ScheduledTaskTrigger -Once -At $start `
-    -RepetitionInterval (New-TimeSpan -Minutes $IntervalMinutes) `
-    -RepetitionDuration ([TimeSpan]::MaxValue)
+    -RepetitionInterval (New-TimeSpan -Minutes $IntervalMinutes)
 $principal = New-ScheduledTaskPrincipal -UserId $userId -LogonType S4U -RunLevel Limited
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
     -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
