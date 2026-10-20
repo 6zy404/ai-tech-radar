@@ -82,6 +82,18 @@ For per-topic deep dives, see the `docs/` directory.
 auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Four merged worktrees and their branches were removed (their
   node_modules junctions unlinked first; the main checkout's node_modules
   unchanged at 321 entries).
+- **Later the same day: the daily cap, the off-site alert and the watchdog
+  merged and shipped.** Both feature branches were cherry-picked onto main
+  (CHANGELOG and `docs/operations.md` kept both sides), the runner-script test
+  learned the new `ops:alert` script, and `GcF1RnRdAYgYDKOHBfUIw` was
+  deployed at 14:50 (about 2.8 seconds of downtime) with
+  `PUBLIC_AI_DAILY_LIMIT` at its default of 500. The watchdog task
+  `ai-tech-radar-tunnel-watchdog` was registered at 12:17 from the main
+  checkout; the first registration failed because a
+  `RepetitionDuration` of `[TimeSpan]::MaxValue` serialises to a duration the
+  Task Scheduler rejects (0x80041318), so the trigger now omits the duration,
+  which repeats indefinitely on Windows 10/11. Its first runs all read 本机
+  200 / 公网 200 with no private-address dials in `tunnel.log`.
 
 ## A site-wide daily cap on the public AI routes
 

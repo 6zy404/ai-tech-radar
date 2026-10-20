@@ -12,7 +12,7 @@
 ## 当前状态（2026-10-15）
 
 - **线上**：`https://aizyradar.cn`，Cloudflare Tunnel 接本机 `next start`（公开构建 `npm run build:public`，工作台路由物理不存在），
-  服务只监听 `127.0.0.1`。现跑构建 `biDAjOlPEtUBA…`（2026-10-20，稍后读 / 已读按钮修复；上一版 `sbax8NSt…` 2026-10-15，Next.js 15.5.27，含英文界面与全站页脚）。每次部署后核对：公开路由 200（含 /radar、/signal-vectors.json、/sw.js、/manifest.webmanifest、/api/push/config）、五个内部前缀 404（含 /workspace/radar、/workspace/weekly-summaries）。
+  服务只监听 `127.0.0.1`。现跑构建 `GcF1RnRdAYgY…`（2026-10-20 14:50，公开 AI 接口每日总额度；同日早些时候 `biDAjOlPEtUBA…` 带稍后读 / 已读按钮修复；上一版 `sbax8NSt…` 2026-10-15，Next.js 15.5.27，含英文界面与全站页脚）。每次部署后核对：公开路由 200（含 /radar、/signal-vectors.json、/sw.js、/manifest.webmanifest、/api/push/config）、五个内部前缀 404（含 /workspace/radar、/workspace/weekly-summaries）。
 - **2026-09-29 至 10-09 的十四次部署**（分享卡、本页目录、搜索筛选与片段、阅读码、精选筛选写进网址、收录于、上一条 / 下一条、复制链接、
   阅读进度、/sources、`?publisher=`、话题图谱、篡改标题自动拒、窄屏内边距等）：内容与线上核对逐条在 CHANGELOG，这里不再列。
 - **2026-10-12 部署**（构建 `wgKWaBhH…`，停机约 3.4 秒，`main` `ba4465d`）：话题从 10 个细分到 19 个（旧 id 全保留），公开说明页 `/about`「本站怎么挑信号」
@@ -52,7 +52,7 @@
   修了其中 48 个。最要紧的是 Next.js 15.5.15 → 15.5.27（Windows 主机未授权远程执行代码漏洞）和依赖漏洞；另有 `/_next/image` 关闭、不发 `x-powered-by`、
   公开接口请求体上限与 IPv6 /64 限流、编辑轮本机工作台拒绝跨站写入。线上核对：新构建号、公开页 200、四个内部前缀 404、`/_next/image` 404。
 - **2026-10-15 全站页脚**（构建 `sbax8NSt…` 已上线，停机约 2.6 秒）：本站怎么挑信号、隐私说明、信源一览、RSS、在 GitHub 提 issue，中英文；工作台不显示。
-- **2026-10-20 线上断了两天半**（10-17 21:36 至 10-20 10:19）：机器重启后 cloudflared 向校园网 DNS（210.42.24.19）查边缘地址，拿到假地址 `10.3.33.253`，之后每分钟重拨、每 5 分钟刷新 DNS 超时；本机 3000 全程健康，没人知道。杀掉 cloudflared 进程再 `Start-ScheduledTask ai-tech-radar-tunnel` 即恢复（`Stop-ScheduledTask` 停不掉它：任务是经 `cmd /c … >> tunnel.log` 起的）。看门狗与站外告警在特性窗口里做，见 P2。
+- **2026-10-20 线上断了两天半**（10-17 21:36 至 10-20 10:19）：机器重启后 cloudflared 向校园网 DNS（210.42.24.19）查边缘地址，拿到假地址 `10.3.33.253`，之后每分钟重拨、每 5 分钟刷新 DNS 超时；本机 3000 全程健康，没人知道。杀掉 cloudflared 进程再 `Start-ScheduledTask ai-tech-radar-tunnel` 即恢复（`Stop-ScheduledTask` 停不掉它：任务是经 `cmd /c … >> tunnel.log` 起的）。看门狗与站外告警当天做完：计划任务 `ai-tech-radar-tunnel-watchdog` 12:17 注册（每 5 分钟，`scripts/setup-tunnel-watchdog.ps1 -Apply`；注册时 `[TimeSpan]::MaxValue` 的重复时长被任务计划程序拒绝，改为不写时长即无限重复），日志 `config/tunnel-watchdog.log`（UTF-8 无 BOM，`Get-Content -Encoding UTF8` 看），头几次都是本机 200 / 公网 200。站外告警还没有真渠道，见 §5。
 - **2026-10-20 编辑轮**（盲评，起草提示词 v2「用自己的话」）：71 条，发 7 条（Gemini 4 Argon 全面开放置顶、Muse Spark Open、Beam、DeepSeek V4.1 Flash 1017、Agent Lightning、vLLM v0.32.0、Harness²），标已看 42、拒 22，出 10-20 简报。同日：10-13 三条 AI 起草正文改写完（逐字取自原文 41–58% → 4–12%）；8 条新知识的 113 处关系补了附注（模型 109、编辑 4）；25 条信号原文链接 hf-mirror.com → huggingface.co；雷达 6 条条目补依据。起草时模型调用偶发 `fetch failed`（代理到 api.deepseek.com 的 TLS 被重置），重试即可，原因现在会写进服务器日志。
 - **2026-10-20 部署**（构建 `biDAjOlPEtUBA…`，停机约 2.5 秒）：10-14 的稍后读 / 已读按钮修复（从旧分支摘来）。删了 4 个已合并的旧工作树与分支；`dispatcher-window-status-check-2f79f9`（6765e01）与 `project-comprehensive-review-49a74e` 还在，确认无用后再删。
 - **2026-10-02 停机约 20 分钟**（04:12–04:32）：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户
@@ -123,7 +123,7 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
 - ~~公开 AI 接口只按 IP 限流，没有全站每日总额度~~：2026-10-20 已做——四条路由合计每个北京时间自然日最多 `PUBLIC_AI_DAILY_LIMIT` 次模型调用（默认 500），用完回 429 到次日 00:00；缓存命中不计；计数在 `config/public-ai-usage.json`，重启不清零；运维看板「今日公开 AI 调用 N / 500」，80% 提醒、100% 严重。owner 定数后改 .env.local 并重启。
-- ~~流水线告警只弹本机桌面通知~~：2026-10-20 已做——`src/lib/ops-alert.ts` 经 `OPS_ALERT_CHANNEL_ID` 指定的投递渠道发纯文本告警，`check:pipeline` 与隧道看门狗都会发（`npm run check:pipeline -- --test` 发测试告警）。隧道看门狗 `scripts/tunnel-watchdog.ps1` 每 5 分钟跑：本机 200 而公网非 200（或 tunnel.log 拨向私网地址）连续两次就杀 cloudflared、重启 `ai-tech-radar-tunnel`，30 秒复查并告警；计划任务 `ai-tech-radar-tunnel-watchdog` 由 `scripts/setup-tunnel-watchdog.ps1 -Apply` 注册（见状态区是否已注册）。站外告警要 owner 建真实渠道（见 §5）。
+- ~~流水线告警只弹本机桌面通知~~：2026-10-20 已做——`src/lib/ops-alert.ts` 经 `OPS_ALERT_CHANNEL_ID` 指定的投递渠道发纯文本告警，`check:pipeline` 与隧道看门狗都会发（`npm run check:pipeline -- --test` 发测试告警）。隧道看门狗 `scripts/tunnel-watchdog.ps1` 每 5 分钟跑：本机 200 而公网非 200（或 tunnel.log 拨向私网地址）连续两次就杀 cloudflared、重启 `ai-tech-radar-tunnel`，30 秒复查并告警；计划任务 `ai-tech-radar-tunnel-watchdog` 已于 2026-10-20 12:17 注册。站外告警要 owner 建真实渠道（见 §5）。
 - 审查报告里其余约 110 个 P2/P3 问题（未经第二人复核），在报告里筛「待排期」逐批处理。
 
 ~~服务只监听 `127.0.0.1`、部署脚本化、日志轮转~~：2026-09-28 已做并已上线。
