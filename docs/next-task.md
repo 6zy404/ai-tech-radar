@@ -45,7 +45,7 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。下一批候选：SEO、文档过期、内容与文案小错。
+- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。第二批 10-21 04:10 开工：D SEO 与订阅源（seo-1/2/5/6/8/9/10/11/12）、E 文档过期（docs-4/5/6/9/11/13/14、ops-host-13、content-4；E 不能改 AGENTS.md / CLAUDE.md / next-task.md，要改的行由主控应用）、F 内容与文案小错（ui-live-3/4/8/10/12/13、content-7/8、dev-core-8/9）。再往后：content-5/6（同一机构两个名、Muse Glimmer 两条信号）要改线上数据，主控自己做；dev-core-11、sec-internal-4/5/6、dev-quality-*、ui-static-11/12/13/16/17、perf-9/10/11 等待排。
 
 - 部署脚本的自动回滚只在替身服务上演练过，真环境里还没触发过。
 
