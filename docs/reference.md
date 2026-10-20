@@ -927,6 +927,7 @@ node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)
 node scripts/run-ts.cjs scripts/type-fallback-relations.ts [--apply] # one-off: give the fallback 关联 edges a relation type, and two related signals to each of the seven signals that had none (dry run by default)
 node scripts/run-ts.cjs scripts/retag-signals.ts [--apply]           # one-off: put the nine 2026-10-12 topics on published signals, skills and knowledge, and narrow 智能体 / 前沿模型 / 推理与部署 (dry run by default)
+node scripts/run-ts.cjs scripts/purge-mock-ai-cache.ts [--apply]   # one-off: remove the mock provider's answers from the three public AI caches (dry run by default; 2026-10-21)
 npm run check:pipeline   # Windows toast + off-site alert when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
 npm run ops:alert -- --title "…" --body "…"   # plain-text ops alert through the delivery channel OPS_ALERT_CHANNEL_ID names (--json <utf-8 file>, --dry-run; nothing sent without the variable)
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun        # the tunnel watchdog's three checks against the real endpoints, printing what a real run would do
