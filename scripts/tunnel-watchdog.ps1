@@ -550,10 +550,17 @@ function Send-Alert {
 
         Push-Location $RepoRoot
 
+        # The task's console is the system code page (GBK, 936) while node
+        # writes UTF-8 to the pipe, so until 2026-10-21 the alert lines reached
+        # the log as mojibake. Decode the capture as UTF-8 for this one call.
+        $previousOutputEncoding = [Console]::OutputEncoding
+
         try {
+            [Console]::OutputEncoding = $Utf8NoBom
             $output = & cmd /c "node scripts\with-proxy-env.mjs node scripts\run-ts.cjs scripts\send-ops-alert.ts --json ""$temp"" 2>&1" | Out-String
             $code = $LASTEXITCODE
         } finally {
+            [Console]::OutputEncoding = $previousOutputEncoding
             Pop-Location
         }
 
