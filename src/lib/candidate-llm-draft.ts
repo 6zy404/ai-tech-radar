@@ -21,7 +21,7 @@ import type {
  * `TRIAGE_PROMPT_VERSION`: a draft records which prompt wrote it, and a store
  * record could be edited after the fact.
  */
-export const CANDIDATE_DRAFT_PROMPT_VERSION = "candidate-draft-v1";
+export const CANDIDATE_DRAFT_PROMPT_VERSION = "candidate-draft-v2";
 
 export interface CandidateDraftInput {
   title: string;
@@ -200,6 +200,7 @@ const rubric = `你是一个中文技术雷达站的编辑。这个站只发布�
 ## 文字
 
 - 全部用简体中文。约定俗成的技术词（token、checkpoint、API、GPU、benchmark 名称、产品名、模型名）保留原文，普通英文单词要译出来。
+- 用自己的话转述，不要照抄：原文（尤其是中文原文）的句子不能连续搬进摘要或正文，同一句最多借用其中的名称、术语和数字，句子要重新组织；任何连续 20 个字以上与原文相同的片段都不允许。媒体报道里的感叹、比喻、调侃一律不要。
 - 引号用「」，不用 "" 或 “”。
 - 中文与英文、数字之间加一个空格，例如「OpenAI 放出 722 篇手稿」。
 - 标题（title）：一句话说清是什么、有什么数字或变化，18 到 36 个字，不加书名号，不用标点结尾，不用 Markdown。

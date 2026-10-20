@@ -297,7 +297,7 @@ describe("generateCandidateAiDraft", () => {
     expect(metadata).toMatchObject({
       generationMode: "mock_llm",
       modelName: "mock-candidate-draft-v0",
-      promptVersion: "candidate-draft-v1",
+      promptVersion: "candidate-draft-v2",
       sourceTextOrigin: "candidate_fallback",
       sourceFetchError: "fetch failed"
     });
