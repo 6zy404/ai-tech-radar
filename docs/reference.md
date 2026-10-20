@@ -921,6 +921,7 @@ npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
 node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] [--batch <name> --new-since <date>] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl; held-out mode scores one labelling batch alone
 node scripts/run-ts.cjs scripts/refresh-semantic-dedup.ts # run the post-import semantic dedup once and list what it found (writes candidate-semantic-matches.json)
+node scripts/run-ts.cjs scripts/measure-local-recommend.ts [--created-before <date>] [--draws N] # how often 和你读过的相近 has a card for a reader with one mark or three random marks, per cutoff; --created-before re-measures an earlier pool
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
 node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)

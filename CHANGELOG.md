@@ -56,6 +56,29 @@ For per-topic deep dives, see the `docs/` directory.
 --new-since <date>`: pairs with a new side whose label, if any, carries the
   batch), and labels may carry `batch`. Numbers in `eval/dedup/README.md` →
   "Held-out batch".
+- **2026-10-20. 和你读过的相近, re-measured on 117 published signals** (110 on
+  10-13) with the new `scripts/measure-local-recommend.ts`, which builds the
+  recommendation file as the server does, decodes it as the browser does and
+  runs the browser's own scoring for every signal as a reader's single mark
+  and for 500 seeded draws of three marks. At the shipped floor (mean + 2.5
+  standard deviations) a single-mark reader gets at least one card for **87
+  of 117 (74%)** against 80 of 110 (73%) — and today's code on the 110-signal
+  pool (`--created-before 2026-10-14`) reproduces 80 of 110 exactly; three
+  random marks give something in **494 of 500 draws (99%)** against 491
+  (98%); a single-mark reader averages 1.20 cards (1.14), three marks 2.64 of
+  3 on the home page and 3.11 of 4 on 稍后读. At minZ 2 it is 109 of 117
+  (102 of 110), at 3 it is 67 (60 of 110; 58 on 10-13, two summaries having
+  changed since). The pool's pairwise mean and deviation did not move
+  (−0.009 / 0.100, floor 0.241 against 0.240): the seven new signals are
+  frontier models and agent tooling, the pool's densest neighbourhoods, so
+  six of the seven get a card as a seed (Argon's general availability finds
+  its staged launch, vLLM 0.32 finds 0.30 and 0.25, Harness² and Agent
+  Lightning find the other harness signals, Beam finds Muse Spark Open;
+  DeepSeek V4.1 Flash 1017 finds nothing), two older signals gained a card
+  and one lost its only one — net +7, coverage edging up rather than
+  down. The file is 96 KB, 67 KB gzipped, as serialized
+  by the script (the 110 pool measures 90 / 63 KB the same way; the 10-13
+  figures were read off the HTTP response). No threshold change.
 
 ## Editorial round 2026-10-20, a tunnel outage, and the reading-mark fix deployed
 
