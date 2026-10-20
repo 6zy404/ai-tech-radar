@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # The live server and the development machine both run Node 24 (24.12),
       # and the scheduled import relies on its NODE_USE_ENV_PROXY. package.json
