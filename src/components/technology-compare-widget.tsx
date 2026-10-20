@@ -91,7 +91,7 @@ export function TechnologyCompareWidget({
           value={selectedId}
           onChange={(event) => setSelectedId(event.target.value)}
           disabled={isPending}
-          aria-label="选择要对比的技术"
+          aria-label={copy.selectLabel}
         >
           {candidates.map((candidate) => (
             <option
