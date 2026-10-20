@@ -66,12 +66,18 @@
   color: var(--dossier-ink);
 }
 
+/* The surface, border and weight that marked the current view all sit under
+   3:1 against their neighbours (surface on ground 1.15:1, border 1.39:1,
+   ink against the muted tabs 2.27:1; dark 1.16 / 1.76 / 2.13), so the tab
+   also carries an accent rail along its top edge — 6.9:1 on the ground,
+   5.6:1 dark — and a heavier label, neither of which needs colour sense. */
 .technology-view-tab--active {
   border-color: var(--dossier-line);
   border-bottom-color: transparent;
   background: var(--dossier-surface);
+  box-shadow: inset 0 2px 0 var(--dossier-accent);
   color: var(--dossier-ink);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* -- technology browser (/technologies list) -- */
