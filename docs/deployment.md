@@ -1259,6 +1259,24 @@ is the owner's call (`CLAUDE.md` → "Parallel windows"). Check first whether
 `--logfile` appends or truncates on start; the watchdog works with either
 shape of the task.
 
+**It restarted a healthy tunnel three times on its first evening** (2026-10-20
+20:38–21:33). The proxy on 127.0.0.1:7890 stopped answering for an hour, every
+public probe through it ended in 「基础连接已经关闭」 — no HTTP answer at all —
+and the script counted that as 「公网非 200」, so at 20:53, 21:08 and 21:23 it
+stopped and restarted `cloudflared`, each time cutting a tunnel that was fine
+for about half a minute, and the 30-second re-check through the same dead
+proxy said it was still down. Since that evening the public probe tells the two
+cases apart: an HTTP answer from the edge (530, 502 …) means the tunnel, no
+answer at all means this machine's network. On no answer it tries the other
+route first — direct after the proxy, the proxy (`HTTPS_PROXY` / `HTTP_PROXY`)
+after direct — and only when both are silent does it log 公网无响应, count it
+in `unreachableRuns` and leave the tunnel alone. Every restart that does not
+bring the domain back also doubles the wait before the next one (15, 30, 60,
+then 120 minutes, `restartsInEpisode` in the state file), reset when the
+domain answers 200 again. Both rules were dry-run against a closed port (both
+routes silent → no restart planned) and against a local 404 (an answer → the
+restart is planned).
+
 ### Proxy for every entry point
 
 **Since 2026-09-25 the launcher probes the proxy first.** The proxy

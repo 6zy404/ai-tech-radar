@@ -162,6 +162,17 @@ auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Fou
   Task Scheduler rejects (0x80041318), so the trigger now omits the duration,
   which repeats indefinitely on Windows 10/11. Its first runs all read 本机
   200 / 公网 200 with no private-address dials in `tunnel.log`.
+- **…and that evening it restarted a healthy tunnel three times.** From 20:38
+  to 21:33 the proxy stopped answering; the public probe through it got no
+  HTTP answer, the script read that as a broken tunnel and restarted
+  `cloudflared` at 20:53, 21:08 and 21:23 (about half a minute of real outage
+  each) while its re-check through the same dead proxy kept saying 「仍未恢复」.
+  Fixed the same night: no HTTP answer from either route (the other one is
+  tried first — direct after the proxy, the proxy after direct) is the
+  machine's network and never restarts anything; a restart that does not
+  bring the domain back doubles the wait before the next (15 → 30 → 60 → 120
+  minutes). Dry-run against a closed port and a local 404, then fast-forwarded
+  so the task picked up the new script.
 
 ## A site-wide daily cap on the public AI routes
 

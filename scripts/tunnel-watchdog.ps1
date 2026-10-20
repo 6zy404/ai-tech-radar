@@ -306,6 +306,48 @@ function Invoke-HttpProbe {
     }
 }
 
+# The public probe can fail for two unrelated reasons: the edge answered (530 =
+# no tunnel connection, 502 …) or nothing answered at all (Status 0: the proxy
+# or this machine's network is down). Only the first says anything about the
+# tunnel. On 2026-10-20 20:38–21:33 the proxy stopped answering for an hour and
+# the watchdog restarted a healthy tunnel three times on "无响应", so on no
+# answer the other route is tried — direct after the proxy, the proxy (from
+# HTTPS_PROXY / HTTP_PROXY) after direct — and the result carries which route
+# answered in Via. Both silent means the network, never the tunnel.
+function Invoke-PublicProbe {
+    param(
+        [string]$Url,
+        [string]$ProxyUrl,
+        [int]$Timeout = 20
+    )
+
+    $first = Invoke-HttpProbe -Url $Url -ProxyUrl $ProxyUrl -Timeout $Timeout
+    $firstVia = if ($ProxyUrl) { "经代理 $ProxyUrl" } else { "直连" }
+
+    if ($first.Status -ne 0) {
+        $first.Via = $firstVia
+        return $first
+    }
+
+    $altProxy = if ($ProxyUrl) { $null } else { ($env:HTTPS_PROXY, $env:HTTP_PROXY | Where-Object { $_ } | Select-Object -First 1) }
+
+    if (-not $ProxyUrl -and -not $altProxy) {
+        $first.Via = "直连，无响应；没有可试的代理"
+        return $first
+    }
+
+    $second = Invoke-HttpProbe -Url $Url -ProxyUrl $altProxy -Timeout $Timeout
+    $secondVia = if ($altProxy) { "经代理 $altProxy" } else { "直连" }
+
+    if ($second.Status -ne 0) {
+        $second.Via = "$secondVia（$firstVia 无响应后改走）"
+        return $second
+    }
+
+    $first.Via = "代理与直连都无响应（$firstVia：$($first.Error)；$secondVia：$($second.Error)）"
+    return $first
+}
+
 # The `build` field of /api/health, so an alert says which build was running.
 function Get-BuildId {
     param([string]$Body)
@@ -354,6 +396,8 @@ function Get-TunnelLogErrors {
 function New-DefaultState {
     return [pscustomobject]@{
         publicFailures       = 0
+        unreachableRuns      = 0
+        restartsInEpisode    = 0
         localFailures        = 0
         localAlerted         = $false
         episodeStartedAt     = $null
@@ -467,10 +511,10 @@ function Restart-Tunnel {
     Start-Sleep -Seconds $RecheckSeconds
 
     $after = @(Get-TunnelProcesses)
-    $recheck = Invoke-HttpProbe -Url $PublicUrl -ProxyUrl $script:ProxyUrl -Timeout $TimeoutSeconds
+    $recheck = Invoke-PublicProbe -Url $PublicUrl -ProxyUrl $script:ProxyUrl -Timeout $TimeoutSeconds
     $pidsAfter = ($after | ForEach-Object { $_.Id }) -join ", "
 
-    Write-Log "复查：公网 $($recheck.Status)$(if ($recheck.Error) { "（$($recheck.Error)）" })；cloudflared PID $(if ($pidsAfter) { $pidsAfter } else { '无' })。"
+    Write-Log "复查：公网 $($recheck.Status)（$($recheck.Via)）；cloudflared PID $(if ($pidsAfter) { $pidsAfter } else { '无' })。"
 
     return $recheck
 }
@@ -552,7 +596,8 @@ try {
     $proxyNote = $proxy.Note
 
     $local = Invoke-HttpProbe -Url $LocalUrl -ProxyUrl $null -Timeout $TimeoutSeconds
-    $public = Invoke-HttpProbe -Url $PublicUrl -ProxyUrl $script:ProxyUrl -Timeout $TimeoutSeconds
+    $public = Invoke-PublicProbe -Url $PublicUrl -ProxyUrl $script:ProxyUrl -Timeout $TimeoutSeconds
+    $proxyNote = $public.Via
     $privateDials = @(Get-PrivateDialLines)
     $buildId = Get-BuildId -Body $local.Body
     $buildText = if ($buildId) { $buildId } else { "未知" }
@@ -604,6 +649,19 @@ try {
     $state.localFailures = 0
     $state.localAlerted = $false
 
+    # --- no HTTP answer from any route: this machine's network or the proxy, not the tunnel ---
+    if ($public.Status -eq 0 -and $privateDials.Count -eq 0) {
+        $state.unreachableRuns = [int]$state.unreachableRuns + 1
+        Write-Log "$summary — 公网无响应（第 $($state.unreachableRuns) 次）：连不上 Cloudflare 是本机网络或代理的问题，不重启隧道。"
+        Write-State -State $state
+        exit 1
+    }
+
+    if ([int]$state.unreachableRuns -gt 0) {
+        Write-Log "公网重新有响应（此前 $($state.unreachableRuns) 次无响应）。"
+        $state.unreachableRuns = 0
+    }
+
     # --- tunnel healthy ---
     $broken = ($public.Status -ne 200) -or ($privateDials.Count -gt 0)
 
@@ -625,6 +683,7 @@ try {
 
         $state.publicFailures = 0
         $state.episodeStartedAt = $null
+        $state.restartsInEpisode = 0
         $state.pendingRecoveryAlert = $false
         Write-State -State $state
         exit 0
@@ -657,9 +716,13 @@ try {
     }
 
     $sinceRestart = Get-MinutesSince -IsoTime $state.lastRestartAt
+    # Each restart that did not bring the domain back doubles the wait before
+    # the next one (15, 30, 60, then 120 minutes), so a fault a restart cannot
+    # fix costs a handful of reconnects a day instead of four an hour.
+    $cooldown = [math]::Min(120, $RestartCooldownMinutes * [math]::Pow(2, [int]$state.restartsInEpisode))
 
-    if ($sinceRestart -lt $RestartCooldownMinutes) {
-        Write-Log "$summary — 隧道异常第 $($state.publicFailures) 次（$reason），上次重启 $([math]::Round($sinceRestart, 1)) 分钟前，冷却 $RestartCooldownMinutes 分钟内不再重启。"
+    if ($sinceRestart -lt $cooldown) {
+        Write-Log "$summary — 隧道异常第 $($state.publicFailures) 次（$reason），上次重启 $([math]::Round($sinceRestart, 1)) 分钟前，本次故障已重启 $($state.restartsInEpisode) 次，冷却 $cooldown 分钟内不再重启。"
         Write-State -State $state
         exit 1
     }
@@ -672,6 +735,7 @@ try {
 
     $recheck = Restart-Tunnel
     $state.lastRestartAt = $now.ToString("o")
+    $state.restartsInEpisode = [int]$state.restartsInEpisode + 1
 
     if ($DryRun) {
         Write-Log "[DryRun] 会发送站外告警并更新状态文件 $StateFile。"
@@ -685,7 +749,7 @@ try {
         "触发：$reason（连续 $($state.publicFailures) 次）；本机 $LocalUrl 为 200。",
         $buildLine,
         "处理：Stop-ScheduledTask $TunnelTask → Stop-Process cloudflared → Start-ScheduledTask $TunnelTask。",
-        "$RecheckSeconds 秒后复查公网：$(Format-Status $recheck)（$proxyNote）。",
+        "$RecheckSeconds 秒后复查公网：$(Format-Status $recheck)（$($recheck.Via)）。",
         "故障开始于 $($state.episodeStartedAt)。"
     )
 
@@ -699,13 +763,14 @@ try {
         $state.lastAlertAt = $now.ToString("o")
         $state.publicFailures = 0
         $state.episodeStartedAt = $null
+        $state.restartsInEpisode = 0
         $state.pendingRecoveryAlert = $false
         Write-State -State $state
         exit 0
     }
 
     if ($sinceAlert -ge $AlertIntervalMinutes) {
-        Send-Alert -Title "【AI Tech Radar】隧道已重启，公网仍未恢复" -Body (($body + "看门狗会每 $RestartCooldownMinutes 分钟再试一次，每 $AlertIntervalMinutes 分钟最多提醒一次；恢复时再提醒。") -join "`n")
+        Send-Alert -Title "【AI Tech Radar】隧道已重启，公网仍未恢复" -Body (($body + "看门狗会按 $RestartCooldownMinutes、$($RestartCooldownMinutes * 2)、$($RestartCooldownMinutes * 4)、120 分钟递增的间隔再试，每 $AlertIntervalMinutes 分钟最多提醒一次；恢复时再提醒。") -join "`n")
         $state.lastAlertAt = $now.ToString("o")
     } else {
         Write-Log "距上次告警 $([math]::Round($sinceAlert, 1)) 分钟，$AlertIntervalMinutes 分钟内不重复告警。"
