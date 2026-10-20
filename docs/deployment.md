@@ -869,6 +869,7 @@ the middleware-location section above before going any further.
   `40`. Both are enforced in-process (see `docs/security-boundary.md` →
   "Public LLM Feature Boundary"); review them before configuring a real-cost
   provider, and keep a proxy/platform limit for anything abuse-shaped.
+- `PUBLIC_AI_DAILY_LIMIT` — site-wide model calls per Asia/Shanghai day across the four public AI routes, `429` until midnight once spent; default 500, counted in `config/public-ai-usage.json`, cache hits not counted; changing it needs a restart (2026-10-20).
 - `OPS_ALERT_CHANNEL_ID`: the id of an enabled delivery channel in
   `config/delivery.json` (created at `/workspace/delivery`) that
   `check:pipeline` and the tunnel watchdog send their alerts to

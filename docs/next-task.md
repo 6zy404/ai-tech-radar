@@ -122,8 +122,8 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 公开 AI 接口只按 IP 限流，没有全站每日总额度：**2026-10-20 特性窗口在做**（`PUBLIC_AI_DAILY_LIMIT`，默认 500 次 / 天，按上海自然日，运维看板显示用量；额度数由 owner 定）。
-- 流水线告警只弹本机桌面通知，隧道断了两天半也没人知道：**2026-10-20 特性窗口在做**隧道看门狗（公网 530 而本机 200 连续两次就杀掉 cloudflared 重启任务）和站外告警（复用投递渠道，`OPS_ALERT_CHANNEL_ID`）；合并后要在主检出注册看门狗计划任务。
+- ~~公开 AI 接口只按 IP 限流，没有全站每日总额度~~：2026-10-20 已做——四条路由合计每个北京时间自然日最多 `PUBLIC_AI_DAILY_LIMIT` 次模型调用（默认 500），用完回 429 到次日 00:00；缓存命中不计；计数在 `config/public-ai-usage.json`，重启不清零；运维看板「今日公开 AI 调用 N / 500」，80% 提醒、100% 严重。owner 定数后改 .env.local 并重启。
+- ~~流水线告警只弹本机桌面通知~~：2026-10-20 已做——`src/lib/ops-alert.ts` 经 `OPS_ALERT_CHANNEL_ID` 指定的投递渠道发纯文本告警，`check:pipeline` 与隧道看门狗都会发（`npm run check:pipeline -- --test` 发测试告警）。隧道看门狗 `scripts/tunnel-watchdog.ps1` 每 5 分钟跑：本机 200 而公网非 200（或 tunnel.log 拨向私网地址）连续两次就杀 cloudflared、重启 `ai-tech-radar-tunnel`，30 秒复查并告警；计划任务 `ai-tech-radar-tunnel-watchdog` 由 `scripts/setup-tunnel-watchdog.ps1 -Apply` 注册（见状态区是否已注册）。站外告警要 owner 建真实渠道（见 §5）。
 - 审查报告里其余约 110 个 P2/P3 问题（未经第二人复核），在报告里筛「待排期」逐批处理。
 
 ~~服务只监听 `127.0.0.1`、部署脚本化、日志轮转~~：2026-09-28 已做并已上线。
@@ -176,6 +176,7 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
 
 ### 5. 卡在 owner 的事
 
+- 在 /workspace/delivery 建一个真实告警渠道（Telegram / 飞书 / Discord / webhook），把 id 写进主检出 .env.local 的 `OPS_ALERT_CHANNEL_ID`，`npm run check:pipeline -- --test` 收到一条即可；线上现在只有 local-mock-webhook。顺带确认公开 AI 日总额度 500 次 / 天合不合适（约 2M tokens / 天封顶）。
 - 新信号提醒上线后用真机走一遍（桌面 Chrome 或 Android）：开提醒 → 编辑轮推送 → 收到通知 → 关提醒后服务器记录消失。预览窗格不给通知权限，做不了。
 - 用真实的 Telegram bot 和 Discord webhook 各发一次已发布简报，核对排版和截断；服务器要通过代理启动（同推送，手册 Step 7b）。
 - GitHub 仓库**本来就是公开的**（状态板曾误记为待办）。2026-10-15 已把候选快照、两个评测集、旧审计日志和内部截图从全部历史中删除并强推，

@@ -308,7 +308,11 @@ export async function generateCandidateAiDraft(
         : undefined;
     // The message reaches the editor; the cause (ECONNRESET, a TLS error …)
     // only the server log, so a round can tell a flaky proxy from a bad key.
-    console.warn("[ai-draft] model call failed", { candidateId, message, cause });
+    console.warn("[ai-draft] model call failed", {
+      candidateId,
+      message,
+      cause
+    });
 
     return fail(
       candidate,

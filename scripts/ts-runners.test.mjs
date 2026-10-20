@@ -175,6 +175,7 @@ describe("package.json scripts", () => {
       "db:init",
       "db:migrate-json",
       "db:reset",
+      "ops:alert",
       "tasks:run-once",
       "tasks:watch"
     ]);
