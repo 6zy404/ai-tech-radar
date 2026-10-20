@@ -1,0 +1,185 @@
+{
+  "updatedAt": "2026-10-20T03:12:47.408Z",
+  "records": [
+    {
+      "id": "radar-vllm",
+      "name": "vLLM",
+      "slug": "vllm",
+      "quadrant": "inference-deployment",
+      "ring": "adopt",
+      "ringReason": "几乎每个新开放模型都在首日或一个版本内获得完整支持，新执行引擎已成默认，冷启动也大幅缩短，是自建推理服务的默认起点。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-7796779a",
+        "skill-ws-a9e80194"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "adopt",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:46.760Z",
+      "updatedAt": "2026-10-20T03:12:46.760Z"
+    },
+    {
+      "id": "radar-moe-architecture",
+      "name": "混合专家（MoE）架构",
+      "slug": "moe-architecture",
+      "quadrant": "models-training",
+      "ring": "adopt",
+      "ringReason": "新旗舰与开放模型几乎都是 MoE，训练框架也围绕专家并行重写，读懂总参数与激活参数之差已是看懂任何新模型的前提。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+        "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-7796779a"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "adopt",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:46.907Z",
+      "updatedAt": "2026-10-20T03:12:46.907Z"
+    },
+    {
+      "id": "radar-million-token-context",
+      "name": "百万 token 长上下文",
+      "slug": "million-token-context",
+      "quadrant": "models-training",
+      "ring": "assess",
+      "ringReason": "旗舰模型纷纷标称百万级上下文，而实测显示检索准确率会随信息所在位置大幅起伏，标称长度不等于可用长度。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-www-qbitai-com-p-502364",
+        "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-kv-cache"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "assess",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:47.023Z",
+      "updatedAt": "2026-10-20T03:12:47.023Z"
+    },
+    {
+      "id": "radar-rl-post-training",
+      "name": "强化学习后训练（可验证奖励）",
+      "slug": "rl-post-training",
+      "quadrant": "models-training",
+      "ring": "assess",
+      "ringReason": "前沿团队把强化学习的批量、环境与评分算力一起放大，一次就要上百万美元；公开的对照里，推理时的验证与修正带来的提升比再跑一轮强化学习更大。多数团队先看自己的任务能不能自动判对错。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+        "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-rl-post-training"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-84837d46"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "assess",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:47.146Z",
+      "updatedAt": "2026-10-20T03:12:47.146Z"
+    },
+    {
+      "id": "radar-decision-models",
+      "name": "非生成式决策模型",
+      "slug": "decision-models",
+      "quadrant": "models-training",
+      "ring": "assess",
+      "ringReason": "只返回概率、不生成文字的模型把分类和重排做得极便宜，开放版本也已能在本地跑；代价是没有任何解释，厂商的速度与价格对比还缺第三方核对。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "assess",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:47.279Z",
+      "updatedAt": "2026-10-20T03:12:47.279Z"
+    },
+    {
+      "id": "radar-kv-cache-compression",
+      "name": "KV 缓存压缩",
+      "slug": "kv-cache-compression",
+      "quadrant": "inference-deployment",
+      "ring": "assess",
+      "ringReason": "分块压缩与把 KV 页溢出到主机内存能撑起长上下文，但已有模型的检索准确率随位置周期性下跌，后训练才压小这个差距。",
+      "evidenceTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502364",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-kv-cache"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "toRing": "assess",
+          "reason": "首期收录。"
+        }
+      ],
+      "status": "published",
+      "createdAt": "2026-10-20T03:12:47.408Z",
+      "updatedAt": "2026-10-20T03:12:47.408Z"
+    }
+  ]
+}

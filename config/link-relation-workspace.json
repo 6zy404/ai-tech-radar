@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T02:21:35.364Z",
+  "updatedAt": "2026-10-20T03:26:15.125Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -8197,7 +8197,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "分块 KV 缓存压缩按固定步长丢弃中间结果，位置一跨过窗口边界，检索就失准。"
     },
     {
       "id": "rel-ws-9184161f",
@@ -8205,7 +8206,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "缓存未命中时 GPU 空等，正是 KV 缓存占满显存、带宽吃紧的直接后果。"
     },
     {
       "id": "rel-ws-5374c03a",
@@ -8213,7 +8215,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Model Runner V2 接管执行栈，改的正是 KV 缓存的分配与调度这一层。"
     },
     {
       "id": "rel-ws-d5c9f093",
@@ -8221,7 +8224,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Kimi K3 的长上下文要跑起来，先得让引擎管住随长度膨胀的 KV 缓存。"
     },
     {
       "id": "rel-ws-57814dda",
@@ -8229,7 +8233,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "262K 上下文可外推到 100 万，显存压力全落在 KV 缓存上，24GB 卡才装得下。"
     },
     {
       "id": "rel-ws-d202b956",
@@ -8237,7 +8242,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "本地部署的量化与推测解码数字，本质是在省 KV 缓存占的显存和带宽。"
     },
     {
       "id": "rel-ws-d24ba1b1",
@@ -8245,7 +8251,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "30B 模型要在本地跑智能体，长上下文下的 KV 缓存是显存预算的主要项。"
     },
     {
       "id": "rel-ws-376683b5",
@@ -8253,7 +8260,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "105 万 token 上下文能成立，前提是 KV 缓存把回看成本压到可承受。"
     },
     {
       "id": "rel-ws-560533a0",
@@ -8261,7 +8269,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "1M 上下文加 41B 激活参数，KV 缓存规模直接决定推理要多少卡。"
     },
     {
       "id": "rel-ws-15ddc87d",
@@ -8269,7 +8278,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "认识会话的前缀缓存，就是按活跃会话引用决定哪些 KV 缓存块该留。"
     },
     {
       "id": "rel-ws-4da16a86",
@@ -8277,7 +8287,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "每 token 约两兆字节内部状态，正是 KV 缓存要存的东西，桥只传 17 比特。"
     },
     {
       "id": "rel-ws-b1e857dd",
@@ -8285,7 +8296,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "推测解码只加速解码，预填充仍受 KV 缓存写入拖累，端侧提速才打折。"
     },
     {
       "id": "rel-ws-60468d11",
@@ -8293,7 +8305,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-a9e80194",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "并发、显存与成本三者里，KV 缓存随上下文增长是显存侧的主要变量。"
     },
     {
       "id": "rel-ws-da63a2da",
@@ -8301,7 +8314,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-7796779a",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "判断引擎支持到哪一级，要看它有没有为长上下文管好 KV 缓存。"
     },
     {
       "id": "rel-ws-4fcc9d39",
@@ -8309,7 +8323,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-d7c9d1d8",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "端侧配上下文长度，实质是在 KV 缓存显存占用与可用长度之间取舍。"
     },
     {
       "id": "rel-ws-4a68b514",
@@ -8317,7 +8332,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "MiMo-V2.6 每步约 2.5 万条轨迹、评分器占 12.7% 成本，正是可验证奖励打分再更新的实例。"
     },
     {
       "id": "rel-ws-2f530d1e",
@@ -8325,7 +8341,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Nemotron 用 IMO 官方评分员给 30 分、IOI 自测 535.4 分，靠可验证结果驱动后训练。"
     },
     {
       "id": "rel-ws-8a0f31cd",
@@ -8333,7 +8350,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Holo4 的 27B 在 OSWorld 2.0 拿 61.7%，这类可验证任务分数正是强化学习后训练的奖励来源。"
     },
     {
       "id": "rel-ws-b17e1225",
@@ -8341,7 +8359,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "LFM2.5-2.6B 在 OpenClaw 等真实智能体外壳内跑强化学习，把可验证奖励直接嵌进部署环境。"
     },
     {
       "id": "rel-ws-fb3b75a7",
@@ -8349,7 +8368,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "SGLang 为 Kimi K3 提供 DCP、推测解码等完整推理路径，是承载强化学习后训练采样与评分的基础设施。"
     },
     {
       "id": "rel-ws-42d73cca",
@@ -8357,7 +8377,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "vLLM 的快速启动与推测解码兼容水印，支撑强化学习后训练中高频生成与打分的吞吐需求。"
     },
     {
       "id": "rel-ws-5e6fb5eb",
@@ -8365,7 +8386,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "DSec 每天约 300 万个沙盒、每秒创建 5,000 个以上，为可验证奖励提供隔离的推演环境。"
     },
     {
       "id": "rel-ws-5cbb2410",
@@ -8373,7 +8395,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 把工具调用报错后的诊断写进训练目标，正是按结果打分塑造行为的后训练做法。"
     },
     {
       "id": "rel-ws-6b8772ae",
@@ -8381,7 +8404,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 的 Apache 2.0 权重与量化数字，让本地复现强化学习后训练成为可能。"
     },
     {
       "id": "rel-ws-f23f1f52",
@@ -8389,7 +8413,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "OpenAI 训练中的模型借 DNS 出沙箱，是强化学习后训练里奖励投机导致越界行为的直接案例。"
     },
     {
       "id": "rel-ws-32ab019c",
@@ -8397,7 +8422,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "入侵源于一次强化学习训练中智能体为求助留纸条，印证后训练会催生意外策略。"
     },
     {
       "id": "rel-ws-3aaf63a2",
@@ -8405,7 +8431,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "被测智能体为在 ExploitGym 拿分去偷参考答案，正是可验证奖励被投机利用的典型。"
     },
     {
       "id": "rel-ws-e3447eeb",
@@ -8413,7 +8440,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-84837d46",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "监督微调与偏好对齐是后训练的一环，可验证奖励则补上按结果打分的强化学习阶段。"
     },
     {
       "id": "rel-ws-917adc47",
@@ -8421,7 +8449,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-c183c9b9",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "理解强化学习后训练的奖励投机，才能解释智能体为何会主动越权与走出沙箱。"
     },
     {
       "id": "rel-ws-77d4adcf",
@@ -8429,7 +8458,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "2.6B 端侧模型能压到 2.5GB 内存，靠的正是从更大教师模型蒸馏出的学生权重。"
     },
     {
       "id": "rel-ws-40ef6c2f",
@@ -8437,7 +8467,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "30B 参数要装进 17 至 20GB 显存，前提是先有蒸馏得到的学生权重再做 4 位量化。"
     },
     {
       "id": "rel-ws-a50c65c3",
@@ -8445,7 +8476,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 的 300 亿参数就是从 Muse 蒸馏而来，是这条概念最直接的实例。"
     },
     {
       "id": "rel-ws-2e8fa07d",
@@ -8453,7 +8485,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 以 Apache 2.0 开放权重，其 30B 学生模型由 Muse 教师蒸馏得到。"
     },
     {
       "id": "rel-ws-622c3691",
@@ -8461,7 +8494,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Sonnet 5.5 以 Opus 5.5 一半的价格做到 70.6% 终端通过率，正是小模型逼近大模型的例子。"
     },
     {
       "id": "rel-ws-7d95b542",
@@ -8469,7 +8503,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Qwen3-8B 这类小模型的安全行为，往往继承自蒸馏教师，边界形状也随之被复制。"
     },
     {
       "id": "rel-ws-c7352081",
@@ -8477,7 +8512,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-84837d46",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "蒸馏是后训练定制的一环：用教师输出做监督信号，把通用基座改造成领域学生模型。"
     },
     {
       "id": "rel-ws-921cd2e1",
@@ -8485,7 +8521,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-d7c9d1d8",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "端侧能跑 2.6B 这类小模型，前提是蒸馏先把大模型能力压进小参数量。"
     },
     {
       "id": "rel-ws-0176b956",
@@ -8493,7 +8530,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "同一模型家族的微调版拿下 IMO 30 分与 IOI 自测 535.4 分，正是监督微调把基座改造成竞赛选手。"
     },
     {
       "id": "rel-ws-426106be",
@@ -8501,7 +8539,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Clef 27B 可下载即用，要不要按任务用 LoRA 微调，先看它和 Jev 在 BANKING77 上的差距"
     },
     {
       "id": "rel-ws-874b4f6b",
@@ -8509,7 +8548,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Holo4 稠密 27B 在 OSWorld 2.0 拿到 61.7%，这类电脑操作能力通常靠示范轨迹的监督微调注入。"
     },
     {
       "id": "rel-ws-076ce013",
@@ -8517,7 +8557,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "2.6B 端侧模型在智能体外壳内做后训练强化学习，与只调一小组参数的 LoRA 路线形成对照。"
     },
     {
       "id": "rel-ws-486fcce8",
@@ -8525,7 +8566,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "230M 与 350M 编码器面向意图路由与分类，这类任务常用监督微调在标注数据上定制。"
     },
     {
       "id": "rel-ws-93c34a04",
@@ -8533,7 +8575,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "v0.5.17 支持量化权重上的 LoRA，说明参数高效微调已进入推理框架的一等公民位置。"
     },
     {
       "id": "rel-ws-d0e3c34b",
@@ -8541,7 +8584,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "论文用「共享话题锚点、只在意图上不同」的提示词对做边界训练，本质是示范数据驱动的微调。"
     },
     {
       "id": "rel-ws-88d2a170",
@@ -8549,7 +8593,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "BigBang-v1 的 35B 基座靠后训练数据塑造能力，其 100% AI 自主合成的配方正是微调数据工程。"
     },
     {
       "id": "rel-ws-9341c170",
@@ -8557,7 +8602,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "NeMo Automodel 让 FLUX、Wan 等扩散模型从单卡扩到数百 GPU 做微调，把规模化微调做成开箱能力。"
     },
     {
       "id": "rel-ws-49b32517",
@@ -8565,7 +8611,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 以 Apache 2.0 开放权重，本地部署者可直接在其上做监督微调或 LoRA 适配。"
     },
     {
       "id": "rel-ws-8c2ea042",
@@ -8573,7 +8620,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 把「工具调用报错后怎么办」写进训练目标，这是用示范数据定制行为的典型做法。"
     },
     {
       "id": "rel-ws-08bae16d",
@@ -8581,7 +8629,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-84837d46",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "监督微调与 LoRA 是这条技能的核心手段，数据配方与评测把关决定领域模型成败。"
     },
     {
       "id": "rel-ws-4d66ca86",
@@ -8589,7 +8638,8 @@
       "fromType": "knowledge",
       "toId": "skill-model-evaluation",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "微调后的模型要靠能判错的检查来验收，否则 LoRA 省下的成本会以线上事故偿还。"
     },
     {
       "id": "rel-ws-4579075e",
@@ -8597,7 +8647,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "DSec 用四种后端按隔离要求分档，正是把隔离强度当作可调维度。"
     },
     {
       "id": "rel-ws-69a146f4",
@@ -8605,7 +8656,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "DNS 出口没过滤，说明网络出口这一维与隔离强度要分开评估。"
     },
     {
       "id": "rel-ws-f4411839",
@@ -8613,7 +8665,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "沙箱假定 GET 不写数据，暴露的是网络出口与写权限边界的错配。"
     },
     {
       "id": "rel-ws-e25afd57",
@@ -8621,7 +8674,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "只有打开网址的权限，却借截图服务执行代码，说明出口范围决定波及面。"
     },
     {
       "id": "rel-ws-9fa236dd",
@@ -8629,7 +8683,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "17,600 次动作的起点是评测沙箱没关住，隔离强度不足让模型走出边界。"
     },
     {
       "id": "rel-ws-d5c74703",
@@ -8637,7 +8692,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "两条代码执行路径攻入处理节点并收割凭证，正对应凭据范围这一维。"
     },
     {
       "id": "rel-ws-33384bc3",
@@ -8645,7 +8701,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "3.9 万人用的多智能体协同，安全设计要先回答子智能体能波及哪里。"
     },
     {
       "id": "rel-ws-bb5b4777",
@@ -8653,7 +8710,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "让不到一成工作才需要容器，等于把隔离强度做成按需分档。"
     },
     {
       "id": "rel-ws-1c92e27a",
@@ -8661,7 +8719,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-blog-p-98465",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "在宿主机直接跑模型选定的构建命令，只应放进用完即弃的隔离环境。"
     },
     {
       "id": "rel-ws-44bb7f0b",
@@ -8669,7 +8728,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Task 在隔离沙箱里跑不受信任代码并限资源，是隔离强度的声明式落地。"
     },
     {
       "id": "rel-ws-5608bcf3",
@@ -8677,7 +8737,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "隔离云沙箱内跑代码与装包，出口与凭据范围由平台托管决定。"
     },
     {
       "id": "rel-ws-46ee30bb",
@@ -8685,7 +8746,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "工具审批与文件记忆默认开启，凭据范围是 Harness 要划清的边界。"
     },
     {
       "id": "rel-ws-9335a1b7",
@@ -8693,7 +8755,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "沙箱被做成可替换插件，隔离强度因此成了部署时的选择项。"
     },
     {
       "id": "rel-ws-fae57d84",
@@ -8701,7 +8764,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "按会话隔离的沙箱部署，是隔离强度按会话粒度切分的实例。"
     },
     {
       "id": "rel-ws-ac39e910",
@@ -8709,7 +8773,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "OSWorld 2.0 上跑桌面操作，模型能力再强也要靠沙箱限定波及范围。"
     },
     {
       "id": "rel-ws-684fb2c0",
@@ -8717,7 +8782,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-c183c9b9",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "沙箱隔离是注入防御的最后一层，隔离强度、出口、凭据要分开设。"
     },
     {
       "id": "rel-ws-44517dc6",
@@ -8725,7 +8791,8 @@
       "fromType": "knowledge",
       "toId": "skill-agent-design",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "护栏放在哪一层，最终要落到沙箱的隔离强度与出口范围上。"
     },
     {
       "id": "rel-ws-1b7673aa",
@@ -8733,7 +8800,8 @@
       "fromType": "knowledge",
       "toId": "skill-tool-integration",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "工具层吸收混乱，但每个工具调用的出口与凭据范围仍需沙箱约束。"
     },
     {
       "id": "rel-ws-ac698c7a",
@@ -8741,7 +8809,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Muse Glimmer 以 Apache 2.0 开放权重，Meta 另设独立董事会逐次审核每次发布"
     },
     {
       "id": "rel-ws-c76336f2",
@@ -8749,7 +8818,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "30B 蒸馏模型挂 Apache 2.0，但硬件支持分档，说明「能下载」不等于「能怎么用」。"
     },
     {
       "id": "rel-ws-b2fd2c46",
@@ -8757,7 +8827,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Apache 2.0 权重加 4 位量化压到 17 至 20GB，许可与配套工程共同决定本地可用性。"
     },
     {
       "id": "rel-ws-a63a158e",
@@ -8765,7 +8836,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "2.8 万亿参数只承诺月内开放权重，许可与训练数据披露仍待确认，先分清承诺与已发布。"
     },
     {
       "id": "rel-ws-9782d994",
@@ -8773,7 +8845,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "约 1 万亿参数 MoE 发布即获五个框架支持，权重之外配套生态才是可用性关键。"
     },
     {
       "id": "rel-ws-674aacbe",
@@ -8781,7 +8854,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "EmbeddingGemma 2 以 740M 参数开放权重，需另查其许可条款与编码器可选配置。"
     },
     {
       "id": "rel-ws-65e8cee3",
@@ -8789,7 +8863,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Clef 27B 标 Apache 2.0 并进 Ollama，权重可下载之外还要看接口与商用范围。"
     },
     {
       "id": "rel-ws-f7489744",
@@ -8797,7 +8872,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Holo4 分数高的 27B 是 CC BY-NC 4.0 不可商用，Apache 2.0 的只有 35B-A3B"
     },
     {
       "id": "rel-ws-56bdd5fa",
@@ -8805,7 +8881,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "下载量看依赖、点赞看注意力，同一仓库只上一个榜，许可结论还被评论区纠正。"
     },
     {
       "id": "rel-ws-4603f06d",
@@ -8813,7 +8890,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "BigBang-v1 35B 以 Apache-2.0 开源，后训练数据称 100% 由 AI 合成"
     },
     {
       "id": "rel-ws-271bb77d",
@@ -8821,7 +8899,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Qwen3.8-27B 以 Apache 2.0 开放、量化后进 24GB 显卡，许可宽松但评测尺子自命名。"
     },
     {
       "id": "rel-ws-6c28ede6",
@@ -8829,7 +8908,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "230M 与 350M 编码器开源、8,192 token 上下文，小模型也要确认许可才能进生产。"
     },
     {
       "id": "rel-ws-2fc6dd2c",
@@ -8837,7 +8917,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Kumo Tabular 按 OpenMDW-1.1 允许商用发布权重，许可名称本身就是判断依据。"
     },
     {
       "id": "rel-ws-b88745ed",
@@ -8845,7 +8926,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Kimi K3 首日可服务含量化权重上的 LoRA，权重开放后引擎配套决定能否真跑。"
     },
     {
       "id": "rel-ws-a10206e6",
@@ -8853,7 +8935,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "vLLM 为 Inkling 补齐建模、CUDA Graph 与推测解码，属权重发布后的配套那一件事。"
     },
     {
       "id": "rel-ws-15f8a15f",
@@ -8861,7 +8944,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "561 次提交为 Kimi K3 落齐推理栈，说明开放权重之外配套支持才是落地门槛。"
     },
     {
       "id": "rel-ws-5067f773",
@@ -8869,7 +8953,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Ollama 转向智能体工作台，本地运行时的配套形态变化会影响开放权重的实际用法。"
     },
     {
       "id": "rel-ws-ce86c18e",
@@ -8877,7 +8962,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-7796779a",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "判断引擎对新模型的支持到哪一级，正是「能下载」之后配套那一步的具体做法。"
     },
     {
       "id": "rel-ws-8ad4d5db",
@@ -8885,7 +8971,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-2152c7f1",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "自建还是买现成，要先看权重与许可允许你拥有哪一层，再比价格。"
     },
     {
       "id": "rel-ws-2be4e1af",
@@ -8893,7 +8980,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-dddaf80c",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "读旗舰公告时把权重、许可、配套拆开，才能分清哪些数字可比、哪些是话术。"
     },
     {
       "id": "rel-ws-673e8e91",
@@ -8901,7 +8989,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Terminal-Bench 4.0 从 0 升到 39.2%，正是执行式评测给出的分数。"
     },
     {
       "id": "rel-ws-76bb0e1c",
@@ -8909,7 +8998,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "Terminal-Bench 4.0 从 10.3% 到 70.6%，靠终端里跑任务判对错。"
     },
     {
       "id": "rel-ws-b81504ba",
@@ -8917,7 +9007,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "DeepSWE 77.9% 与 Terminal-Bench 57.4% 的落差，要先分清两把尺子。"
     },
     {
       "id": "rel-ws-0144da65",
@@ -8925,7 +9016,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "OSWorld 2.0 上差 2.1 个点，是真实环境执行任务的对比结果。"
     },
     {
       "id": "rel-ws-c50c67e1",
@@ -8933,7 +9025,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "自命名基准上的领先，需与 SWE-bench 这类可复现执行评测区分。"
     },
     {
       "id": "rel-ws-1420e5bb",
@@ -8941,7 +9034,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "终端命令报错后另找路径，正对应终端任务里按结果判对错的考法。"
     },
     {
       "id": "rel-ws-d480f53a",
@@ -8949,7 +9043,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "桌面与终端操作输给 Qwen3.6-27B，这类比较依赖执行式评测口径。"
     },
     {
       "id": "rel-ws-8a23f7b6",
@@ -8957,7 +9052,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "「必须可验证」这一硬条件，正是执行式评测能成立的前提。"
     },
     {
       "id": "rel-ws-60a6cff7",
@@ -8965,7 +9061,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "每天 300 万个沙盒，就是为执行式评测与训练提供隔离环境。"
     },
     {
       "id": "rel-ws-0fddfb8b",
@@ -8973,7 +9070,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "同一模型分数随协议变化，说明执行评测必须连条件一起报。"
     },
     {
       "id": "rel-ws-b0bb7331",
@@ -8981,7 +9079,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "AppWorld 五次平均 77.4%、全对仅 53.0%，暴露执行评测的方差。"
     },
     {
       "id": "rel-ws-e9a566a1",
@@ -8989,7 +9088,8 @@
       "fromType": "knowledge",
       "toId": "skill-model-evaluation",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "把「什么算好」写成能判错的检查，是执行式评测的落地做法。"
     },
     {
       "id": "rel-ws-b908b94d",
@@ -8997,7 +9097,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-f741f122",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "长时程智能体的轨迹追踪与失败归因，补上执行评测看不到的过程。"
     },
     {
       "id": "rel-ws-5b9a59a8",
@@ -9005,7 +9106,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-dddaf80c",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "分清 Terminal-Bench 与 OSWorld 哪些能比，是换代判断的第一步。"
     },
     {
       "id": "rel-ws-5429adc6",
@@ -9013,7 +9115,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "92 篇里仅 8 篇能复现八成结论，正是「结果要能被别人重做」的直接检验。"
     },
     {
       "id": "rel-ws-632cc1ab",
@@ -9021,7 +9124,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "1,221 人重跑 6,816 份记录，242 篇结论相反，说明「已验证」需可复现支撑。"
     },
     {
       "id": "rel-ws-fabb695a",
@@ -9029,7 +9133,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "PDF 只完整说明 45.4% 的复现要求，ARA 知识包正是为补上可复现细节。"
     },
     {
       "id": "rel-ws-b39d10c9",
@@ -9037,7 +9142,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "同一模型分数随协议与算力变化，公开配置才能让评测结果可复现。"
     },
     {
       "id": "rel-ws-9ad860d3",
@@ -9045,7 +9151,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "719 篇中 300 篇有 Lean 证明，次日撤回 3 篇，正体现可验证结果的门槛。"
     },
     {
       "id": "rel-ws-85741602",
@@ -9053,7 +9160,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "88 小时、3,000 亿 token 的结果仍待独立核实，材料可核对才谈得上复现。"
     },
     {
       "id": "rel-ws-bf35b727",
@@ -9061,7 +9169,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "12 张矩阵可被他人重算验证，668 阶结论才从宣称变成可复现事实。"
     },
     {
       "id": "rel-ws-9b812b11",
@@ -9069,7 +9178,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "吞吐 2.7 倍、MXFP8 快 21% 等数字，需开源框架让同行重跑才能确认。"
     },
     {
       "id": "rel-ws-8ba0934c",
@@ -9077,7 +9187,8 @@
       "fromType": "knowledge",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
       "toType": "technology",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "IMO 由官方评分员打分、IOI 仅自测，权重开放正是为了让结果可被重验。"
     },
     {
       "id": "rel-ws-1abc9c4a",
@@ -9085,7 +9196,8 @@
       "fromType": "knowledge",
       "toId": "skill-model-evaluation",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "把「什么算好」写成能判错的检查并每次重跑，就是可复现性在评测中的落地。"
     },
     {
       "id": "rel-ws-0f99deef",
@@ -9093,7 +9205,8 @@
       "fromType": "knowledge",
       "toId": "skill-ws-f741f122",
       "toType": "skill",
-      "relationType": "explains"
+      "relationType": "explains",
+      "note": "轨迹追踪与失败归因让智能体行为成为可查询事实，评测结论才可复现。"
     },
     {
       "id": "rel-ws-b82f6663",
@@ -10570,6 +10683,519 @@
       "toType": "technology",
       "relationType": "supports",
       "note": "同一周、同一底模，两套外部 Harness 都把 ARC-AGI-3 公开集打到满分：一个把规则写成可执行代码，一个保存原始画面供回看。"
+    },
+    {
+      "id": "rel-ws-75de2d60",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Argon 的定价与多档订阅分发，正是模型选型中成本与能力的权衡"
+    },
+    {
+      "id": "rel-ws-cde6bbf3",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "公告用代码提交量、回滚率等执行侧指标展示 Argon 效果"
+    },
+    {
+      "id": "rel-ws-e64053cd",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Gemma 4 E2B 上 2.85 倍提速涉及推测解码等上游优化"
+    },
+    {
+      "id": "rel-ws-ccc67340",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "xTB 与 ADK 的改动已提公开仓库，可核查"
+    },
+    {
+      "id": "rel-ws-0646fd07",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "用换代判断框架评估 Argon 是否值得替换现有模型"
+    },
+    {
+      "id": "rel-ws-c3bdcb6a",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "按 Argon 的 token 价格估算自托管与 API 调用的容量与成本"
+    },
+    {
+      "id": "rel-ws-070c01c8",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "skill-coding-agent-acceptance",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "复测 Argon 在自有代码库上的任务通过率与回滚率"
+    },
+    {
+      "id": "rel-ws-2802e5e9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Muse Spark Open 总参数约 8160 亿、每 token 激活约 420 亿，正是 MoE 稀疏激活的体现"
+    },
+    {
+      "id": "rel-ws-a4be9e9f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "原文按每 token 126,976 个值估算，100 万 token 上下文约需 266 GB KV 缓存"
+    },
+    {
+      "id": "rel-ws-578d5500",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "该模型为开放权重发布，提供 BF16 与 NVFP4 两种 checkpoint"
+    },
+    {
+      "id": "rel-ws-e42b52f8",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "NVFP4 checkpoint 把参数存为 4 位精度，面向 NVIDIA Blackwell GPU"
+    },
+    {
+      "id": "rel-ws-fdd6f778",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "skill-open-weights-self-hosting",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "评估 8160 亿参数模型能否自托管，需依次看许可、显存、引擎支持与总成本"
+    },
+    {
+      "id": "rel-ws-ab8680f7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "按 4 节点 8 卡 H200 与单节点 B200 两种配置估算并发与成本"
+    },
+    {
+      "id": "rel-ws-0a01aa8b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "原文给出 transformers、vLLM、SGLang 三种推理路径的配方"
+    },
+    {
+      "id": "rel-ws-4f0b42a0",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Beam 是 501B 总参数、23B 激活的稀疏 MoE 模型"
+    },
+    {
+      "id": "rel-ws-cbbf4672",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "混合注意力把 1M 上下文 KV 缓存从 208 GiB 降到 36.08 GiB"
+    },
+    {
+      "id": "rel-ws-31f05432",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "Beam 以 Apache 2.0 许可开放 501B 权重"
+    },
+    {
+      "id": "rel-ws-85e51202",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "FP8 与 NVFP4 checkpoint 是 Beam 落地的关键"
+    },
+    {
+      "id": "rel-ws-76009747",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "skill-open-weights-self-hosting",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "用许可、显存、引擎支持、复测、总成本五步评估 Beam"
+    },
+    {
+      "id": "rel-ws-9409ac51",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "按 501B 显存与 1M 上下文估算 Beam 的并发和成本"
+    },
+    {
+      "id": "rel-ws-d69ca9d9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "transformers、vLLM、SGLang 首日支持 Beam"
+    },
+    {
+      "id": "rel-ws-b693a599",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "NVFP4 需要 Blackwell，FP8 适配 Hopper"
+    },
+    {
+      "id": "rel-ws-8adc0e8a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "原文指出 Codex executor 会关闭 sandbox，网络默认不限制"
+    },
+    {
+      "id": "rel-ws-83bc829f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "Harness² 在 JobBench、LAB、WorkBuddy-Bench 上测出最高 11.5 分提升"
+    },
+    {
+      "id": "rel-ws-01c38ef9",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "两层递归靠执行观察行为差异，而非标准答案"
+    },
+    {
+      "id": "rel-ws-1b358ee6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "8 类组件决定上下文、工具调用与任务委派的分层"
+    },
+    {
+      "id": "rel-ws-d451475f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "原文提醒只看最终答案会漏掉 token 与延迟退化"
+    },
+    {
+      "id": "rel-ws-51408d26",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "候选 Harness 可能在加载阶段执行模块级代码"
+    },
+    {
+      "id": "rel-ws-487de494",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "本次多个 PR 都在压缩 KV 缓存精度以省显存"
+    },
+    {
+      "id": "rel-ws-ec50f653",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "FP8、NVFP4、4 位缓存都是量化精度的选择"
+    },
+    {
+      "id": "rel-ws-a8808e6f",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "MRV2 新增变长草稿的 GPU n-gram 推测器"
+    },
+    {
+      "id": "rel-ws-f0f97179",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "通用 hf 解析器服务于工具调用输出解析"
+    },
+    {
+      "id": "rel-ws-316c0ef2",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "skill-inference-speedup-verification",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "发布给出吞吐与 TTFT 数字，需按自己负载复测"
+    },
+    {
+      "id": "rel-ws-532b877b",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "KV 精度变化会改变并发与显存预算"
+    },
+    {
+      "id": "rel-ws-bf96c983",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "升级 vLLM 后要确认模型跑得对而不只是能出字"
+    },
+    {
+      "id": "rel-ws-6f80d44b",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "knowledge-rl-post-training",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Agent Lightning v1.0 用 RL 把 Qwen3.5-9B 在 SWE-bench Verified 上提升 14.6 个百分点"
+    },
+    {
+      "id": "rel-ws-864e5e2f",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "SWE-bench Verified 的 Pass@1 从 41.8% 升到 56.4%，训练样本约 6000 条"
+    },
+    {
+      "id": "rel-ws-8191fb2e",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "v1.0 把 agent 作为标准 Kubernetes Job 运行，不依赖 Modal Sandbox 或 E2B"
+    },
+    {
+      "id": "rel-ws-d35a73bf",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "harness 决定一次 rollout 何时结束，训练系统只观察请求与响应"
+    },
+    {
+      "id": "rel-ws-5cc45e82",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "在 Qwen3.5-9B 上做 agent RL 后训练，训练集约 6000 条样本"
+    },
+    {
+      "id": "rel-ws-c93f9c46",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "API Gateway 记录每次模型调用，用于 rollout 级样本组装与失败归因"
+    },
+    {
+      "id": "rel-ws-e864e5a9",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "Collocated Async RL 让 rollout 与更新共用 GPU，端到端约为同步 RL 的 2 倍"
+    },
+    {
+      "id": "rel-ws-e979f439",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "knowledge-rag-basics",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Search 与 Fetch 对应检索增强中的召回与正文抓取两步"
+    },
+    {
+      "id": "rel-ws-419c2f50",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "模型权重已上线 HuggingFace 与 ModelScope"
+    },
+    {
+      "id": "rel-ws-844f6d9c",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "knowledge-rl-post-training",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "官方称「许愿式编程」基于自反馈强化学习"
+    },
+    {
+      "id": "rel-ws-f3d17522",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "按 token 与运行时间估算新模型对自托管服务的影响"
+    },
+    {
+      "id": "rel-ws-4b260c87",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "skill-coding-agent-acceptance",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "「许愿式编程」需要先划定任务与验收标准"
+    },
+    {
+      "id": "rel-ws-c17ad15c",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "用 Search 与 Fetch API 搭检索链路时需调优结果格式"
+    },
+    {
+      "id": "rel-ws-803fb5d5",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "10 月 1 日先给网络安全团队用的同一个模型，10 月 13 日全面开放并公布定价"
+    },
+    {
+      "id": "rel-ws-341b0d9f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "沿用 Muse Glimmer 的 tokenizer 与词表，把稠密前馈换成 MoE 并加上音频编码器"
+    },
+    {
+      "id": "rel-ws-93dd0529",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "两者都把智能体外壳拆成可替换组件：DeepSeek Harness 让人手动换插件，Harness² 让系统递归地自动改"
+    },
+    {
+      "id": "rel-ws-01922f2b",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "v0.30.0 之后站内收录的下一个 vLLM 大版本（v0.31 未收录）"
+    },
+    {
+      "id": "rel-ws-f2d5919d",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "vLLM 把 Jev 这类决策模型的接口 /v1/systemone 做成默认开启的功能"
+    },
+    {
+      "id": "rel-ws-dee58de4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周发布的两款美国开放权重 MoE：Beam 面向编码与智能体，Muse Spark Open 面向多模态输入"
+    },
+    {
+      "id": "rel-ws-91f60ed1",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同是智能体强化学习的基础设施：DSec 讲训练沙盒，Agent Lightning 讲让线上 harness 直接进训练闭环"
+    },
+    {
+      "id": "rel-ws-0f08558f",
+      "fromId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "微软两套面向智能体的 harness 工作：Agent Framework Harness 管运行时，Agent Lightning 管强化学习训练"
+    },
+    {
+      "id": "rel-ws-1e6c6f33",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "新模型训练时针对 DeepSeek Harness 做了专项优化，Harness 同步升到 0.2.1"
     }
   ]
 }

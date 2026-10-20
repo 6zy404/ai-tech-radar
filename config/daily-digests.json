@@ -1,6 +1,450 @@
 {
-  "updatedAt": "2026-10-13T02:25:39.006Z",
+  "updatedAt": "2026-10-20T03:10:21.794Z",
   "digests": [
+    {
+      "id": "digest-2026-10-20",
+      "date": "2026-10-20",
+      "status": "published",
+      "title": "技术简报 - 2026-10-20",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
+      "editorialSummary": "这一期的信号指向同一件事：模型的竞争点正从单项能力转向智能体任务的完成度和单位成本。先看 Google DeepMind 的 Gemini 4 Argon：当天通过 API 全面开放，每百万输入 token 2 美元、输出 10 美元。开放权重阵营同期跟上，Meta 的 Muse Spark Open（816B 多模态 MoE）和 Reflection 的 Beam（501B，Apache 2.0）都得先算显存；DeepSeek 的 V4.1 Flash 新版则主打更强也更省。训练与部署栈也在动：Agent Lightning 让线上 harness 直接参与强化学习，vLLM v0.32.0 把 GLM-5.x 在 SM100 上的 KV 缓存默认改成 FP8，升级前要实测。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+        "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "manuallyAddedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-504067",
+        "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam"
+      ],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+        "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-504067",
+        "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam"
+      ],
+      "skillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-7796779a",
+        "skill-coding-agent-acceptance",
+        "skill-open-weights-self-hosting",
+        "skill-agent-design",
+        "skill-inference-speedup-verification",
+        "skill-model-evaluation",
+        "skill-retrieval-tuning"
+      ],
+      "knowledgeIds": [
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval",
+        "knowledge-kv-cache",
+        "knowledge-ws-34da6116",
+        "knowledge-agent-sandboxing",
+        "knowledge-rl-post-training",
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "Microsoft Research Blog",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-10-20T12:00:00.000Z",
+      "updatedAt": "2026-10-20T03:10:21.792Z",
+      "lastRegeneratedAt": "2026-10-20T03:07:37.322Z",
+      "publishedAt": "2026-10-20T03:10:21.792Z",
+      "editorialNotes": [
+        "2026-10-20 编辑轮：71 条盲评，发 7 条（AI 起草 v2 提示词），Argon 置顶，排除 5 条九月旧项，加入 Beam 与 DeepSeek。",
+        "导语由 AI 起草（613 字）后删到约 250 字，数字对过各信号正文。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-19",
+      "date": "2026-10-19",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-19",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "skillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-ws-a9e80194",
+        "skill-ws-dddaf80c",
+        "skill-tool-integration",
+        "skill-ai-science-evidence",
+        "skill-coding-agent-acceptance"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56",
+        "knowledge-execution-based-eval",
+        "knowledge-system-design"
+      ],
+      "sourceNames": [
+        "量子位",
+        "GitHub Blog AI",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-19T12:00:00.000Z",
+      "updatedAt": "2026-10-19T01:20:57.389Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-17",
+      "date": "2026-10-17",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-17",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "skillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-a9e80194",
+        "skill-ai-science-evidence",
+        "skill-coding-agent-acceptance"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-execution-based-eval",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "量子位",
+        "GitHub Blog AI",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-17T12:00:00.000Z",
+      "updatedAt": "2026-10-17T00:06:07.175Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-16",
+      "date": "2026-10-16",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-16",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "skillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-a9e80194",
+        "skill-ai-science-evidence",
+        "skill-coding-agent-acceptance"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-execution-based-eval",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "量子位",
+        "GitHub Blog AI",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-16T12:00:00.000Z",
+      "updatedAt": "2026-10-16T00:06:35.971Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-15",
+      "date": "2026-10-15",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-15",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-ws-a9e80194",
+        "skill-ai-science-evidence",
+        "skill-tool-integration",
+        "skill-ws-c183c9b9"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-execution-based-eval",
+        "knowledge-tool-use",
+        "knowledge-agent-sandboxing"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-15T12:00:00.000Z",
+      "updatedAt": "2026-10-15T00:07:30.735Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-14",
+      "date": "2026-10-14",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-14",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654",
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
+        "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-ws-a9e80194",
+        "skill-ai-science-evidence",
+        "skill-tool-integration",
+        "skill-ws-c183c9b9"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-model-sizing",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-14T12:00:00.000Z",
+      "updatedAt": "2026-10-14T00:07:03.139Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-10-13",
       "date": "2026-10-13",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T02:20:38.969Z",
+  "updatedAt": "2026-10-20T02:59:13.873Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -4031,6 +4031,424 @@
       "importStatus": "converted",
       "reviewedAt": "2026-10-13T02:20:38.969Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-4-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-14T00:07:01.415Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-4-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-14T00:07:01.478Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-4-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-14T00:07:01.540Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-14T00:07:01.603Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-5-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-15T00:07:29.058Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-15T00:07:29.133Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-5-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-16T00:06:34.226Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-5-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-16T00:06:34.303Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-16T00:06:34.368Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-6-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-17T00:06:05.459Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-6-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-17T00:06:05.533Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-7-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-19T01:20:55.444Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-1rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-19T01:20:55.510Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0rc3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-19T01:20:55.577Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-504116": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:16.832Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503880": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:16.964Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503865": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.063Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503861": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.166Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503893": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.274Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-blog-p-99556": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.400Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-2ug3w14thqtlhb5vou51-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.505Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-zbfzqbuxfmp1qripzwtg-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.627Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ozhrjyasxvjozxrwlt6t-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.737Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-uyj6ossb7gldtxoorlxx-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.860Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-4t84hfyjyp6gq9knwe60-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:17.956Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-amp-beyond-coding": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.060Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-sentinelone": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.155Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-third-moment-research": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.275Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-block-ai-powered-security": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.371Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-the-eus-next-chapter-in-ai-is-agentic": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.470Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-teaching-students-to-think-and-learn-through-questions": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.564Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-sullivan-cromwell": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.684Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-stack-overflow-chatgpt-plugin": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.773Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-benefit-street-partners": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.869Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-itau-generative-ai": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:18.963Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-6-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-20T02:48:19.076Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503965": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.167Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503935": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.258Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-503910": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.349Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504136": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.464Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-blog-p-99413": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.554Z",
+      "blind": true
+    },
+    "candidate-rss-https-deepmind-google-blog-on-device-ai-scam-detection-mddi": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.652Z",
+      "blind": true
+    },
+    "candidate-rss-https-deepmind-google-blog-developing-gemini-4-argon-responsibly-and-safely": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.751Z",
+      "blind": true
+    },
+    "candidate-rss-https-deepmind-google-blog-gemini-4-argon-for-robotics": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:19.864Z",
+      "blind": true
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-4-argon": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:16.331Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon"
+    },
+    "candidate-rss-https-deepmind-google-blog-accelerating-antimicrobial-discovery": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.062Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm25-24b-a2b": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.155Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-swiss-ai-apertus-v15-release-notes": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.269Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-flux-3": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.357Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-hiro-acev2": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.461Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-scaling-indic-pretraining": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.641Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-granite-granite-switch-4-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.753Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-4ipptjpxqqx5lr77ubfz-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.846Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ddda0df68laqfoqa4lju-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:20.939Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-lkxbovojwmqgmqemuorx-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.039Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ik5awdwovcu5lx3e3mhc-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.156Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-k5j7yb60djwkm6vuzqwq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.247Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-brofcyfpijqqvbz4nqdi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.337Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-v2-0-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.428Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-blog-gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.517Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1186724": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.629Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1186774": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.723Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1186958": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.817Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1186954": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:21.916Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1186605": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.030Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1188632": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.123Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1185936": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.219Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1189337": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.318Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-6-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.432Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-4": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.525Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-5": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.616Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-6": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.707Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-introducing-the-rosalind-academic-plan": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.823Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-low-resource-programming-languages": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:22.928Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-22": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:23.025Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:23.118Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:23.242Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-20-2": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-20T02:48:23.337Z",
+      "blind": true
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:16.331Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:20.365Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-reflection-beam": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:29.155Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-reflection-beam",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:30.951Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-ad1m3mj2sh1djrta1r5q-utm-source-rss-amp-utm-medium-article",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:40.708Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-32-0",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1187920": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:50:43.999Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-microsoft-com-en-us-research-p-1187920",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504067": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-20T02:59:13.873Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
       "blind": true
     }
   }
