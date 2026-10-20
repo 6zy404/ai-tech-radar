@@ -10,6 +10,13 @@
  *       grid would flag that eval/dedup/labels.jsonl has no label for
  *       (git-ignored; label them and append to labels.jsonl before trusting a
  *       new number)
+ *   node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts --batch 2026-10-20 --new-since 2026-10-13
+ *       held-out mode: only pairs the earlier labelling never saw — at least
+ *       one side is a candidate decided on or after --new-since (or still
+ *       undecided), or a signal published since then — and whose label, if
+ *       any, carries `batch` = the given name. Pairs labelled before the batch
+ *       are left out, so the tables score the batch alone. Combine with
+ *       --unlabelled to list what the batch still needs labelled.
  *
  * Read-only against the stores. The corpus is eval/triage/dataset.jsonl
  * (every decided candidate's text, rebuilt from git history) plus the current
@@ -53,6 +60,8 @@ interface LabelRow {
   a: string;
   b: string;
   label: Label;
+  /** Which labelling batch the pair belongs to; absent for the first one. */
+  batch?: string;
 }
 
 interface Signal {
@@ -60,9 +69,40 @@ interface Signal {
   status: string;
   sourceUrl: string;
   publishDate: string;
+  /** When the record was created — the moment its candidate was converted. */
+  createdAt: string;
   sourceCandidateId?: string;
   title: { original: string; zh?: string; en?: string };
   summary: { original: string; zh?: string };
+}
+
+interface HeldOutOptions {
+  batch: string;
+  newSince: string;
+}
+
+function readArgs(): { heldOut?: HeldOutOptions; unlabelled: boolean } {
+  const args = process.argv.slice(3);
+  const value = (name: string) => {
+    const index = args.indexOf(name);
+
+    return index >= 0 ? args[index + 1] : undefined;
+  };
+  const batch = value("--batch");
+  const newSince = value("--new-since");
+
+  if ((batch === undefined) !== (newSince === undefined)) {
+    throw new Error("--batch and --new-since go together");
+  }
+
+  if (newSince !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(newSince)) {
+    throw new Error(`--new-since takes a YYYY-MM-DD date, got ${newSince}`);
+  }
+
+  return {
+    heldOut: batch && newSince ? { batch, newSince } : undefined,
+    unlabelled: args.includes("--unlabelled")
+  };
 }
 
 /**
@@ -92,14 +132,22 @@ interface ScoredPair {
   deterministic: boolean;
   scores: Record<Scheme, number>;
   label?: Label;
+  batch?: string;
+  /** In the held-out batch (see --batch); always true outside that mode. */
+  heldOut: boolean;
 }
 
 function readJson<T>(relativePath: string): T {
   return JSON.parse(readFileSync(path.join(root, relativePath), "utf8")) as T;
 }
 
-function loadCandidates(): ImportedCandidate[] {
+function loadCandidates(): {
+  candidates: ImportedCandidate[];
+  /** When each candidate was decided; absent for undecided ones. */
+  decidedAt: Map<string, string>;
+} {
   const byId = new Map<string, ImportedCandidate>();
+  const decidedAt = new Map<string, string>();
   const reviewState = readJson<{
     items: Record<string, { convertedTechnologyId?: string }>;
   }>("config/candidate-review-state.json");
@@ -111,6 +159,10 @@ function loadCandidates(): ImportedCandidate[] {
     .split("\n")
     .filter(Boolean)) {
     const row = JSON.parse(line) as Record<string, string>;
+
+    if (row.decidedAt) {
+      decidedAt.set(row.id, row.decidedAt);
+    }
 
     byId.set(row.id, {
       id: row.id,
@@ -142,11 +194,14 @@ function loadCandidates(): ImportedCandidate[] {
     }
   }
 
-  return [...byId.values()].map((candidate) => ({
-    ...candidate,
-    convertedTechnologyId:
-      reviewState.items[candidate.id]?.convertedTechnologyId
-  }));
+  return {
+    candidates: [...byId.values()].map((candidate) => ({
+      ...candidate,
+      convertedTechnologyId:
+        reviewState.items[candidate.id]?.convertedTechnologyId
+    })),
+    decidedAt
+  };
 }
 
 function pairKey(kind: PairKind, a: string, b: string): string {
@@ -155,7 +210,7 @@ function pairKey(kind: PairKind, a: string, b: string): string {
     : `${kind}|${[a, b].sort().join("|")}`;
 }
 
-function readLabels(): Map<string, Label> {
+function readLabels(): Map<string, { label: Label; batch?: string }> {
   if (!existsSync(labelsPath)) {
     return new Map();
   }
@@ -166,7 +221,10 @@ function readLabels(): Map<string, Label> {
       .filter(Boolean)
       .map((line) => {
         const row = JSON.parse(line) as LabelRow;
-        return [pairKey(row.kind, row.a, row.b), row.label] as const;
+        return [
+          pairKey(row.kind, row.a, row.b),
+          { label: row.label, batch: row.batch }
+        ] as const;
       })
   );
 }
@@ -194,11 +252,29 @@ function percent(numerator: number, denominator: number): string {
 }
 
 async function main() {
-  const candidates = loadCandidates();
+  const { heldOut, unlabelled: writeUnlabelled } = readArgs();
+  const { candidates, decidedAt } = loadCandidates();
   const signals = readJson<{ records: Signal[] }>(
     "config/technology-workspace.json"
   ).records.filter((record) => record.status === "published");
   const labels = readLabels();
+  // A candidate is new to the batch when it was decided on or after
+  // --new-since, or not decided at all; a signal when it was published then.
+  const isNewCandidate = (id: string) => {
+    const decided = decidedAt.get(id);
+
+    return heldOut
+      ? decided === undefined || decided.slice(0, 10) >= heldOut.newSince
+      : false;
+  };
+  const isNewSignal = (signal: Signal) =>
+    heldOut ? signal.createdAt.slice(0, 10) >= heldOut.newSince : false;
+  const isHeldOut = (
+    isNew: boolean,
+    labelled: { label: Label; batch?: string } | undefined
+  ) =>
+    !heldOut ||
+    (isNew && (labelled === undefined || labelled.batch === heldOut.batch));
   const startedAt = Date.now();
   const candidateVectors = await embedPassages(
     candidates.map((candidate) =>
@@ -218,6 +294,20 @@ async function main() {
   console.log(
     `模型 ${EMBEDDING_MODEL}；候选 ${candidates.length} 条，已发布信号 ${signals.length} 条；已标注 ${labels.size} 对；向量 ${Date.now() - startedAt}ms`
   );
+
+  if (heldOut) {
+    const newCandidates = candidates.filter((candidate) =>
+      isNewCandidate(candidate.id)
+    ).length;
+    const newSignals = signals.filter(isNewSignal).length;
+    const batchLabels = [...labels.values()].filter(
+      (row) => row.batch === heldOut.batch
+    ).length;
+
+    console.log(
+      `留出批 ${heldOut.batch}：${heldOut.newSince} 起决定（或未决定）的候选 ${newCandidates} 条、同日起发布的信号 ${newSignals} 条，带该批标注 ${batchLabels} 对；下面的表只计这批里的配对`
+    );
+  }
 
   let offset = 0;
   const signalVectors = signalTexts.map((texts) => {
@@ -294,6 +384,10 @@ async function main() {
         );
       }
 
+      const labelled = labels.get(
+        pairKey("candidate", candidates[left].id, candidates[right].id)
+      );
+
       pairs.push({
         kind: "candidate",
         a: candidates[left].id,
@@ -310,8 +404,12 @@ async function main() {
         deterministic:
           getDuplicateReasons(candidates[left], candidates[right]).length > 0,
         scores,
-        label: labels.get(
-          pairKey("candidate", candidates[left].id, candidates[right].id)
+        label: labelled?.label,
+        batch: labelled?.batch,
+        heldOut: isHeldOut(
+          isNewCandidate(candidates[left].id) ||
+            isNewCandidate(candidates[right].id),
+          labelled
         )
       });
     }
@@ -343,6 +441,10 @@ async function main() {
         );
       }
 
+      const labelled = labels.get(
+        pairKey("published", candidate.id, signal.id)
+      );
+
       pairs.push({
         kind: "published",
         a: candidate.id,
@@ -358,7 +460,12 @@ async function main() {
           publishedSignals: [publishedFingerprints[signalIndex]]
         }).flags.includes("already_published"),
         scores,
-        label: labels.get(pairKey("published", candidate.id, signal.id))
+        label: labelled?.label,
+        batch: labelled?.batch,
+        heldOut: isHeldOut(
+          isNewCandidate(candidate.id) || isNewSignal(signal),
+          labelled
+        )
       });
     });
   });
@@ -366,7 +473,7 @@ async function main() {
   const unlabelled = new Map<string, ScoredPair>();
 
   for (const kind of ["candidate", "published"] as const) {
-    const ofKind = pairs.filter((pair) => pair.kind === kind);
+    const ofKind = pairs.filter((pair) => pair.kind === kind && pair.heldOut);
     const sameTotal = ofKind.filter((pair) => pair.label === "same").length;
     const sameCaught = ofKind.filter(
       (pair) => pair.label === "same" && pair.deterministic
@@ -376,7 +483,7 @@ async function main() {
     ).length;
 
     console.log(
-      `\n## ${kind === "candidate" ? "候选 ↔ 候选" : "候选 ↔ 已发布信号"}：「同一条」${sameTotal} 对，现有规则抓到 ${sameCaught} 对（另误抓无关 ${wronglyCaught} 对）`
+      `\n## ${kind === "candidate" ? "候选 ↔ 候选" : "候选 ↔ 已发布信号"}${heldOut ? `（留出批，${ofKind.length} 对）` : ""}：「同一条」${sameTotal} 对，现有规则抓到 ${sameCaught} 对（另误抓无关 ${wronglyCaught} 对）`
     );
 
     for (const scheme of schemes) {
@@ -448,6 +555,7 @@ async function main() {
 
   for (const pair of pairs.filter(
     (item) =>
+      item.heldOut &&
       !item.deterministic &&
       item.days <= SEMANTIC_DEDUP_RULES.maxDayDistance &&
       item.scores.raw >=
@@ -468,7 +576,9 @@ async function main() {
   console.log("\n## 现有规则抓不到的「同一条」，各自的分数");
 
   for (const pair of pairs
-    .filter((item) => item.label === "same" && !item.deterministic)
+    .filter(
+      (item) => item.heldOut && item.label === "same" && !item.deterministic
+    )
     .sort((left, right) => right.scores.raw - left.scores.raw)) {
     console.log(
       [
@@ -483,7 +593,7 @@ async function main() {
     );
   }
 
-  if (process.argv.includes("--unlabelled")) {
+  if (writeUnlabelled) {
     writeFileSync(
       unlabelledPath,
       [...unlabelled.values()]
@@ -502,7 +612,7 @@ async function main() {
       "utf8"
     );
     console.log(
-      `\n未标注 ${unlabelled.size} 对 → ${path.relative(root, unlabelledPath)}`
+      `\n未标注 ${unlabelled.size} 对${heldOut ? "（只计留出批）" : ""} → ${path.relative(root, unlabelledPath)}`
     );
   }
 

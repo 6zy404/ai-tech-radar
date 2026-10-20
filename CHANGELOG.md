@@ -38,6 +38,24 @@ For per-topic deep dives, see the `docs/` directory.
   each row `blind`; `eval:triage` takes `--since YYYY-MM-DD`. The dataset
   grew from 880 to 997 rows; `fewshot.json` is unchanged, so every prompt is
   byte for byte the one measured on 10-12.
+- **2026-10-20. Semantic dedup thresholds, re-measured on a held-out batch.**
+  The 117 candidates decided from 10-13 on and the 10 signals published since
+  make 14,637 pairs the 10-13 labelling never saw; the 246 of them some grid
+  threshold flags within 7 days were labelled blind — titles, summaries,
+  sources and dates on a shuffled sheet, no score — by a second labeller (3
+  same, 9 event, 234 different) and appended to the local `labels.jsonl` with
+  `"batch": "2026-10-20"`. At the shipped thresholds (0.96 between candidates,
+  0.92 against a published signal, 3 days) **nothing fires and nothing is
+  missed**: the batch's only same-announcement pairs are InfoQ's Chinese
+  translation of the Gemini 4 Argon launch post against the English post and
+  the signal it became, five days apart and cross-language at raw 0.85–0.90,
+  the band the first batch's cross-language pairs sat in. Lowering to 0.92 /
+  0.91 would add only the Argon launch day's three posts (distinct pieces) and
+  unrelated pairs. Thresholds and `semantic-dedup-v2` unchanged.
+  `measure-semantic-dedup.ts` gained a held-out mode (`--batch <name>
+--new-since <date>`: pairs with a new side whose label, if any, carries the
+  batch), and labels may carry `batch`. Numbers in `eval/dedup/README.md` →
+  "Held-out batch".
 
 ## Editorial round 2026-10-20, a tunnel outage, and the reading-mark fix deployed
 

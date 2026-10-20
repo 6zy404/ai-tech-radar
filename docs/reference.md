@@ -919,7 +919,7 @@ node scripts/generate-pwa-icons.mjs  # rebuild the PWA icons under public/
 node scripts/generate-vapid-keys.mjs # print a VAPID pair for reader push (.env.local only, never committed)
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
-node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl
+node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] [--batch <name> --new-since <date>] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl; held-out mode scores one labelling batch alone
 node scripts/run-ts.cjs scripts/refresh-semantic-dedup.ts # run the post-import semantic dedup once and list what it found (writes candidate-semantic-matches.json)
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
 node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
