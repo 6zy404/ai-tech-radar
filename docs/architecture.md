@@ -113,7 +113,9 @@ All `/workspace/*` pages share a workspace-only second-level navigation:
 - Drafts
 - Skills
 - Knowledge
+- Radar (`/workspace/radar`, 2026-10-13)
 - Digests
+- Weekly summaries (`/workspace/weekly-summaries`, 2026-10-13)
 - Delivery
 - Schedules
 - Operations
@@ -172,6 +174,8 @@ Health states are deterministic and explainable:
 - `unknown`: insufficient local operational history
 
 Attention-required items are generated from concrete local records. They do not change ranking, recommendation, import, publish, digest, or delivery behavior. This phase only makes internal state easier to see.
+
+The dashboard pins two deterministic pipeline alerts above everything else — a stalled scheduled import (critical) and a candidate backlog (warning), thresholds in `src/lib/operations-metrics.ts` — and, since 2026-10-20, today's public AI model calls against the daily cap. Since the same day those two alerts, and the tunnel watchdog (`scripts/tunnel-watchdog.ps1`), can also leave the machine as a plain-text message through the delivery channel `OPS_ALERT_CHANNEL_ID` names (`src/lib/ops-alert.ts`); without the variable they are only logged. See `docs/operations.md`.
 
 Operations data is workspace-only. User-facing pages and feeds must not render operations summaries, WorkflowEvent records, delivery logs, scheduled run details, task-runner records, endpoint URLs, or internal error details.
 
@@ -726,6 +730,8 @@ Detection rules:
 
 Each reason is stored as a code such as `same_source_url`, `similar_title`, `same_publisher_near_date`, `same_repo_release_family`, or `same_canonical_url`.
 
+A sixth reason, `semantic_similar` (2026-10-13), is not produced by these rules: it comes from the embedding pass described under "Semantic duplicate detection for candidates" below, which also attaches the advisory `similar_to_published` flag. Neither rejects a candidate.
+
 The workflow creates lightweight `DuplicateGroup` records with:
 
 - candidate IDs
@@ -777,6 +783,217 @@ Current support:
 The user-facing product prefers Chinese when available and falls back to original text when translation is missing.
 
 The internal workspace remains compatible with the same data shape but does not prioritize bilingual reading UX.
+
+## AI and retrieval layer (2026-09 → 2026-10)
+
+Everything in this section arrived after the pipeline above was complete,
+and all of it keeps the same three rules: the public side reads **published
+content only**, the model never publishes anything by itself, and whatever
+the browser learns about a reader stays in the browser. Feature-level detail
+is in `docs/reference.md`; this section records where each piece runs, what
+it stores and where its boundary is. When a new subsystem ships, it gets a
+subsection here.
+
+### One local embedding model, four readers
+
+`src/lib/embeddings.ts` loads `Xenova/multilingual-e5-small` (int8) through
+transformers.js **inside the Next.js process**: no API, no key, nothing
+leaves the server. The model (about 130 MB) is downloaded once into
+`.cache/models/` from `EMBEDDING_REMOTE_HOST` (hf-mirror by default, because
+huggingface.co is not reliably reachable from the host), and one vector per
+published technology, skill and knowledge item is kept in
+`.cache/search-embeddings.json`, keyed by a hash of the embedded text and
+tagged with the model name, so an edited item is re-embedded and a model
+change invalidates the whole file. Both caches are regenerable and hold only
+vectors of already-public text; imported candidates are embedded only for
+the duplicate pass below and never cached there. Four things read those
+vectors:
+
+- `/search` (`src/lib/hybrid-search.ts`): keyword hits and nearest vectors
+  are merged per group by reciprocal rank fusion; a semantic hit must score
+  at least 1.75 standard deviations above that query's mean, at most five
+  per group. The news lane stays keyword-only. A request waits
+  `SEARCH_SEMANTIC_TIMEOUT_MS` (3 s) for the model, then answers from
+  keywords and says so.
+- 内容相近的信号 on the signal page (`src/lib/similar-signals.ts`): the same
+  vectors, centered on the pool mean, kept above a pool-relative floor; no
+  model call.
+- `/signal-vectors.json` (`src/lib/local-recommend-vectors.ts`): the same
+  vectors, quantized to int8, published as one file for the browser-side
+  recommendations below.
+- the semantic duplicate pass after an import.
+
+### 和你读过的相近: recommendations computed in the browser
+
+The one recommendation feature deliberately runs **client-side**
+(`src/lib/local-recommend.ts`, `useLocalRecommendations`). The server
+publishes `/signal-vectors.json` — per published signal its search vector
+and the card fields the list page already shows, keyed by the same hashed id
+the 新 stamps use — identical for everyone and cacheable for ten minutes.
+The browser fetches it only once the reader has an 已读 or 稍后读 mark,
+scores the published signals against the newest 30 marks, and renders at
+most three cards on the home page and four under 稍后读, each stating the
+mark that produced it. The marks never leave localStorage, so the server
+learns only that this browser has some reading history, never which. No
+server-side profile, no model call: `AGENTS.md`'s "no black-box
+recommendation" rule holds because every card can say why it is there.
+
+### 问雷达 (`/ask`)
+
+`POST /api/ask` (`src/lib/ask-radar.ts`) is the only public route where the
+model decides what to read. It runs a small tool loop — `search_radar`
+(hybrid search) and `read_item` (one published item's body), up to three
+rounds — then streams the answer as newline-delimited JSON through
+`src/lib/llm/chat-stream.ts`. Reference numbers are assigned by the code
+from what the tools returned, not by the model, so an invented citation is
+detectable and rendered struck through; when the site has nothing the answer
+must open with 站内没有直接相关的内容. There is no result cache. The server
+keeps **no conversation state**: a follow-up (up to five questions per
+conversation) sends the earlier turns and the `{ ref, key }` pairs already
+shown, and the server re-reads every key from published content and keeps
+the numbering (`resolveAskPriorSources`), so a forged history can cost prompt
+tokens but cannot smuggle in a title or a link. Candidates, drafts and the
+news lane are reachable through no tool. The prompt is pinned by
+`ASK_PROMPT_VERSION`, and `npm run eval:ask` scores grounding and refusals on
+a labelled set.
+
+### The public AI routes and what bounds their cost
+
+Compare, explain and learning path ("AI-Assisted Understanding" in
+`docs/project-spec.md`) and 问雷达 share one cost boundary
+(`guardPublicAiRequest` in `src/lib/public-ai-rate-limit.ts`), applied in
+this order before the body is read: a content-type and origin check, so
+other sites cannot spend the budget through their visitors' browsers; a
+per-client sliding window per route (10 a minute, 40 an hour); and a
+**site-wide daily cap** on model calls for the four routes together
+(`PUBLIC_AI_DAILY_LIMIT`, default 500 per Asia/Shanghai day,
+`src/lib/public-ai-daily-cap.ts`), counted in `config/public-ai-usage.json`
+so a restart keeps the day's total. The three cached routes then consult
+their per-key cache in `config/technology-*.json`; a cache hit is not a
+model call and does not count, and an answer the mock provider wrote is not
+reused once a real provider is configured (`isReusableCachedAiRecord`).
+Every response passes through a `toPublic*` mapping that drops provider,
+model, prompt version and errors and carries the fixed AI disclaimer. The
+per-client limiter is in-memory and per-process; the daily cap is a file, so
+every process reading the data directory shares it.
+
+### Semantic duplicate detection for candidates
+
+The deterministic rules in "Duplicate Review v1" see only the rolling
+candidate window and only latin title tokens. Since 2026-10-13 the task
+runner's post-import pass — and, in the background, the workspace import
+routes — also embeds each candidate's title and summary
+(`src/lib/semantic-dedup.ts`, `semantic-dedup-refresh.ts`; a
+`SEMANTIC_DEDUP_TIMEOUT_MS` deadline, 60 s): two candidates at or above 0.96
+cosine and at most three days apart join one duplicate group with the reason
+`semantic_similar`, and a candidate at or above 0.92 against a published
+signal gets the advisory `similar_to_published` flag. Release-feed items are
+excluded. The pairs are stored in `config/candidate-semantic-matches.json`
+with the model, rule version and threshold that produced them
+(`semantic-dedup-store.ts`), and the synchronous duplicate analysis reads
+them from there rather than embedding anything itself. Nothing is
+auto-rejected on this evidence: the model cannot tell a translation of one
+announcement from a report on the same event, and the thresholds with their
+precision and recall are in `eval/dedup/README.md`.
+
+### Model-assisted editing in the workspace
+
+Three workspace-only callers use the same provider and the same discipline
+as Editorial Enrichment: the model proposes, the editor decides, and nothing
+it writes reaches a public page until an editor publishes it. All three sit
+under `/api/workspace/*`, so they are behind the guard and absent from the
+public build.
+
+- **Triage suggestions** (`src/lib/candidate-llm-triage.ts`,
+  `POST /api/workspace/triage-suggestions`): one 发布 / 标记已看 / 拒绝
+  suggestion per undecided candidate, with a confidence and a reason, stored
+  in `config/candidate-triage-suggestions.json` and shown on the
+  editorial-round console. Advisory only — a candidate's status never
+  changes without an editor. The suggestions are measured against the
+  editors' real decisions (`npm run eval:triage`, on a set rebuilt from the
+  git history of the candidate snapshot), which is why the prompt version is
+  a code constant: a reported number stays tied to the prompt it measured.
+- **「AI 起草」** (`src/lib/candidate-llm-draft-workflow.ts`,
+  `POST /api/workspace/candidates/[id]/ai-draft`): the server fetches the
+  candidate's source page (15 s, 1.5 MB; GitHub releases through the REST
+  API), the model writes the Chinese title, summary, body, explanation
+  fields, type, publisher, topics and typed relations, and the candidate is
+  converted with those fields in one write. Unknown ids are dropped and any
+  validation failure leaves no draft and no status change. The result is an
+  ordinary `draft` with an `aiDraft` provenance block that the public
+  mapping never copies.
+- **「AI 起草导语」** (`src/lib/digest-ai-summary.ts`, the digest and
+  weekly-summary `ai-summary` routes): drafts an overview from the issue's
+  selected signals into a text box and saves nothing — only the editor's
+  save writes it. Model, prompt version and tokens go to a workflow event,
+  never onto the record.
+
+### 技术雷达 (`/radar`)
+
+The radar is the one content pool keyed by a **technology** rather than a
+release: an entry (vLLM, MCP, LoRA …) sits in one of four quadrants and one
+of four rings with a one-sentence reason, cites published signals as
+evidence (2–4 by convention) and carries a ring history. Seeds live in
+`src/data/radar.ts`; edits go through the same copy-on-write overlay the
+skill and knowledge consoles use (`config/radar-workspace.json`,
+`src/lib/radar-workflow.ts`), and every ring change appends a history line.
+本期新进 / 移动 is not stored — `deriveRadarChange` reads it from the history,
+so the page changes only when an editor changes something. One mapping,
+`toPublicRadarEntries`, resolves ids against published content only and
+drops status, timestamps and raw ids; an entry with no published evidence is
+left off. The picture is a hand-written SVG whose dot positions come from a
+deterministic slot grid per cell (`layoutRadarDots`), so it needs no client
+state, and the list beside it is its text alternative.
+
+### Installable site and reader push
+
+`/sw.js` is served by a route so its cache names carry the build id and a
+deploy drops every old cache (`src/lib/pwa-service-worker.ts`). The worker
+precaches the shell (`/offline`, the manifest, the icons) and the hashed
+static files, and keeps exactly the signal pages the reader saved for
+稍后读: the page posts the saved ids as hashed keys and the worker resolves
+them through `/pwa/signal-paths.json`. Pages are network-first; offline, a
+saved page comes from the cache and anything else gets `/offline`. The
+worker never intercepts `/workspace`, `/api`, `/candidates` or
+`/technologies/drafts`, so no internal response can land in a browser cache
+(`pwaRequestKind`, pinned by tests).
+
+「有新信号时提醒我」 is the first per-reader state the server keeps, so it is
+kept minimal (`src/lib/push-subscriptions.ts`,
+`config/push-subscriptions.json`, git-ignored): the push endpoint, its two
+keys, the followed topic ids and a creation time — no address, no user
+agent, no reading marks — and a record changes or goes only with the
+subscription's own `auth` secret, or when a push service answers 404 or 410.
+The server will POST only to the known browser push services. Sending
+is **manual**, from `/workspace/delivery` (`src/lib/push-dispatch.ts`): one
+merged notification per subscriber for the signals of a chosen date that
+match their topics, encrypted and signed on `node:crypto`
+(`src/lib/push-crypto.ts`, RFC 8291 / 8292, pinned by the RFC test vectors),
+each signal pushed once. Off unless the VAPID keys are set; from this host
+the push services are reachable only through the proxy.
+
+### 本周总结: the one persisted thing about a week
+
+The weekly review stays a derived view over published signals. What an
+editor adds is one `WeeklySummaryRecord` per week (`src/lib/weekly-summary.ts`,
+`config/weekly-summaries.json`): `draft` or `published`, edited at
+`/workspace/weekly-summaries`, optionally drafted by the model. Only a
+published record's text reaches the week's page and its RSS item
+(`getPublishedWeeklySummaryText`); drafts reach nothing. Being
+editor-confirmed, it carries no AI disclaimer.
+
+### Derived public views
+
+`/network`, `/topics` and `/topics/[tagId]`, `/sources`, `/about`, the
+signal page's 版本脉络, 内容相近的信号, 收录于 and 上一条 / 下一条, the skill
+and knowledge pages' 先读这些, and the knowledge page's 正文里提到它的信号
+are all computed on read from published content (`getContentGraph`,
+`getTopicHub`, `buildSourceDirectory`, `getTechnologyEvolutionChain`,
+`getSignalIssueAppearances`, `getPrerequisiteChain`, `getKnowledgeMentions`)
+and persist nothing. `/sources` is built from signals' publisher fields and
+never reads the source configuration that `/workspace/sources` shows;
+`/about` reads no runtime content at all except the share of fallback 关联
+it counts from the graph.
 
 ## Interface languages (2026-10-14)
 
