@@ -332,10 +332,14 @@
   letter-spacing: 0.02em;
 }
 
+/* Balanced like the detail page h1 (user-article-layout.css): measured at
+   1440 on 2026-10-21, 17 of 110 card titles ended on a line of one or two
+   characters (「ARC-AGI- / 3」「鲁棒 / 性」); balanced, none did. */
 .dossier-technology-card__title {
   margin: 0;
   font-size: 19px;
   line-height: 1.3;
+  text-wrap: balance;
 }
 
 .dossier-technology-card__title a {

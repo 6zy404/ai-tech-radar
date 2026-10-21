@@ -201,6 +201,7 @@
   font-size: 1.12rem;
   letter-spacing: -0.025em;
   overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .skill-detail-related-card p {

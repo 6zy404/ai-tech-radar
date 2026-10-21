@@ -17,11 +17,23 @@
  */
 export interface UnbreakableRun {
   text: string;
-  /** True when the run must stay on one line (a word, or a `YYYY-MM-DD` date). */
+  /** True when the run must stay on one line: a word, a `YYYY-MM-DD` date, a name with its version. */
   keepTogether: boolean;
 }
 
 const datePattern = /\d{4}-\d{2}-\d{2}/g;
+
+/**
+ * A name and its version number stay on one line: `Memento 3`, `Gemini 3.8`,
+ * `MCP 2.0`, and a hyphenated name carrying a number, `ARC-AGI-3`,
+ * `V4.1-Flash-1017`, `o3-mini`. Measured 2026-10-21: the 375px signal page
+ * put `Memento` and `3` on two lines, and list cards ended on `ARC-AGI- / 3`.
+ * A hyphenated name with no digit (`Claude-Code`) is left to the browser.
+ */
+const versionPattern =
+  /[A-Za-z][A-Za-z0-9.]* \d+(?:\.\d+)*(?![\d.])|(?=[A-Za-z0-9.-]*\d)[A-Za-z0-9.]+(?:-[A-Za-z0-9.]+)+/g;
+
+const protectedPatterns = [datePattern, versionPattern];
 
 function hasCjk(value: string): boolean {
   return /[㐀-鿿豈-﫿]/.test(value);
@@ -39,14 +51,25 @@ function isWorthKeepingTogether(value: string): boolean {
 export function splitIntoUnbreakableRuns(title: string): UnbreakableRun[] {
   const runs: UnbreakableRun[] = [];
 
-  // Dates first: their hyphens are break opportunities that segmentation
-  // would not protect.
+  // Dates and version numbers first: their hyphens and spaces are break
+  // opportunities that segmentation would not protect.
   let lastIndex = 0;
-  const dateRanges: { start: number; end: number }[] = [];
-  for (const match of title.matchAll(datePattern)) {
-    if (match.index === undefined) continue;
-    dateRanges.push({ start: match.index, end: match.index + match[0].length });
+  const found: { start: number; end: number }[] = [];
+  for (const pattern of protectedPatterns) {
+    for (const match of title.matchAll(pattern)) {
+      if (match.index === undefined) continue;
+      found.push({ start: match.index, end: match.index + match[0].length });
+    }
   }
+  // Earliest first; a range inside one already taken (a date is also a
+  // hyphenated token with digits) is dropped rather than split.
+  const dateRanges = found
+    .sort((a, b) => a.start - b.start || b.end - a.end)
+    .reduce<{ start: number; end: number }[]>((kept, range) => {
+      const previous = kept[kept.length - 1];
+      if (!previous || range.start >= previous.end) kept.push(range);
+      return kept;
+    }, []);
 
   const pushSegmented = (chunk: string) => {
     if (!chunk) return;

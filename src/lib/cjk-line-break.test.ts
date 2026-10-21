@@ -35,6 +35,24 @@ describe("splitIntoUnbreakableRuns", () => {
     expect(kept("每日技术简报 - 2026-07-28")).toContain("2026-07-28");
   });
 
+  it("keeps a name and its version number on one line", () => {
+    const title = "华为 Memento 3：把规则写成代码，打满 ARC-AGI-3";
+
+    expect(joined(title)).toBe(title);
+    expect(kept(title)).toContain("Memento 3");
+    expect(kept(title)).toContain("ARC-AGI-3");
+    expect(kept("Gemini 3.8 Live 加上数字人")).toContain("Gemini 3.8");
+    expect(kept("DeepSeek V4.1-Flash-1017 发布")).toContain("V4.1-Flash-1017");
+    expect(kept("MCP 2.0：协议核心改为无状态")).toContain("MCP 2.0");
+  });
+
+  it("leaves a hyphenated name without a digit to the browser, and a date whole", () => {
+    expect(kept("Claude-Code 的外壳")).not.toContain("Claude-Code");
+    expect(
+      kept("每日技术简报 - 2026-07-28").filter((run) => /\d/.test(run))
+    ).toEqual(["2026-07-28"]);
+  });
+
   it("does not wrap single characters or latin-only runs", () => {
     // Latin words already break on spaces, and a lone character cannot be
     // split — wrapping either would only bloat the markup.
