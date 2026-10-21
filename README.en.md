@@ -29,7 +29,7 @@ Chinese, with an English interface under `/en` (the content is not translated).
 ```text
 External sources (RSS / Atom / GitHub releases / official blogs)
   → scheduled import → candidate pool
-  → auto-rejected: pre-release versions, items already published on the site
+  → auto-rejected: pre-release versions, items already published on the site, defacement titles
   → editorial review: dedupe, convert to draft, write explanations, link skills and knowledge
   → publish checks (blocking / warnings) → technology signal
   → technology digest → pages, RSS / JSON feeds, delivery channels
@@ -59,8 +59,8 @@ since been removed from the public shape.
 
 Access control has two layers: at request time `src/middleware.ts` protects
 internal routes with a token; at build time `npm run build:public` removes all
-internal route directories (69 routes) before building, so they do not exist in
-the public build.
+internal route directories (five of them; 84 page and route files on 2026-10-21)
+before building, so they do not exist in the public build.
 
 ### Explainable ranking
 
