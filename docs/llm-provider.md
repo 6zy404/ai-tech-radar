@@ -103,6 +103,18 @@ The prompt asks for JSON fields:
 
 The template explicitly instructs the model not to invent unsupported source facts and to use `limitations` when evidence is insufficient.
 
+The three public cached features keep their prompts the same way, under their
+own purposes (`technology_comparison`, `technology_explanation`,
+`technology_learning_path`), each with a purpose-specific default. The newer
+callers do not use the store at all: 问雷达 (`ASK_PROMPT_VERSION`,
+`ASK_FOLLOWUP_PROMPT_VERSION`), triage (`TRIAGE_PROMPT_VERSION`), 「AI 起草」
+(`CANDIDATE_DRAFT_PROMPT_VERSION`) and the two 「AI 起草导语」 prompts
+(`DIGEST_SUMMARY_PROMPT_VERSION`, `WEEKLY_SUMMARY_PROMPT_VERSION`) are code
+constants beside their prompt text, recorded on every result and workflow
+event, so a number from `eval:ask` or `eval:triage` stays tied to the prompt
+it measured, and a triage suggestion from an older version is treated as
+absent rather than current.
+
 ## Output Validation
 
 LLM output is parsed and sanitized before storage:
@@ -175,7 +187,9 @@ It verifies mock generation, no-key fallback, rule-based generation, output vali
 - prompt version migration and A/B review
 - batch generation
 - richer prompt comparison and A/B review
-- cost accounting
+- cost accounting beyond the site-wide daily call count
+  (`PUBLIC_AI_DAILY_LIMIT`, 2026-10-20) and the optional price figure
+  `eval:triage` prints
 - quality review of generated suggestions
 - secure production secret storage
 - human attribution and reviewer ownership
