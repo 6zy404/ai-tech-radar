@@ -905,6 +905,7 @@ Open <http://localhost:3000>.
 
 ```bash
 npm run typecheck        # default verification
+npm run test             # vitest unit tests (CI runs them); test:watch keeps them running
 npm run build            # full app, workspace included — for local use
 npm run build:public     # public-only build: the workspace routes are physically absent
 npm run dev              # dev server, loopback only (next dev -H 127.0.0.1)
@@ -945,7 +946,9 @@ npm run eval:ask         # score 问雷达: citation validity, grounding, refusa
 # whose throwaway copy discarded four days of imports (2026-09-25 to 09-27)
 npm run db:init
 npm run db:migrate-json
+ALLOW_DB_RESET=true npm run db:reset   # wipe the local SQLite file (refuses without the variable)
 npm run tasks:run-once
+npm run tasks:watch      # the same pass in a local loop (development only)
 
 # per-subsystem validation scripts — each runs against a throwaway copy of the
 # data directory (scripts/run-ts-validation.cjs), never the real config/;
@@ -1037,7 +1040,7 @@ versions. Set `LOCAL_DATA_DIR` to point at a different local directory.
 ## Project structure
 
 - `src/app` — App Router pages and API routes; `src/app/styles/` holds the
-  global stylesheet: `pages/` (8) and `components/` (58), one page's or
+  global stylesheet: `pages/` (11) and `components/` (69), one page's or
   component's own rules each, and 46 numbered files with the shared rules and
   layers, all imported by `globals.css` in cascade order
 - `src/components` — shared workspace and user-facing UI

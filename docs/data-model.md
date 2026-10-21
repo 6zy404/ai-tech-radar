@@ -625,32 +625,39 @@ Represents a lightweight internal audit event for a workflow state transition or
 - `metadata?`
 - `createdAt`
 
-Current event actions include:
+Event actions, counted from the code on 2026-10-21. The `WorkflowEventAction`
+type in `src/types/content.ts` names 40 of them, but the field is typed
+`WorkflowEventAction | string` and the newer workflows record their actions
+as plain strings, so the type is not the full list — this is:
 
-- `candidate.status_updated`
-- `candidate.converted_to_draft`
-- `candidate.convert_failed`
-- `duplicate_group.updated`
-- `duplicate_group.resolved`
-- `draft.updated`
-- `draft.published`
-- `draft.publish_failed`
-- `digest.generated`
-- `digest.updated`
-- `digest.published`
-- `digest.publish_failed`
-- `delivery.sent`
-- `delivery.failed`
-- `schedule.run`
-- `schedule.run_failed`
-- `task_runner.run`
-- `source.imported`
-- `prompt_version.created`
-- `enrichment_suggestion.generated`
-- `enrichment_suggestion.reviewed`
-- `enrichment_suggestion.applied`
-- `enrichment_suggestion.rejected`
-- `enrichment_suggestion.marked_stale`
+- candidates: `candidate.status_updated`, `candidate.converted_to_draft`,
+  `candidate.convert_failed`, `candidate.ai_drafted`,
+  `candidate.ai_draft_failed` (2026-10-13)
+- duplicate groups: `duplicate_group.updated`, `duplicate_group.resolved`
+- technology drafts: `draft.updated`, `draft.published`, `draft.publish_failed`
+- digests: `digest.generated`, `digest.updated`, `digest.published`,
+  `digest.publish_failed`, `digest.ai_summary_drafted`,
+  `digest.ai_summary_failed` (2026-10-13)
+- weekly summaries (2026-10-13): `weekly_summary.created`,
+  `weekly_summary.updated`, `weekly_summary.published`,
+  `weekly_summary.unpublished`, `weekly_summary.publish_failed`,
+  `weekly_summary.ai_drafted`, `weekly_summary.ai_draft_failed`
+- the three content consoles: `skill.created` / `.updated` / `.published` /
+  `.publish_failed`, the same four under `knowledge.`, and
+  `radar_entry.created` / `.updated` / `.published` / `.publish_failed` /
+  `.ring_changed` (2026-10-13)
+- relations: `link_relation.updated`
+- sources: `source.imported`, `source.deleted` (2026-10-13)
+- delivery and schedules: `delivery.sent`, `delivery.failed`, `schedule.run`,
+  `schedule.run_failed`, `task_runner.run`
+- reader push (2026-10-13): `push.sent`, `push.failed`
+- editorial enrichment: `prompt_version.created`,
+  `editorial_enrichment.generated` / `.failed` / `.applied` / `.rejected` /
+  `.stale`, and the review layer's `enrichment_suggestion.generated` /
+  `.reviewed` / `.applied` / `.rejected` / `.marked_stale`
+- the public AI caches: `technology_comparison.generated` /
+  `.generation_failed`, and the same pair under `technology_explanation.`
+  and `technology_learning_path.`
 
 Workflow events are Internal Workspace records only. They may include sanitized before/after snapshots and metadata that help debug state changes. They must not appear in user-facing technology pages, digest pages, RSS/JSON feeds, or public navigation.
 
