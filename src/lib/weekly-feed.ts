@@ -18,8 +18,11 @@ import {
 } from "@/lib/weekly-summary";
 
 /**
- * 本周回顾 RSS（/digest/weekly/feed.xml）：每个已结束或当前、且至少有一条
- * 展示信号的自然周一个 item，最新的周在前。和 /digest/weekly 一样是已发布
+ * 本周回顾 RSS（/digest/weekly/feed.xml）：每个已结束、且至少有一条展示
+ * 信号的自然周一个 item，最新的周在前；本周留在网页上，周一 0 点后才进
+ * feed（2026-10-21 之前当周也在里面：guid 是这一周的地址，内容和 pubDate
+ * 却随新信号变，阅读器周一标过已读后就再也看不到这一周后来的信号，seo-11）。
+ * 和 /digest/weekly 一样是已发布
  * 信号的纯派生视图——不持久化、不调 AI，只读 getWeeklyReview 已经公开的
  * 字段（标题、周区间、优先级分组），快讯候选与草稿进不来。
  *
@@ -32,9 +35,12 @@ export const WEEKLY_FEED_ITEM_LIMIT = 12;
 const channelTitle = "AI Tech Radar 本周回顾";
 
 /**
- * Weeks the feed carries: every week with at least one shown signal, up to
- * and including the current week (a future-dated signal must not surface a
- * week that has not started), newest first, capped at `limit`.
+ * Weeks the feed carries: every week that has ended with at least one shown
+ * signal, newest first, capped at `limit`. The current week stays on the
+ * site until its Sunday is over — an item's guid is the week's address, so a
+ * reader shown it on Monday would never see the signals published later that
+ * week — and a future-dated signal must not surface a week that has not
+ * started.
  */
 export function getWeeklyFeedWeeks(
   limit = WEEKLY_FEED_ITEM_LIMIT
@@ -46,7 +52,7 @@ export function getWeeklyFeedWeeks(
   }
 
   return getWeeklyReviewArchive()
-    .filter((entry) => entry.weekKey <= currentWeekKey)
+    .filter((entry) => entry.weekKey < currentWeekKey)
     .slice(0, limit)
     .map((entry) => getWeeklyReview(entry.weekKey))
     .filter(
@@ -71,7 +77,7 @@ function buildSignalListText(
     : `${label}：${signals.map((signal) => signal.title).join("；")}`;
 }
 
-/** The week's latest signal date: stable once a week has ended. */
+/** The week's latest signal date; the feed carries ended weeks only, so it never changes. */
 function getWeekLastSignalDate(week: WeeklyReviewData): string {
   return week.groups
     .flatMap((group) => group.signals)

@@ -69,25 +69,41 @@ function tech(
 
 beforeEach(() => {
   vi.clearAllMocks();
-  // Wednesday: current natural week is Mon 2026-07-20 .. Sun 2026-07-26.
-  getTodayDateStringMock.mockReturnValue("2026-07-22");
+  // Wednesday: current natural week is Mon 2026-07-27 .. Sun 2026-08-02.
+  getTodayDateStringMock.mockReturnValue("2026-07-29");
 });
 
 describe("getWeeklyFeedWeeks", () => {
-  it("returns weeks with shown signals, newest first, up to the current week", () => {
+  it("returns ended weeks with shown signals, newest first", () => {
     getAllTechnologiesMock.mockReturnValue([
       tech("old", "2026-07-07", "critical"),
-      tech("now", "2026-07-21", "important"),
-      tech("future", "2026-07-29", "critical"),
+      tech("last-week", "2026-07-21", "important"),
+      tech("this-week", "2026-07-28", "critical"),
+      tech("next-week", "2026-08-05", "critical"),
       tech("low-only", "2026-07-14", "signal")
     ]);
 
     const weeks = getWeeklyFeedWeeks();
 
-    // 2026-07-27 is a future week; 2026-07-13 has only a low_priority signal.
+    // 2026-07-27 is the current week and not over; 2026-08-03 has not
+    // started; 2026-07-13 has only a low_priority signal.
     expect(weeks.map((week) => week.weekKey)).toEqual([
       "2026-07-20",
       "2026-07-06"
+    ]);
+  });
+
+  it("holds a week back until its Sunday is over", () => {
+    getAllTechnologiesMock.mockReturnValue([
+      tech("x", "2026-07-21", "critical")
+    ]);
+
+    getTodayDateStringMock.mockReturnValue("2026-07-26"); // the Sunday
+    expect(getWeeklyFeedWeeks()).toEqual([]);
+
+    getTodayDateStringMock.mockReturnValue("2026-07-27"); // the Monday after
+    expect(getWeeklyFeedWeeks().map((week) => week.weekKey)).toEqual([
+      "2026-07-20"
     ]);
   });
 
