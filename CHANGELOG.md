@@ -90,6 +90,118 @@ worked in the `review-content` window on 2026-10-21. One commit per finding.
   console errors. Not run: `build:public`, `validate:all`, `css:diff` (shared
   CPU with the live site).
 
+## Review batch E: documentation drift
+
+Nine findings from the 2026-10-14 review, group E (P2 docs-4, docs-5,
+docs-6, docs-9; P3 docs-11, docs-13, docs-14, ops-host-13, content-4), each
+re-read against the repository of 2026-10-21 before anything changed.
+Documentation only — no code. One commit per finding; `prettier --check` on
+every touched file and `npm run typecheck` green. Every figure below was
+counted from the code or the data, not copied from another document.
+
+- **2026-10-21. docs-11 — four stale planning documents archived.**
+  `docs/ui-migration-plan.md` (its Pending list contradicted
+  page-structure's "none left"), `docs/roadmap.md` (stopped at 2026-09-28),
+  `docs/production-readiness.md` (a 2026-07-22 assessment) and the root
+  `TASK_01_FOUNDATION.md` moved to `docs/history/` with `git mv`, each with
+  a 「归档于 2026-10-21，内容已过时」 line on top naming where the current
+  state lives. reference.md's documentation list, deployment.md and the
+  editorial-round playbook point at the new paths. `AGENTS.md` still lists
+  `docs/ui-migration-plan.md` under "Project Context Recovery" — a rules
+  file, left for the dispatcher window.
+- **2026-10-21. ops-host-13 — production-readiness marked up to date, then
+  archived.** B1 closed (the live `.env.local` has the guard on — only the
+  flag was read — and the served public build has no workspace route
+  anyway), B2 recorded as decided the other way (the stores stay tracked,
+  deployment.md 2026-09-21), I4 aligned (CI and the live host both run
+  Node 24; the report's "not aligned" predates the 2026-10-14 CI change),
+  and the nine go-live items each marked done, decided or superseded with
+  the date and where the current rule lives.
+- **2026-10-21. docs-4 — route lists replaced by pointers; the public write
+  named.** architecture.md kept two hand-written public route lists (ten
+  and seven entries) against about fifty public page, feed, image and API
+  routes under `src/app`, plus their `/en` twins; both now point at
+  reference.md and security-boundary.md and state the one fact a boundary
+  reader needs: the only public write endpoints are the four AI routes and
+  a reader's own push subscription. project-spec.md adds `/sources`,
+  `/about`, `/offline`, `/en`, `GET /api/health`, the three `/api/push`
+  routes, the five feeds, `/signal-vectors.json` and the PWA files, and its
+  "public pages remain read-only" sentence now carries the push exception.
+  page-structure.md said "four views" in two places; five.
+- **2026-10-21. docs-5 — architecture.md learns the AI and retrieval
+  layer.** A new section with one subsection per subsystem shipped since
+  September — the in-process embedding model and its four readers,
+  和你读过的相近 in the browser, 问雷达, the shared cost boundary of the
+  public AI routes, semantic duplicate detection, the three model-assisted
+  workspace callers, the technology radar, the service worker and reader
+  push, 本周总结, the derived views — each saying where it runs, what it
+  stores and where its boundary is, naming the file or function; detail
+  stays in reference.md. Also `semantic_similar` under Duplicate Review v1,
+  the pipeline / off-site alerts and the daily-cap count under
+  Observability, and 雷达 / 周总结 in the workspace nav list. Before:
+  embedding, hybrid, 问雷达, service worker, signal-vectors and AI 起草 each
+  appeared 0 times in the file. The section adds 13 KB to an auto-loaded
+  file (see docs-6).
+- **2026-10-21. docs-9 — mostly fixed since; the remainder filled.** The
+  report's substance (a real key opens four paying public routes, the rate
+  limit, 问雷达, AI 起草, AI 起草导语, DeepSeek in use, `chat-stream.ts` /
+  `chat-clients.ts`, the `.env.example` comment) landed on 2026-10-14
+  (92f0e53) and the daily cap on 2026-10-20 (6f537ed). Still missing: the
+  Prompt Version section knew only the editorial-enrichment store, so it
+  now names the three public purposes and the six code-constant prompt
+  versions (`ASK_`, `ASK_FOLLOWUP_`, `TRIAGE_`, `CANDIDATE_DRAFT_`,
+  `DIGEST_SUMMARY_`, `WEEKLY_SUMMARY_PROMPT_VERSION`) and why they are
+  constants; "Later work" no longer lists cost accounting as if nothing
+  existed.
+- **2026-10-21. docs-14 — the hand-written lists recounted.** reference.md's
+  command block lacked four of package.json's 55 scripts (`test`,
+  `test:watch`, `tasks:watch`, `db:reset` — compared by node) and said 8
+  page / 58 component style files where `ls` gives 11 / 69 (the 46 numbered
+  files were right). data-model.md listed 24 workflow-event actions; the
+  code records 63 (grep over `src/lib`, tests excluded; `radar_entry.*` is
+  built from a prefix), now listed by entity with the note that the
+  `WorkflowEventAction` type names only 40 because the field also takes a
+  plain string. The suggested unit test asserting every script appears in
+  reference.md is code and was not added.
+- **2026-10-21. content-4 — README figures re-measured.** Through the public
+  getters against a read-only copy of the live config: 117 published
+  signals, 22 skills, 27 knowledge items, 37 published digests, 15 enabled
+  sources (Ai2, Mistral and Qwen off); graph 166 nodes / 1,295 edges, 1,187
+  edges with a note, 73 fallback 关联 (5.6%). The worktree's committed copy
+  differs by one edge from an uncommitted relation edit on the live
+  checkout. Both READMEs carry the new figures and date; next-task.md's
+  lines are for the dispatcher.
+- **2026-10-21. docs-13 — data flow, route count, screenshots.** The READMEs'
+  auto-reject line gains 篡改标题 (2026-10-09). "69 routes" came from the
+  2026-09-08 build manifest; without a build the countable figure is 84
+  page / route files in the five excluded directories, written with its
+  date. The three screenshots (2026-09-06) all need re-shooting and were
+  not: `home.png` shows the 每日简报 nav, an 内部工作台 button the public
+  build does not have, 72 / 16 / 19 counts and no 雷达 / 问雷达 / 中-EN /
+  footer; `signal-detail.png` the same nav and a meta row without the
+  reading time or 复制链接; `network.png` 107 nodes / 655 edges against
+  166 / 1,295. A headless browser locks this host's account, so the re-shoot
+  is a dispatcher task in the preview pane.
+- **2026-10-21. docs-6 — the auto-loaded documents measured; a trimming
+  plan proposed, not applied.** CLAUDE.md plus its nine `@` imports:
+  417,301 bytes on this branch (about 106k tokens, counting a CJK character
+  as one token and four other characters as one), against 258,733 on
+  2026-09-26 (3cd5e93) and the review's 385,495 on 2026-10-14. The growth
+  is reference.md (27 → 72 KB), page-structure.md (55 → 93), data-model.md
+  (64 → 80), security-boundary.md (26 → 46) and architecture.md (43 → 62,
+  13 of it today). page-structure carries 87 dates and reference 76 with 17
+  "measured". Proposal for the dispatcher, since CLAUDE.md and AGENTS.md
+  are rules files: (1) move `docs/data-model.md` and `docs/page-structure.md`
+  to CLAUDE.md's "Read on demand" list — both are lookup documents, and
+  reference.md already indexes routes and commands — which takes 173 KB off
+  the set, to about 244 KB; (2) a budget line in CLAUDE.md, 250 KB, with
+  the one-line measurement; (3) a writing rule for the auto-loaded files —
+  the present state only; measurements and "until <date>" sentences go to
+  CHANGELOG — and a one-off pass over reference.md to apply it, as a later
+  docs item; (4) next-task.md's "约 270 KB" becomes the measured figure.
+  Not recommended: moving security-boundary.md, since boundary mistakes
+  cost the most.
+
 ## Housekeeping after the watchdog night
 
 - **2026-10-21. The tunnel watchdog's alert lines decode.** The two `[alert]`
