@@ -61,6 +61,20 @@ const nextConfig: NextConfig = {
   // node_modules at runtime instead.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
 
+  // Next streams a page's metadata — <title>, description, canonical, og:* —
+  // into the <body> and lets the browser hoist it, except for the crawlers on
+  // this list, which get it in <head> (a blocking render). Its default list
+  // (next/dist/shared/lib/router/utils/html-bots.js) names Baidu, Sogou and
+  // Bing but no other Chinese crawler, so 360 搜索, 头条搜索, 神马 and 花瓣
+  // read an empty head: measured on the live site 2026-10-21 with a 360Spider
+  // UA, a signal page's <title> sat at byte 49375 and </head> at 2042, while
+  // Baiduspider got it in <head>. Setting the option replaces the default list
+  // wholesale, so it is copied here in full and the five crawlers are added;
+  // src/lib/html-limited-bots.test.ts checks every default entry is still in
+  // it. Ordinary browsers keep streaming (seo-1).
+  htmlLimitedBots:
+    /[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight|360Spider|HaosouSpider|Bytespider|YisouSpider|PetalBot/i,
+
   // Every response carried `X-Powered-By: Next.js`, which only helps a
   // scanner sort the site into a "Next.js, check for unpatched versions" list.
   poweredByHeader: false,
