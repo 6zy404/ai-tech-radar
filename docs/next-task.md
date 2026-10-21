@@ -18,6 +18,7 @@
 - **2026-10-21 审查批次 B 已结**（性能与崩溃）：perf-1 / perf-8 / dev-public-6 / dev-public-7 在 10-14 已修、复测不复现；perf-4 补了关系覆盖层解析缓存（页面关系查询再降约 60–65%，vitest 1357 用例全过）；dev-public-2 的清理脚本 `purge-mock-ai-cache.ts` 10-21 对线上跑过，删掉 7 月 mock 模型写进三个 AI 缓存的 9 条模板答案（7 条解读、1 条对比、1 条学习路径），三个缓存现在是空的。perf-4 的代码 10-21 03:59 上线。
 - **2026-10-21 审查批次 A 已结**（公开页读屏与键盘，10 条）：8 条已被 10-14 晚的 93127f5 修过（当时没记 CHANGELOG）；本轮补全站 scroll-padding（落点不变）、雷达 +/− 不进读屏名、筛选无结果链接下划线、当前视图加强调条、对比下拉框英文名，主控在窗格里复核过视图条、雷达、技能筛选三页，10-21 03:59 上线。Shift+Tab 落到顶栏后面只在 Firefox / Safari 发生，没真机验证；关系网络 166 个节点的 Tab 顺序仍按数组（审查没给修法）。
 - **2026-10-21 审查批次 C 已结**（运维与数据安全，7 条）：ops-host-3 10-14 已有 fsync（补量：7.3 MB 写入中位 7.3 ms，无刷盘 3.6）；dev-arch-1 站点地址只定义一处，任务运行器从 .env.local 读 NEXT_PUBLIC_SITE_URL，地址是 localhost 时拒绝向真实渠道投递 / 推送；dev-arch-13 补齐 .env.example 与部署文档的变量；sec-internal-3 加 Dependabot（每周一，next 一组）；ops-data-7 check:pipeline 打印运行时间、启动器可选 LOG_TIMESTAMPS=1、隧道日志轮转写进文档；ops-data-8 /api/health 读首页全部五个数据文件，坏一个 503 并点名；ops-data-9 BACKUP_KEEP 改为天数（现值 14 即 14 天）。主控在开发服务器上核对过 /api/health，10-21 03:59 上线。
+- **2026-10-21 审查批次 F 已结**（内容与文案小错，10 条）：6 条 10-14 已修（ui-live-10/12/13、content-7、dev-core-8/9）；修了 4 条——快讯只放规范话题名（ui-live-3）、「适合谁」改成一行文字、药丸只剩难度和话题（ui-live-4，首页三卡 899→786px）、卡片标题 text-wrap: balance 且名称与版本号不拆行（ui-live-8，末行 ≤2 字 17/110→0/117）、发布检查对超过 36 字的标题提醒（content-8，现有 117 条里 30 条超长、最长 58 字）。主控在窗格里看过首页 / 列表 / 简报（桌面与 375）。五个信源的默认标签 10-21 改成规范话题 id（此前快讯里原样露出 local-inference 之类的英文代号）。待部署。
 - **2026-10-02 停机约 20 分钟**：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户，服务的计划任务（S4U）随之起不来。截图用预览窗格；`npm run deploy` / `deploy:rollback` 先查 10 分钟内的 4625 事件，有就拒绝。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，不健康自动回滚）；`deploy:rollback` 回上一版；`.next-old` 始终是上一版。二十余次实跑停机 1.7–3.4 秒。**依赖变了时 deploy 不重装**：先停服务、主检出 `npm ci`、再 deploy（10-14 实测停机约 1.5 分钟）。说明在 `docs/deployment.md` →「Deploy with one command」。
 - **本机探测用 `127.0.0.1`，别用 `localhost`**（IPv6 先试被拒，首次约 2 秒）。2026-09-28 演练脚本误停过线上 78 秒，已加防护。
@@ -45,7 +46,7 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。第二批 10-21 04:10 开工：D SEO 与订阅源（seo-1/2/5/6/8/9/10/11/12）、E 文档过期（docs-4/5/6/9/11/13/14、ops-host-13、content-4；E 不能改 AGENTS.md / CLAUDE.md / next-task.md，要改的行由主控应用）、F 内容与文案小错（ui-live-3/4/8/10/12/13、content-7/8、dev-core-8/9）。content-5/6 主控 10-21 已在线上数据改完（发布方统一为 Ai2 / Meta / IBM Research=research-lab、Simon Willison Blog；Muse Glimmer 两条互列并以「延伸」关联附注）。再往后：dev-core-11、sec-internal-4/5/6、dev-quality-*、ui-static-11/12/13/16/17、perf-9/10/11 等待排。
+- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。第二批 10-21 04:10 开工：D SEO 与订阅源（seo-1/2/5/6/8/9/10/11/12）、E 文档过期（docs-4/5/6/9/11/13/14、ops-host-13、content-4；E 不能改 AGENTS.md / CLAUDE.md / next-task.md，要改的行由主控应用）、F 内容与文案小错（ui-live-3/4/8/10/12/13、content-7/8、dev-core-8/9；10-21 已并入 main，待部署）。content-5/6 主控 10-21 已在线上数据改完（发布方统一为 Ai2 / Meta / IBM Research=research-lab、Simon Willison Blog；Muse Glimmer 两条互列并以「延伸」关联附注）。再往后：dev-core-11、sec-internal-4/5/6、dev-quality-*、ui-static-11/12/13/16/17、perf-9/10/11 等待排。
 
 - 部署脚本的自动回滚只在替身服务上演练过，真环境里还没触发过。
 
@@ -88,6 +89,7 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 - 主机夜里实际是关机（快速启动）而不是睡眠，`WakeToRun` 从没唤醒过（09-20 起约三分之一时间离线）。2026-10-15 决定：上线期间不关机；
   Cloudflare 离线页（`ops/cloudflare/offline-worker.js`）与外部拨测按 `docs/deployment.md` 在 owner 账号里配置，尚未配。
 - 低权限运行账户：按 `docs/service-account.md` 执行 `scripts/setup-service-account.ps1`（默认只打印计划，加 -Apply 才改）。10-21 跑过计划模式：37 项待做（两个账户、文件权限、隧道配置搬到 ProgramData、探针、四个任务改账户），不重启任何进程；要 owner 在管理员 PowerShell 里加 -Apply 执行，Claude 不改系统账户和计划任务。
+- 存量 30 条信号标题超过 36 字（content-8 量到，最长 58 字 lfm2-5-encoders）：要不要逐条缩短？缩短就是改已发布标题，等你定；新发布的发布检查会提醒。
 - 第二块盘（见异盘备份）。
 - Cloudflare 往页面里注入 Web Analytics 信标（`static.cloudflareinsights.com/beacon.min.js`），被站点的
   CSP 拦下，每页控制台一条报错（2026-09-30 发现）。在 Cloudflare 面板关掉 Web Analytics 自动注入，
