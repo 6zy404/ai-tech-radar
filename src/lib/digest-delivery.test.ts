@@ -8,12 +8,13 @@ import {
   renderRssDocument,
   type DigestDeliveryFeed
 } from "@/lib/digest-delivery";
+import { digestFeedTitle } from "@/lib/site-metadata";
 
 const baseUrl = "https://radar.example";
 
 function feed(): DigestDeliveryFeed {
   return {
-    title: "AI Tech Radar 技术简报",
+    title: digestFeedTitle,
     description: "只包含已发布技术简报的公开 feed。",
     homePageUrl: `${baseUrl}/digest/today`,
     rssFeedUrl: `${baseUrl}/feed.xml`,

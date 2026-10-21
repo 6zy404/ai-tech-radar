@@ -6,6 +6,7 @@ import {
   renderRssDocument
 } from "@/lib/digest-delivery";
 import { signalFeedPath } from "@/lib/feed-paths";
+import { signalFeedTitle } from "@/lib/site-metadata";
 import {
   getPreferredTechnologySummary,
   getPreferredTechnologyTitle
@@ -64,7 +65,7 @@ export function renderSignalRssXml(
  */
 export const SIGNAL_FEED_ITEM_LIMIT = 50;
 
-export const signalFeedChannelTitle = "AI 技术雷达 · 全部技术信号";
+export const signalFeedChannelTitle = signalFeedTitle;
 
 /** Published signals, newest first, capped at `limit`. */
 export function getSignalFeedTechnologies(

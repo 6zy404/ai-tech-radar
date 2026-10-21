@@ -5,15 +5,43 @@ import {
   buildFeedAlternateTypes,
   buildPageMetadata,
   compactDescription,
+  digestFeedTitle,
+  homePageTitles,
   siteName,
-  weeklyReviewFeed
+  siteNameZh,
+  weeklyReviewFeed,
+  weeklyReviewFeedTitle
 } from "@/lib/site-metadata";
 
-const digestRss = { url: rssFeedPath, title: `${siteName} · 技术简报` };
+const digestRss = { url: rssFeedPath, title: digestFeedTitle };
 const digestJson = {
   url: jsonFeedPath,
-  title: `${siteName} · 技术简报（JSON）`
+  title: `${digestFeedTitle}（JSON）`
 };
+
+describe("site names", () => {
+  it("heads the feed names with the Chinese name", () => {
+    expect(digestFeedTitle).toBe(`${siteNameZh} · 技术简报`);
+    expect(weeklyReviewFeedTitle).toBe(`${siteNameZh} · 本周回顾`);
+  });
+
+  it("titles the home page with the site's name and position, no suffix", () => {
+    const zh = buildPageMetadata({
+      absoluteTitle: homePageTitles.zh,
+      path: "/"
+    });
+
+    expect(zh.title).toEqual({
+      absolute: `${siteNameZh} · 值得优先关注的 AI 技术信号`
+    });
+    expect(zh.openGraph).toMatchObject({ title: homePageTitles.zh });
+    expect(homePageTitles.en.startsWith(`${siteName} · `)).toBe(true);
+    // Every other page keeps the English name as its suffix.
+    expect(
+      buildPageMetadata({ title: "技术信号", path: "/technologies" }).openGraph
+    ).toMatchObject({ title: `技术信号 · ${siteName}` });
+  });
+});
 
 describe("compactDescription", () => {
   // Ten clauses of 14 characters and a comma: 149 characters, 298 wide.
@@ -64,7 +92,7 @@ describe("buildFeedAlternateTypes", () => {
     const types = buildFeedAlternateTypes([weeklyReviewFeed]);
 
     expect(types["application/rss+xml"]).toEqual([
-      { url: "/digest/weekly/feed.xml", title: `${siteName} · 本周回顾` },
+      { url: "/digest/weekly/feed.xml", title: weeklyReviewFeedTitle },
       digestRss
     ]);
     expect(types["application/feed+json"]).toEqual([digestJson]);

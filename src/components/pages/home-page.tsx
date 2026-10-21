@@ -56,12 +56,18 @@ import type {
   TechnologyItem,
   TopicTag
 } from "@/types/content";
-import { buildPageMetadata } from "@/lib/site-metadata";
+import { buildPageMetadata, homePageTitles } from "@/lib/site-metadata";
 
 export function getHomePageMetadata(locale: Locale) {
-  // The home page shares the site card (src/app/opengraph-image.tsx), so X
-  // may draw it as a large card.
-  return buildPageMetadata({ path: "/", largeImage: true, locale });
+  // The title is the site's own name and position, with no suffix; the page
+  // shares the site card (src/app/opengraph-image.tsx), so X may draw it as
+  // a large card.
+  return buildPageMetadata({
+    absoluteTitle: homePageTitles[locale],
+    path: "/",
+    largeImage: true,
+    locale
+  });
 }
 
 // The Chinese site shows a card's Chinese text when it has one; the English

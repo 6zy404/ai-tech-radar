@@ -12,6 +12,7 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
+import { digestFeedTitle } from "@/lib/site-metadata";
 import { getSiteUrl } from "@/lib/site-url";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
@@ -135,7 +136,7 @@ export function getDigestDeliveryFeed(
   const { rssFeedUrl, jsonFeedUrl } = getDeliverySurfaceUrls(baseUrl);
 
   return {
-    title: "AI Tech Radar 技术简报",
+    title: digestFeedTitle,
     description:
       "只包含已发布技术简报的公开 feed，草稿和归档内容不会进入 feed。",
     homePageUrl: `${baseUrl}/digest/today`,

@@ -2,6 +2,7 @@ import { getAllTags, getAllTechnologies } from "@/lib/content";
 import { getSiteBaseUrl } from "@/lib/digest-delivery";
 import { topicFeedPath } from "@/lib/feed-paths";
 import { renderSignalRssXml } from "@/lib/signal-feed";
+import { topicFeedTitle } from "@/lib/site-metadata";
 
 /**
  * 话题级 RSS（/topics/[tagId]/feed.xml）：某一话题下已发布技术信号的公开
@@ -30,7 +31,7 @@ export function renderTopicRssXml(tagId: string): string | undefined {
 
   return renderSignalRssXml(
     {
-      title: `AI 技术雷达 · ${tag.name}`,
+      title: topicFeedTitle(tag.name),
       link: `${baseUrl}/topics/${tagId}`,
       description: `话题「${tag.name}」下已发布技术信号的更新订阅源。${tag.description}`,
       feedUrl: `${baseUrl}${topicFeedPath(tagId)}`

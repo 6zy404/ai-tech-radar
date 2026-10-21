@@ -5,6 +5,7 @@ import {
   renderRssDocument
 } from "@/lib/digest-delivery";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
+import { weeklyReviewFeedTitle } from "@/lib/site-metadata";
 import {
   getWeeklyReview,
   getWeeklyReviewArchive,
@@ -32,7 +33,7 @@ import {
 
 export const WEEKLY_FEED_ITEM_LIMIT = 12;
 
-const channelTitle = "AI Tech Radar 本周回顾";
+const channelTitle = weeklyReviewFeedTitle;
 
 /**
  * Weeks the feed carries: every week that has ended with at least one shown

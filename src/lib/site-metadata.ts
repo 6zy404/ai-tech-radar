@@ -25,6 +25,34 @@ import {
 
 export const siteName = "AI Tech Radar";
 
+/**
+ * The site's Chinese name; the formal pairing is 「AI 技术雷达（AI Tech
+ * Radar）」. The Chinese name heads the home page title and the feed channel
+ * names; the English one stays the title suffix of every other page,
+ * `og:site_name` and the JSON-LD publisher. Until 2026-10-21 the four feeds
+ * used three spellings between them and the home page title had no Chinese
+ * word in it (seo-5).
+ */
+export const siteNameZh = "AI 技术雷达";
+
+/**
+ * The home page's whole title per interface language: the site's name and
+ * its one-line position, with no suffix.
+ */
+export const homePageTitles: Record<Locale, string> = {
+  zh: `${siteNameZh} · 值得优先关注的 AI 技术信号`,
+  en: `${siteName} · AI technology signals worth attention first`
+};
+
+/** The feed channel names; also the `<link rel="alternate">` titles. */
+export const digestFeedTitle = `${siteNameZh} · 技术简报`;
+export const weeklyReviewFeedTitle = `${siteNameZh} · 本周回顾`;
+export const signalFeedTitle = `${siteNameZh} · 全部技术信号`;
+
+export function topicFeedTitle(topicName: string): string {
+  return `${siteNameZh} · ${topicName}`;
+}
+
 export const siteDescription =
   "追踪值得优先关注的 AI 技术信号，并用技能与背景知识解释它为什么重要、谁该关注。";
 
@@ -120,12 +148,12 @@ const feedMimeTypes: Record<NonNullable<PageFeed["format"]>, string> = {
 export const siteFeeds: readonly PageFeed[] = [
   {
     path: rssFeedPath,
-    title: `${siteName} · 技术简报`,
+    title: digestFeedTitle,
     titleEn: `${siteName} · Briefings (in Chinese)`
   },
   {
     path: jsonFeedPath,
-    title: `${siteName} · 技术简报（JSON）`,
+    title: `${digestFeedTitle}（JSON）`,
     titleEn: `${siteName} · Briefings (JSON, in Chinese)`,
     format: "json"
   }
@@ -134,14 +162,14 @@ export const siteFeeds: readonly PageFeed[] = [
 /** Announced by `/digest/weekly` and `/digest/weekly/[week]`. */
 export const weeklyReviewFeed: PageFeed = {
   path: weeklyReviewFeedPath,
-  title: `${siteName} · 本周回顾`,
+  title: weeklyReviewFeedTitle,
   titleEn: `${siteName} · Weekly review (in Chinese)`
 };
 
 /** Announced by every view of `/technologies`. */
 export const signalFeed: PageFeed = {
   path: signalFeedPath,
-  title: `${siteName} · 全部技术信号`,
+  title: signalFeedTitle,
   titleEn: `${siteName} · All signals (in Chinese)`
 };
 
@@ -185,6 +213,11 @@ export function buildLanguageAlternates(path: string): Record<string, string> {
 export interface PageMetadataInput {
   /** Page title without the site name; the layout template appends it. */
   title?: string;
+  /**
+   * The whole title, with no site-name suffix — for the home page, whose
+   * title names the site itself. Takes precedence over `title`.
+   */
+  absoluteTitle?: string;
   /** Description for the result snippet and the share card. */
   description?: string;
   /** Path from the site root, e.g. `/technologies/kimi-k3`. */
@@ -221,6 +254,7 @@ export interface PageMetadataInput {
 
 export function buildPageMetadata({
   title,
+  absoluteTitle,
   description,
   path,
   type = "website",
@@ -234,7 +268,8 @@ export function buildPageMetadata({
     description ?? siteDescriptions[locale]
   );
   const pagePath = localePath(locale, path);
-  const fullTitle = title ? `${title} · ${siteName}` : siteName;
+  const fullTitle =
+    absoluteTitle ?? (title ? `${title} · ${siteName}` : siteName);
   const openGraphBase = {
     title: fullTitle,
     description: resolvedDescription,
@@ -244,7 +279,11 @@ export function buildPageMetadata({
   };
 
   return {
-    title: title ? title : { absolute: siteName },
+    title: absoluteTitle
+      ? { absolute: absoluteTitle }
+      : title
+        ? title
+        : { absolute: siteName },
     description: resolvedDescription,
     // Next replaces the layout's `alternates` wholesale instead of merging
     // it, so the digest feeds the layout declares are repeated here, or every
