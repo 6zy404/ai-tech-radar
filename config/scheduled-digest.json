@@ -2,9 +2,9 @@
   "enabled": true,
   "scheduleTime": "08:00",
   "timezone": "Asia/Shanghai",
-  "nextRunAt": "2026-10-21T00:00:00.000Z",
-  "lastRunAt": "2026-10-20T00:05:02.307Z",
+  "nextRunAt": "2026-10-22T00:00:00.000Z",
+  "lastRunAt": "2026-10-21T00:05:02.465Z",
   "lastRunStatus": "success",
-  "lastRunMessage": "定时简报草稿已生成：2026-10-20，立即关注 4 条，值得跟踪 6 条（待编辑审阅后发布）。",
-  "updatedAt": "2026-10-20T00:06:07.527Z"
+  "lastRunMessage": "定时简报草稿已生成：2026-10-21，立即关注 4 条，值得跟踪 6 条（待编辑审阅后发布）。",
+  "updatedAt": "2026-10-21T00:08:09.675Z"
 }
