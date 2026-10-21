@@ -202,6 +202,116 @@ counted from the code or the data, not copied from another document.
   Not recommended: moving security-boundary.md, since boundary mistakes
   cost the most.
 
+## Review batch D: search engines and feeds
+
+- **2026-10-21. Review batch D — SEO and feeds, nine findings, one commit
+  each.** The second batch of the 2026-10-14 review (seo-1/2/5/6/8/9/10/11/12),
+  done in its own worktree for the dispatcher to cherry-pick. Each finding
+  was first re-checked on the current code, and all nine still reproduced —
+  the one that needed the live site for it is noted. Every change covers the
+  Chinese page and its `/en` twin through the same `buildPageMetadata`;
+  verified by reading the raw HTML and feed text with `curl` on the
+  worktree's dev server, not the browser DOM.
+  - **seo-1 — metadata in `<head>` for the crawlers Next's list lacks.**
+    Next 15 streams `<title>`, description, canonical and `og:*` into the
+    body (the browser hoists them) except for the crawlers in its
+    HTML-limited list, which get a blocking render. Measured on the live site
+    this morning with a 360Spider UA: a signal page's `<title>` at byte
+    49,375, `</head>` at 2,042; `/radar`'s first `<title>` in the document
+    was the SVG's 「1 混合专家（MoE）架构 · 采用」; Baiduspider got the real
+    one in `<head>`. The default list (Next 15.5.27, 27 entries) has Baidu,
+    Sogou and Bing and no other Chinese crawler. `next.config.ts` now sets
+    `htmlLimitedBots` to that list in full plus `360Spider`, `HaosouSpider`,
+    `Bytespider` (头条搜索), `YisouSpider` (神马) and `PetalBot` (花瓣); the
+    option replaces the default rather than extending it, so
+    `src/lib/html-limited-bots.test.ts` asserts every default alternative is
+    still present, the five UAs match, and browsers and Googlebot (which
+    runs JS) do not. **Not observable on `next dev`**, where the page body
+    renders slowly enough that the metadata lands in `<head>` for every UA;
+    after the next deploy, `curl -A 360Spider` a signal page and check that
+    `<title>` precedes `</head>`. The alternative the review named — a
+    pattern matching every UA, so link previewers nobody has listed (微信,
+    飞书) also get a full head at the cost of streaming for readers — is one
+    constant away and is left to the owner.
+  - **seo-2 — 「今日简报」 and 「本周回顾」 no longer compete with the issue
+    they show.** `/digest/today`'s canonical, `og:url`, hreflang pair and
+    JSON-LD `url` are now `/digest/<latest date>`; `/digest/weekly`'s are
+    `/digest/weekly/<this Monday>` once the week has a shown signal (the
+    week page 404s before that), read per request — both weekly route files
+    export `generateMetadata` instead of a constant. The sitemap drops the
+    two fixed entries (the issues were already listed). Dev server:
+    `/digest/today` → `/digest/2026-10-20`, `/en/digest/today` →
+    `/en/digest/2026-10-20`, `/digest/weekly` → `/digest/weekly/2026-10-19`.
+  - **seo-5 — one Chinese name.** `siteNameZh` is 「AI 技术雷达」, paired as
+    「AI 技术雷达（AI Tech Radar）」. The home page's title is the whole title
+    「AI 技术雷达 · 值得优先关注的 AI 技术信号」 (22 characters; English
+    “AI Tech Radar · AI technology signals worth attention first”) through a
+    new `absoluteTitle` option, where it was the bare English name. The four
+    feeds' channel names and the pages' `<link rel="alternate">` titles come
+    from one set of constants (`digestFeedTitle`, `weeklyReviewFeedTitle`,
+    `signalFeedTitle`, `topicFeedTitle`), all 「AI 技术雷达 · …」, where they
+    used three spellings between them. The English name stays the title
+    suffix of every other page, `og:site_name` and the JSON-LD publisher,
+    since changing it reaches the nav, footer and share cards. The wording
+    is a proposal: two constants in `src/lib/site-metadata.ts`.
+  - **seo-6 — the home page has a share image.** `src/app/opengraph-image.tsx`
+    and its `/en` twin render the existing site card (`buildSiteShareCard`,
+    until now only the fallback for an unknown slug) as `force-static`, and
+    the home page asks for the large card. Dev server: `/` and `/en` carry
+    `og:image` and `twitter:card summary_large_image`; the routes answer
+    `image/png` 1200×630 (65 KB Chinese, 71 KB English); detail pages keep
+    their own cards. Measured and left for a later round, as the review
+    allowed: the card does **not** reach `/technologies` or `/skills`,
+    whose own `openGraph` replaces the inherited one — one explicit image
+    per list page would do it.
+  - **seo-8 — descriptions cut by display width.** `compactDescription`
+    keeps its 160-character limit and adds 200 half-width units, a
+    full-width character counting two — about 100 Chinese characters,
+    what a Chinese result snippet shows, while Latin text is cut where it
+    was; still on a clause when one is near, never inside a surrogate pair.
+    Applies to the meta description, `og:description` and every JSON-LD
+    description. Over the 117 published signals' Chinese summaries: raw
+    median 181 characters (82 over 160); the old cut left a median of 143,
+    the new one 113 (max 160, 105 of 117 cut); the 37 digest ledes go from a
+    median of 343 to 104 (max 133). Titles are untouched: median 33
+    characters, 49 with the suffix, 71 of 117 over 30 — the suffix is what
+    a result shows of the site, and the editorial rule (标题超过 36 字的手动
+    缩短) is the lever.
+  - **seo-9 — thumbnails and dates in structured data.** The skill and
+    knowledge pages' Article JSON-LD carries `image` (the page's own share
+    card, locale path included); the signal and digest pages write
+    `article:published_time` (`publishDate`, `publishedAt`) through a
+    `publishedTime` option that `buildPageMetadata` honours for articles
+    only. No `dateModified`: the public data has no trustworthy one.
+  - **seo-10 — feeds up to the specifications.** One `renderRssDocument`
+    writes every RSS channel — `/feed.xml`, `/technologies/feed.xml`, the
+    topic feeds and `/digest/weekly/feed.xml` — with `<language>zh-cn</language>`
+    and the feed's own address as `<atom:link rel="self">` under the Atom
+    namespace. The JSON Feed gains `language` and, per item, `content_text`
+    (the 1.1 specification requires `content_text` or `content_html`; a
+    strict reader showed the items blank), built by the same
+    `buildDigestItemText` as the RSS description; the site-specific fields
+    after `summary` stay as they were. Each document is validated with
+    `fast-xml-parser`'s `XMLValidator` in the tests.
+  - **seo-11 — the weekly-review RSS carries ended weeks only.** The current
+    week was an item from its Monday with a guid that never changed while
+    its signal list and `pubDate` did, so a reader that marked it read on
+    Monday never saw the rest of the week. The current week now stays on
+    `/digest/weekly` and enters the feed after its Sunday; tests pin the
+    Sunday/Monday boundary. `docs/reference.md` and `docs/page-structure.md`
+    still say “up to the current week” and are the docs window's to change.
+  - **seo-12 — `/news` and `/timeline` are permanent redirects.** All four
+    (both locales) answer 308 instead of 307, same targets.
+  - **Gates.** `npm run typecheck`; the nine touched test files (site
+    metadata 15, structured data 12, html-limited-bots 10, signal feed 9,
+    weekly feed 7, digest delivery 4, plus share-card and
+    metadata-route-render-mode unchanged) pass; prettier and eslint on every
+    changed file; `validate:deployment` alone (the new image routes declare
+    their render mode and mirror each other under `/en`); the full vitest
+    run, 138 files and 1,420 tests (one weekly-summary test now hands its
+    week to the RSS renderer directly, since the feed withholds the running
+    week). No build, `css:diff` or headless Chrome, per the batch rules.
+
 ## Housekeeping after the watchdog night
 
 - **2026-10-21. The tunnel watchdog's alert lines decode.** The two `[alert]`
