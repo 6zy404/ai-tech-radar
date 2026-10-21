@@ -12,6 +12,59 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-21: five signals and a digest, one draft written by hand
+
+- **2026-10-21. The round.** 30 candidates from the 08:05 import (12 InfoQ 中文,
+  10 量子位, 3 Hugging Face Blog, 2 OpenAI News, one each GitHub Blog, Microsoft
+  Research, Simon Willison), decided blind (`blind: true`, suggestions
+  generated first and not read): 5 published, 13 marked reviewed, 12 rejected.
+  Published, all via 「AI 起草」 (`deepseek-chat`, prompt `candidate-draft-v2`,
+  9.5–13 s and 7.8k–10.4k tokens each when the page was read): MiniMax M3.1
+  Flash (`important`, from InfoQ's report; 量子位's report of the same
+  release marked reviewed), 记忆张量's MemT 1.0 (memory-native models, 36B
+  and 288B), PyTorch 2.15's MPS backend (FP8, MoE decoding 5–6.5× faster),
+  AnyLanguageModel 1.0 and TorchNeuron's public beta. For TorchNeuron the
+  server's page fetch timed out and the model fell back to a title-only
+  draft (470 characters of guesses, 21 s); a converted candidate cannot be
+  drafted again, so the dispatcher wrote the title, summary, 1,708-character
+  body and every explanation field from the post (fetched with Node through
+  the proxy) and kept the model's four typed relations. Marked reviewed
+  rather than rejected: two vendor benchmark write-ups (Alaya-DFlash2,
+  TokenFleet), Meshy Edit, a Claude-model rumour, Spanner Omni, RISC-V, three
+  agent-practice essays, the Undo survey, OpenAI's Orchestra Bio
+  acquisition and a vibe-coded game.
+- **What the drafts needed.** Every AI title was over 36 characters (40–56)
+  and was rewritten; measured character by character on the real `h1` at
+  1440 and 390 (the playbook's `Range.getClientRects()` walk), three of the
+  first rewrites still broke inside a word at 1440 — 「国 / 模」, 「公 / 测」
+  and a 「：」 pushed to a line start after the 20-character name
+  AnyLanguageModel 1.0 — so they were reworded again: a shortened title must
+  be re-measured. The MPS draft named Hugging Face as publisher (the post is
+  by HF's PyTorch team about a PyTorch release; now PyTorch /
+  open-source-community); the three HF posts carried `hf-mirror.com` as source
+  URL and once inside a body, changed to `huggingface.co`. Five typed
+  relations with notes were added by hand: MiniMax ↔ DeepSeek V4.1 Flash 1017
+  (印证), MemT ↔ 「智能体记忆不是开关，是剂量」 (延伸), PyTorch MPS ↔ Ollama
+  v0.32.4 and ↔ AnyLanguageModel (印证), AnyLanguageModel ↔ LFM2.5-2.6B (借助);
+  the diff of `technology-workspace.json` was checked for shrunken id arrays
+  before committing (none). Public pages: no internal strings, the news lane
+  links all five, search and the topic view find them, the `/en` twins answer.
+- **The digest.** Regenerated after publishing: it selected the new MiniMax
+  signal plus three carried items as 立即关注 and the four new signals plus two
+  carried ones as 值得跟踪. The five already carried (by 10-20, 10-13 and
+  09-19) were excluded and MiniMax pinned, leaving 1 + 4. 「AI 起草导语」
+  returned 493 characters whose every number matched the signals; cut to 313
+  and published. The generated `summary` line still said 「今日 4 条立即关注，
+  6 条值得跟踪，覆盖 7 个来源」 — the counts before the exclusions — and was
+  corrected by hand; no public surface showed it, but the field is public.
+- **Measurement that did not work.** `eval:triage -- --fresh --since 2026-10-21`
+  reported 0 fresh items and `--since 2026-10-20` exactly the 71 of the 10-20
+  round, so today's 30 blind decisions were not scored; the cause is on the
+  board. The suggestions exist (30, generated in 13 s) for a later scoring.
+- **Not done.** No push notification was sent (Step 7b); the four GitHub
+  release feeds timed out once in the morning import and will be retried
+  tomorrow.
+
 ## Review batch F: content and copy
 
 The second batch of the 2026-10-14 review, ten findings on content and copy,
