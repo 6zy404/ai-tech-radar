@@ -937,7 +937,8 @@ Workspace deployment boundary:
     fast-lane candidates never enter the feed
 - `/digest/weekly/feed.xml`
   - weekly-review RSS 2.0 feed (`src/lib/weekly-feed.ts`): one item per
-    natural week with at least one shown signal, up to the current week,
+    natural week with at least one shown signal that has ended (the current
+    week joins once it is over, 2026-10-21),
     newest first, max 12; item title 「本周回顾 · YYYY-MM-DD 这一周」, links to
     `/digest/weekly/[week]`; published signals only, no news fast-lane items
 

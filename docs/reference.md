@@ -171,6 +171,24 @@ The product is split into two subsystems:
   until 2026-09-30. Every public page also announces its RSS / JSON feeds
   with `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
   `feeds` option in `src/lib/site-metadata.ts`).
+- **Search-engine metadata and feed conformance** (2026-10-21, review
+  batch D) — the home page's title leads with the site's Chinese name
+  (「AI 技术雷达 · 值得优先关注的 AI 技术信号」; `siteNameZh` and
+  `homePageTitles` in `src/lib/site-metadata.ts`) and it has a share image
+  (`/opengraph-image`, `/en/opengraph-image`); `/digest/today` and
+  `/digest/weekly` name the issue's own page as canonical and are no longer
+  in the sitemap; every RSS feed carries `<language>` and an
+  `atom:link rel="self"`, JSON Feed items carry `content_text`, and the four
+  RSS channels are named 「AI 技术雷达 · 技术简报 / 本周回顾 / 全部技术信号 /
+  <话题>」; descriptions are cut by display width as well (200 half-width
+  units, a CJK character counting 2) at a clause; article pages carry
+  `article:published_time`, skill and knowledge Article JSON-LD their share
+  image; `/news` and `/timeline` redirect with 308; and page metadata is
+  written into `<head>` for the Chinese crawlers Next's bot list lacks
+  (`htmlLimitedBots` in `next.config.ts`, the default list plus 360Spider,
+  HaosouSpider, Bytespider, YisouSpider and PetalBot) — only verifiable on a
+  production build. List pages other than the home page still have no share
+  image.
 - **收录于 on the signal page** (2026-10-01) — the technology detail page
   ends, before 来源参考, with the published digests that carried the signal,
   newest first, each linking to `/digest/[date]` and tagged with its section
@@ -642,7 +660,8 @@ The product is split into two subsystems:
   digest pages — no new nav entry.
   The weekly review also has an RSS 2.0 feed at `/digest/weekly/feed.xml`
   (`renderWeeklyReviewRssXml` in `src/lib/weekly-feed.ts`): one item per
-  natural week with shown signals, up to the current week, newest first,
+  natural week with shown signals that has ended (the current week joins
+  once it is over, 2026-10-21), newest first,
   capped at 12, each linking to `/digest/weekly/[week]` and listing that
   week's 立即关注 / 值得跟踪 titles. Linked from a 订阅 block at the foot of
   both weekly-review pages.
