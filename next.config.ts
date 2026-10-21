@@ -25,7 +25,7 @@ const baseSecurityHeaders = [
 // third-party scripts, so the remaining 'unsafe-inline' covers Next.js's own
 // inline bootstrap/hydration scripts and React inline style attributes —
 // nonce-based script-src is the stricter follow-up (see
-// docs/production-readiness.md - I3).
+// docs/history/production-readiness.md - I3).
 const productionSecurityHeaders = [
   {
     key: "Content-Security-Policy",

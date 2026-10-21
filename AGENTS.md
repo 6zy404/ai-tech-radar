@@ -101,7 +101,6 @@ New sessions should start from:
 - `docs/workspace-actions.md`
 - `docs/editorial-round-playbook.md`
 - `docs/decisions.md`
-- `docs/ui-migration-plan.md`
 - `docs/next-task.md` (current status and the open backlog; its past
   session log is archived verbatim in `docs/history/next-task-log.md`)
 

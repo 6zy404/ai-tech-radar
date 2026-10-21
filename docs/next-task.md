@@ -24,9 +24,9 @@
 - **本机探测用 `127.0.0.1`，别用 `localhost`**（IPv6 先试被拒，首次约 2 秒）。2026-09-28 演练脚本误停过线上 78 秒，已加防护。
 - **定时导入 09-25 至 09-27 曾全部丢失**：任务运行器被当成校验脚本写进临时副本。现在走 `scripts/run-ts.cjs`，日志首行写明「真实数据目录」；候选池安静时先看这一行和 `scheduled-import.json` 的 `nextRunAt`；运维看板 36 小时无新导入或逾期 6 小时报严重。
 - **编辑轮怎么跑**：线上没有工作台，一轮在临时 `next dev`（只绑 `127.0.0.1`）上做，指向线上 `config/`（手册 Step 0）。定时导入每天 08:05 自动跑并自动拒掉预发布 tag、已发布过的条目与篡改标题，其余候选**在处置前都公开挂在快讯页上**。
-- **内容**（2026-10-20 实测）：已发布信号 117、技能 22、知识 27、技术简报 37 期、在用信源 15（Mistral AI News 自 10-12 建源 0 次成功、7 次连接超时，10-21 停用，网络通了再启用）；兜底「关联」约 5.6%（10-14 实测）。技能 / 知识池零占位。
+- **内容**（2026-10-20 实测）：已发布信号 117、技能 22、知识 27、技术简报 37 期、在用信源 15（Mistral AI News 自 10-12 建源 0 次成功、7 次连接超时，10-21 停用，网络通了再启用）；兜底「关联」5.6%（73/1295，10-21 实测），1295 条边里 1187 条有附注。技能 / 知识池零占位。
 - **闸门**：typecheck / vitest（127 个测试文件）/ lint / format / `validate:all` 21 个 / `build:public` 全绿（2026-10-20）。CI 在推到 GitHub 时跑（Node 24，生产依赖有严重漏洞即失败），2026-10-15 起通过；main 与 GitHub 一致。
-- **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：`css:diff` 一次约 6 分钟，采集串行。每个新会话自动读入约 270 KB 文档；CHANGELOG 与历史日志按需读。
+- **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：`css:diff` 一次约 6 分钟，采集串行。每个新会话自动读入约 417 KB 文档（10-21 量，CLAUDE.md + 9 个 @ 引入；09-26 是 259 KB，涨在 reference / page-structure / data-model / security-boundary / architecture）；CHANGELOG 与历史日志按需读。
 
 ## 剩余待办（按优先级）
 
@@ -46,13 +46,14 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。第二批 10-21 04:10 开工：D SEO 与订阅源（seo-1/2/5/6/8/9/10/11/12）、E 文档过期（docs-4/5/6/9/11/13/14、ops-host-13、content-4；E 不能改 AGENTS.md / CLAUDE.md / next-task.md，要改的行由主控应用）、F 内容与文案小错（ui-live-3/4/8/10/12/13、content-7/8、dev-core-8/9；10-21 已并入 main，待部署）。content-5/6 主控 10-21 已在线上数据改完（发布方统一为 Ai2 / Meta / IBM Research=research-lab、Simon Willison Blog；Muse Glimmer 两条互列并以「延伸」关联附注）。再往后：dev-core-11、sec-internal-4/5/6、dev-quality-*、ui-static-11/12/13/16/17、perf-9/10/11 等待排。
+- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已上线）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已上线）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已上线）。整批 validate:all（21 个）+ build:public（85 条路由、0 条工作台）全绿后 10-21 03:59 部署。第二批 10-21 04:10 开工：D SEO 与订阅源（seo-1/2/5/6/8/9/10/11/12）、E 文档过期（docs-4/5/6/9/11/13/14、ops-host-13、content-4；E 不能改 AGENTS.md / CLAUDE.md / next-task.md，要改的行由主控应用；10-21 已并入 main，四份过期规划文档归档到 docs/history，AGENTS.md 的引用已删）、F 内容与文案小错（ui-live-3/4/8/10/12/13、content-7/8、dev-core-8/9；10-21 已并入 main，待部署）。content-5/6 主控 10-21 已在线上数据改完（发布方统一为 Ai2 / Meta / IBM Research=research-lab、Simon Willison Blog；Muse Glimmer 两条互列并以「延伸」关联附注）。再往后：dev-core-11、sec-internal-4/5/6、dev-quality-*、ui-static-11/12/13/16/17、perf-9/10/11 等待排。
 
 - 部署脚本的自动回滚只在替身服务上演练过，真环境里还没触发过。
 
 ### 3. P3 代码与文档债
 
-- 目前没有待办；做过的在 CHANGELOG（CSS 归组、复制粘贴收口、测试类型检查等）。
+- README 的三张截图（docs/images 的 home / signal-detail / network，09-06 摄）要用预览窗格重拍：旧「每日简报」导航、公开构建里没有的「内部工作台」按钮、旧计数（72/16/19，107 节点 655 边）、缺雷达 / 问雷达 / 中-EN / 页脚。
+- 自动读入文档精简（docs-6，E 组 10-21 方案）：把 @docs/data-model.md 与 @docs/page-structure.md 从 CLAUDE.md 的自动引入改成按需读，417 KB → 约 244 KB；CLAUDE.md 写明 250 KB 预算与量法；自动读入文件只写现状、测量过程进 CHANGELOG；之后专项清理 reference.md（72 KB）。改 CLAUDE.md 等 owner 点头。
 
 ### 4. 评测与内容
 

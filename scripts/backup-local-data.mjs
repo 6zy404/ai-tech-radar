@@ -4,7 +4,7 @@
  *
  * Why this exists: the JSON store has no multi-writer locking, and the
  * scheduled task runner writes to the same files the operator edits through
- * the workspace UI (`docs/production-readiness.md` -> I2). Until this script
+ * the workspace UI (`docs/history/production-readiness.md` -> I2). Until this script
  * there was no copy of `config/` anywhere — a bad write or an accidental
  * delete was unrecoverable. This is deliberately the smallest thing that
  * closes that hole: a timestamped copy plus a manifest, no dependencies.
