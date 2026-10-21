@@ -223,6 +223,13 @@ function hasDuplicateSlug(
   ].some((item) => item.slug.trim().toLowerCase() === slug);
 }
 
+/** The title length the editors aim for; the AI draft prompt asks for 18–36. */
+export const recommendedTitleMaxLength = 36;
+
+/** The title the list card and share card show: Chinese first, else original. */
+function getShownTitle(title: { original: string; zh?: string }): string {
+  return title.zh?.trim() || title.original.trim();
+}
 function issue(
   severity: PublishReadinessSeverity,
   field: string,
@@ -593,6 +600,22 @@ export function evaluateTechnologyPublishReadiness(
     );
   }
 
+  // The 36-character cap was written only into the AI draft prompt and the
+  // editors' notes, so 30 of 110 published titles were over it (measured
+  // 2026-10-21, longest 58). A long title folds onto three lines on the list
+  // card and the share card; a warning, never a block.
+  const shownTitle = getShownTitle(record.title);
+
+  if (shownTitle.length > recommendedTitleMaxLength) {
+    warnings.push(
+      issue(
+        "warning",
+        "title",
+        "long-title",
+        `标题 ${shownTitle.length} 字，超过 ${recommendedTitleMaxLength} 字；列表卡片和分享图会折成多行，建议缩短。`
+      )
+    );
+  }
   if (getLocalizedLength(record.content) < 180) {
     warnings.push(
       issue(

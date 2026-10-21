@@ -93,6 +93,41 @@ describe("evaluateTechnologyPublishReadiness", () => {
   // `translationStatus` is editor-set and nothing keeps it honest, so it
   // drifts — 6 of 31 records in July, and 2 of 37 again in August. These pin
   // the comparison against the coverage derived from the actual content.
+  describe("title length", () => {
+    const chars = (n: number) => "字".repeat(n);
+
+    it("warns, without blocking, when the shown title passes 36 characters", () => {
+      const result = evaluate(
+        makeWorkspaceRecord({ title: { original: "Original", zh: chars(37) } })
+      );
+
+      expect(result.isReady).toBe(true);
+      expect(codes(result.warnings)).toContain("long-title");
+      expect(
+        result.warnings.find((issue) => issue.code === "long-title")?.message
+      ).toContain("37 字");
+    });
+
+    it("stays quiet at exactly 36", () => {
+      const result = evaluate(
+        makeWorkspaceRecord({ title: { original: "Original", zh: chars(36) } })
+      );
+
+      expect(codes(result.warnings)).not.toContain("long-title");
+    });
+
+    it("measures the original title when there is no Chinese one", () => {
+      const long = evaluate(
+        makeWorkspaceRecord({ title: { original: "x".repeat(40) } })
+      );
+      const padded = evaluate(
+        makeWorkspaceRecord({ title: { original: "x".repeat(20), zh: "  " } })
+      );
+
+      expect(codes(long.warnings)).toContain("long-title");
+      expect(codes(padded.warnings)).not.toContain("long-title");
+    });
+  });
   describe("translationStatus against derived coverage", () => {
     const translated = {
       title: { original: "Example Technology", zh: "示例技术" },
