@@ -32,7 +32,12 @@ export function generateTodayDigestPageMetadata(locale: Locale): Metadata {
       ? getPublicDigestTitle(latest)
       : digestCopy[locale].today.fallbackTitle,
     description: latest ? getPublicDigestSummaryPlainText(latest) : undefined,
-    path: "/digest/today",
+    // The issue shown here is also served at /digest/<date>, its permanent
+    // address, with the same text. Naming that page as the canonical (and in
+    // og:url and hreflang) keeps the two from competing in a search index and
+    // sends the nav's link weight to the issue itself; a share of this address
+    // then resolves to the issue the sharer saw, not next week's (seo-2).
+    path: latest ? `/digest/${latest.date}` : "/digest/today",
     largeImage: true,
     locale
   });
@@ -95,7 +100,8 @@ export function TodayDigestPage({ locale }: { locale: Locale }) {
               date: latestDigest.date,
               title: getPublicDigestTitle(latestDigest),
               summary: getPublicDigestSummaryPlainText(latestDigest),
-              path: "/digest/today",
+              // The same address the canonical names.
+              path: `/digest/${latestDigest.date}`,
               technologies: [
                 ...renderData.highPriorityTechnologies,
                 ...renderData.watchTechnologies

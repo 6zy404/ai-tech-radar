@@ -18,11 +18,19 @@ import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
 export function getWeeklyReviewPageMetadata(locale: Locale) {
   const copy = weeklyCopy[locale];
+  const week = getWeeklyReview();
 
   return buildPageMetadata({
     title: copy.title,
     description: copy.description,
-    path: "/digest/weekly",
+    // Once this week has a shown signal it also lives at
+    // /digest/weekly/<monday>, which is where the canonical points; before
+    // that the week page would 404, so this address stays its own canonical
+    // (seo-2). Read per request — the route files export generateMetadata.
+    path:
+      week && week.totalCount > 0
+        ? `/digest/weekly/${week.weekKey}`
+        : "/digest/weekly",
     feeds: [weeklyReviewFeed],
     largeImage: true,
     locale

@@ -38,12 +38,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5
     },
     { url: absolute("/digest"), changeFrequency: "daily", priority: 0.8 },
-    { url: absolute("/digest/today"), changeFrequency: "daily", priority: 0.8 },
-    {
-      url: absolute("/digest/weekly"),
-      changeFrequency: "weekly",
-      priority: 0.6
-    },
+    // /digest/today and /digest/weekly are not listed: each shows an issue
+    // that has its own entry below and names that entry as its canonical.
     { url: absolute("/radar"), changeFrequency: "weekly", priority: 0.7 },
     { url: absolute("/skills"), changeFrequency: "weekly", priority: 0.7 },
     { url: absolute("/knowledge"), changeFrequency: "weekly", priority: 0.7 },
