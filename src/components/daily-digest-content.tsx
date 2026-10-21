@@ -14,6 +14,7 @@ import { LangScope, LangSpan } from "@/components/lang-scope";
 import { PageToc } from "@/components/page-toc";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SectionHeading } from "@/components/section-link";
+import { SignalAudienceLine } from "@/components/signal-audience-line";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { compactText } from "@/lib/compact-text";
@@ -90,13 +91,6 @@ function getTechnologyTags(
   return technology.tags
     .map((tagId) => tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is TopicTag => Boolean(tag));
-}
-
-/** The audience names, Chinese on both sites (they are editors' text). */
-function getAudienceNames(audience: string[]): string | undefined {
-  const visibleAudience = audience.filter(Boolean).slice(0, 3);
-
-  return visibleAudience.length > 0 ? visibleAudience.join("、") : undefined;
 }
 
 function getDigestSourceReferences(
@@ -198,7 +192,6 @@ function DigestTechnologyCard({
     compact ? 130 : 180,
     "..."
   );
-  const audienceNames = getAudienceNames(intelligence.audience);
   const difficulty = getReadingDifficultyLabel(
     technology.readingDifficulty,
     locale
@@ -240,18 +233,11 @@ function DigestTechnologyCard({
         <DossierCatalogNote label={copy.whyItMatters}>
           <LangSpan lang={whyItMattersLang}>{whyItMatters}</LangSpan>
         </DossierCatalogNote>
-        {audienceNames ? (
-          <p className="digest-technology-card__audience">
-            {locale === "zh" ? (
-              copy.audience(audienceNames)
-            ) : (
-              <>
-                {copy.audience("")}
-                <span lang={contentLangAttr(locale)}>{audienceNames}</span>
-              </>
-            )}
-          </p>
-        ) : null}
+        <SignalAudienceLine
+          audience={intelligence.audience}
+          locale={locale}
+          className="digest-technology-card__audience"
+        />
       </div>
 
       <div className="digest-technology-card__footer">

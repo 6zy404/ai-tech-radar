@@ -359,6 +359,15 @@
   line-height: 1.65;
 }
 
+/* 适合 …: the audience as the digest card shows it, a paragraph at the
+   shell's body size like the summary; it was a muted 10.5px stamp per
+   name, and 103 of 440 wrapped to two lines on /technologies (2026-10-21). */
+.dossier-technology-card__audience {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
 .dossier-technology-card__footer {
   display: flex;
   flex-wrap: wrap;

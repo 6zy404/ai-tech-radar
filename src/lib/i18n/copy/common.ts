@@ -40,7 +40,13 @@ const zh = {
     viewInNetwork: "在关系网络中查看 →",
     relationTitle: (relation: string, note: string) => `${relation}：${note}`
   },
-  readingTime: (minutes: number) => `约 ${minutes} 分钟读完`
+  readingTime: (minutes: number) => `约 ${minutes} 分钟读完`,
+  /* 适合 A、B、C on the signal cards (home, list, digest). The names are
+     the editors' Chinese text; the English site keeps them in Chinese. */
+  audience: {
+    label: (names: string) => `适合 ${names}`,
+    join: "、"
+  }
 };
 
 const en: typeof zh = {
@@ -78,7 +84,11 @@ const en: typeof zh = {
     viewInNetwork: "View in the network →",
     relationTitle: (relation, note) => `${relation}: ${note}`
   },
-  readingTime: (minutes) => `About ${minutes} min read`
+  readingTime: (minutes) => `About ${minutes} min read`,
+  audience: {
+    label: (names) => `For ${names}`,
+    join: "、"
+  }
 };
 
 export const commonCopy: Record<Locale, typeof zh> = { zh, en };

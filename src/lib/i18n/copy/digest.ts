@@ -45,8 +45,6 @@ const zh = {
       watch: "这一变化值得跟进，但仍需更多背景或验证。",
       low_priority: "可作背景了解，但今天还不够紧迫到需要优先处理。"
     } as Record<PriorityLevel, string>,
-    audience: (names: string) => `适合 ${names}`,
-    audienceJoin: "、",
     matchLine: (names: string) => `命中关注：${names}`,
     matchJoin: "、",
     whyItMatters: "为什么重要",
@@ -138,8 +136,6 @@ const en: typeof zh = {
         "Worth following, but it still needs more context or confirmation.",
       low_priority: "Background reading; not urgent enough to put first today."
     },
-    audience: (names) => `For ${names}`,
-    audienceJoin: "、",
     matchLine: (names) => `Matches: ${names}`,
     matchJoin: ", ",
     whyItMatters: "Why it matters",

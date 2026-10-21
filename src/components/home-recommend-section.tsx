@@ -62,6 +62,7 @@ export function HomeRecommendSection({ tags }: { tags: TopicTag[] }) {
         {recommendations.map(({ card, seed, seedMark, matchedTagIds }) => (
           <HomeSignalCard
             key={card.slug}
+            locale={locale}
             href={localePath(locale, `/technologies/${card.slug}`)}
             title={card.title}
             summary={card.summary}

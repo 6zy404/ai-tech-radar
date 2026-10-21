@@ -5,7 +5,9 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { LangSpan } from "@/components/lang-scope";
+import { SignalAudienceLine } from "@/components/signal-audience-line";
 import { TagList } from "@/components/tag-list";
+import type { Locale } from "@/lib/i18n/locale";
 import type { TopicTag } from "@/types/content";
 
 interface HomeSignalCardProps {
@@ -16,9 +18,11 @@ interface HomeSignalCardProps {
   publishDate: string;
   noteLabel: string;
   note: string;
-  footerItems?: string[];
-  /** `lang` per footer item, where it differs from the page. */
-  footerItemLangs?: (string | undefined)[];
+  locale: Locale;
+  /** Who should care, as a 适合 … line; up to three names. */
+  audience?: string[];
+  /** The reading-difficulty label, the one chip the footer keeps. */
+  difficulty?: string;
   tags: TopicTag[];
   /** Out-of-flow stamp on the card's top edge (the 新 stamp). */
   stamp?: ReactNode;
@@ -41,8 +45,9 @@ export function HomeSignalCard({
   publishDate,
   noteLabel,
   note,
-  footerItems = [],
-  footerItemLangs = [],
+  locale,
+  audience = [],
+  difficulty,
   tags,
   stamp,
   titleLang,
@@ -63,13 +68,16 @@ export function HomeSignalCard({
       <DossierCatalogNote label={noteLabel}>
         <LangSpan lang={noteLang}>{note}</LangSpan>
       </DossierCatalogNote>
-      <div className="home-signal-card__footer">
-        {footerItems.map((item, index) => (
-          <span key={item} lang={footerItemLangs[index]}>
-            {item}
-          </span>
-        ))}
-      </div>
+      <SignalAudienceLine
+        audience={audience}
+        locale={locale}
+        className="home-signal-card__audience"
+      />
+      {difficulty ? (
+        <div className="home-signal-card__footer">
+          <span>{difficulty}</span>
+        </div>
+      ) : null}
       <TagList tags={tags} limit={2} />
     </DossierCard>
   );

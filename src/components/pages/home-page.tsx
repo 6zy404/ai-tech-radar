@@ -126,11 +126,9 @@ function HomeTechnologyCard({
       noteLabel={homeCopy[locale].priority.whyItMatters}
       note={whyItMatters}
       noteLang={noteLang}
-      footerItems={difficulty ? [...audience, difficulty] : audience}
-      footerItemLangs={[
-        ...audience.map(() => contentLangAttr(locale)),
-        undefined
-      ]}
+      locale={locale}
+      audience={audience}
+      difficulty={difficulty || undefined}
       tags={cardTags}
       stamp={<NewSignalStamp technologyId={technology.id} />}
     />

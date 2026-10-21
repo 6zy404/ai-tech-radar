@@ -5,6 +5,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { LangSpan } from "@/components/lang-scope";
+import { SignalAudienceLine } from "@/components/signal-audience-line";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { NewStamp } from "@/components/visit-baseline";
 import {
@@ -101,13 +102,14 @@ export function DossierTechnologyCard({
     : contentLangAttr(locale, summaryText.language);
   const whyItMatters =
     getTechnologyWhyItMatters(technology, summary) ?? summary;
-  const audience = getTechnologyAudience(technology).slice(0, 2);
   const difficultyLabel = getReadingDifficultyLabel(
     technology.readingDifficulty,
     locale
   );
+  // The audience is a sentence, not a label: as 10.5px chips, 103 of 440
+  // on /technologies wrapped onto a second line (2026-10-21). It is now the
+  // digest card's 适合 … line; the chips keep the difficulty and topics.
   const contextChips = [
-    ...audience.map((label) => ({ label, lang: contentLangAttr(locale) })),
     ...(difficultyLabel ? [{ label: difficultyLabel, lang: undefined }] : []),
     ...tags.map((tag) => ({ label: tag.name, lang: undefined }))
   ]
@@ -164,6 +166,13 @@ export function DossierTechnologyCard({
           <LangSpan lang={whyItMattersLang}>{whyItMatters}</LangSpan>
         </DossierCatalogNote>
       ) : null}
+
+      <SignalAudienceLine
+        audience={getTechnologyAudience(technology)}
+        locale={locale}
+        className="dossier-technology-card__audience"
+        limit={2}
+      />
 
       <div className="dossier-technology-card__footer">
         <span

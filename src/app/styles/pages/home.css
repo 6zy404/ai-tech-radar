@@ -112,6 +112,10 @@
   background: rgba(15, 118, 110, 0.07);
 }
 
+/* The 适合 … line (.home-signal-card__audience) is a plain paragraph of the
+   card: margin, colour and family come from the card's own p rules and the
+   size from the shell's body step. As pills (5px 9px, radius 999px) the
+   sentences wrapped inside the capsule (2026-10-21). */
 .home-signal-card__footer {
   display: flex;
   flex-wrap: wrap;
