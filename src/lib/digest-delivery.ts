@@ -167,6 +167,61 @@ export function formatRssDate(
     : date.toUTCString();
 }
 
+/**
+ * The text of one digest item in the feeds: the RSS `<description>` and the
+ * JSON Feed `content_text` carry the same paragraphs — the summary, the first
+ * three signals of each section and the source names.
+ */
+export function buildDigestItemText(item: DigestDeliveryItem): string {
+  return [
+    item.summary,
+    buildTechnologyListText("今日立即关注", item.highPriorityItems),
+    buildTechnologyListText("值得跟踪", item.watchItems),
+    item.sourceNames.length > 0
+      ? `来源参考: ${item.sourceNames.join(", ")}`
+      : "来源参考: 无"
+  ].join("\n\n");
+}
+
+/** RSS 2.0 wants the lower-case form (`zh-cn`); JSON Feed takes RFC 5646. */
+export const rssLanguage = "zh-cn";
+export const jsonFeedLanguage = "zh-CN";
+
+export interface RssChannelDocument {
+  title: string;
+  /** Absolute URL of the page the feed mirrors. */
+  link: string;
+  description: string;
+  /** Absolute URL of the feed itself, written as `<atom:link rel="self">`. */
+  feedUrl: string;
+  /** The rendered `<item>` elements, already joined; empty for no items. */
+  items: string;
+}
+
+/**
+ * One RSS 2.0 document shape for every feed on the site. Beyond the three
+ * required channel fields it writes `<language>` and the feed's own address
+ * as `<atom:link rel="self">` — both were missing from all four feeds until
+ * 2026-10-21 (seo-10), so aggregators treated the Chinese text as being in
+ * their default language and the W3C validator flagged the missing self link.
+ */
+export function renderRssDocument(channel: RssChannelDocument): string {
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${escapeXml(channel.title)}</title>`,
+    `    <link>${escapeXml(channel.link)}</link>`,
+    `    <description>${escapeXml(channel.description)}</description>`,
+    `    <language>${rssLanguage}</language>`,
+    `    <atom:link href="${escapeXml(channel.feedUrl)}" rel="self" type="application/rss+xml"/>`,
+    `    <lastBuildDate>${escapeXml(new Date().toUTCString())}</lastBuildDate>`,
+    ...(channel.items ? [channel.items] : []),
+    "  </channel>",
+    "</rss>"
+  ].join("\n");
+}
+
 function buildTechnologyListText(
   label: string,
   items: DigestDeliveryTechnology[]
@@ -184,14 +239,7 @@ function buildTechnologyListText(
 export function renderDigestRssXml(feed = getDigestDeliveryFeed()): string {
   const items = feed.items
     .map((item) => {
-      const description = [
-        item.summary,
-        buildTechnologyListText("今日立即关注", item.highPriorityItems),
-        buildTechnologyListText("值得跟踪", item.watchItems),
-        item.sourceNames.length > 0
-          ? `来源参考: ${item.sourceNames.join(", ")}`
-          : "来源参考: 无"
-      ].join("\n\n");
+      const description = buildDigestItemText(item);
 
       return [
         "    <item>",
@@ -206,20 +254,22 @@ export function renderDigestRssXml(feed = getDigestDeliveryFeed()): string {
     })
     .join("\n");
 
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0">',
-    "  <channel>",
-    `    <title>${escapeXml(feed.title)}</title>`,
-    `    <link>${escapeXml(feed.homePageUrl)}</link>`,
-    `    <description>${escapeXml(feed.description)}</description>`,
-    `    <lastBuildDate>${escapeXml(new Date().toUTCString())}</lastBuildDate>`,
-    items,
-    "  </channel>",
-    "</rss>"
-  ].join("\n");
+  return renderRssDocument({
+    title: feed.title,
+    link: feed.homePageUrl,
+    description: feed.description,
+    feedUrl: feed.rssFeedUrl,
+    items
+  });
 }
 
+/**
+ * JSON Feed 1.1. Every item carries `content_text` (the spec requires
+ * `content_text` or `content_html`; a strict reader shows an item without
+ * either as blank) with the same text as the RSS description, and the feed
+ * names its language. The site-specific fields after `summary` predate the
+ * feed's readers and stay as they are.
+ */
 export function renderDigestJsonFeed(feed = getDigestDeliveryFeed()) {
   return {
     version: "https://jsonfeed.org/version/1.1",
@@ -227,6 +277,7 @@ export function renderDigestJsonFeed(feed = getDigestDeliveryFeed()) {
     description: feed.description,
     home_page_url: feed.homePageUrl,
     feed_url: feed.jsonFeedUrl,
+    language: jsonFeedLanguage,
     items: feed.items.map((item) => ({
       id: item.digestUrl,
       url: item.digestUrl,
@@ -234,6 +285,7 @@ export function renderDigestJsonFeed(feed = getDigestDeliveryFeed()) {
       date_modified: item.updatedAt,
       title: item.title,
       summary: item.summary,
+      content_text: buildDigestItemText(item),
       date: item.date,
       digestUrl: item.digestUrl,
       highPriorityItems: item.highPriorityItems,

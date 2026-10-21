@@ -1,7 +1,8 @@
 import {
   escapeXml,
   formatRssDate,
-  getSiteBaseUrl
+  getSiteBaseUrl,
+  renderRssDocument
 } from "@/lib/digest-delivery";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
 import {
@@ -120,18 +121,12 @@ export function renderWeeklyReviewRssXml(
     })
     .join("\n");
 
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0">',
-    "  <channel>",
-    `    <title>${escapeXml(channelTitle)}</title>`,
-    `    <link>${escapeXml(homeUrl)}</link>`,
-    `    <description>${escapeXml(
-      "按自然周（周一–周日）汇总的已发布技术信号，每周一条，列出立即关注与值得跟踪的信号。"
-    )}</description>`,
-    `    <lastBuildDate>${escapeXml(new Date().toUTCString())}</lastBuildDate>`,
-    ...(items ? [items] : []),
-    "  </channel>",
-    "</rss>"
-  ].join("\n");
+  return renderRssDocument({
+    title: channelTitle,
+    link: homeUrl,
+    description:
+      "按自然周（周一–周日）汇总的已发布技术信号，每周一条，列出立即关注与值得跟踪的信号。",
+    feedUrl,
+    items
+  });
 }

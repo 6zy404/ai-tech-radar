@@ -1,3 +1,4 @@
+import { XMLValidator } from "fast-xml-parser";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { makeTechnologyItem } from "@/lib/test-factories";
@@ -127,6 +128,11 @@ describe("renderWeeklyReviewRssXml", () => {
     // pubDate is the week's latest signal date, not the week start.
     expect(xml).toContain("<pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>");
     expect(xml).toContain(`<source url="${baseUrl}/digest/weekly/feed.xml">`);
+    expect(xml).toContain("<language>zh-cn</language>");
+    expect(xml).toContain(
+      `<atom:link href="${baseUrl}/digest/weekly/feed.xml" rel="self" type="application/rss+xml"/>`
+    );
+    expect(XMLValidator.validate(xml)).toBe(true);
     // Newest week first.
     expect(xml.indexOf("2026-07-20 这一周")).toBeLessThan(
       xml.indexOf("2026-07-06 这一周")

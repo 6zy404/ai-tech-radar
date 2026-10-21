@@ -1,3 +1,4 @@
+import { XMLValidator } from "fast-xml-parser";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
@@ -106,6 +107,16 @@ describe("renderAllSignalsRssXml", () => {
     );
     expect(xml).toContain(`<source url="${baseUrl}/technologies/feed.xml">`);
     expect(xml).toContain(`<link>${baseUrl}/technologies</link>`);
+  });
+
+  it("names its language and its own address, and is well-formed", () => {
+    const xml = renderAllSignalsRssXml([tech("a", "2026-09-20")], baseUrl);
+
+    expect(xml).toContain("<language>zh-cn</language>");
+    expect(xml).toContain(
+      `<atom:link href="${baseUrl}/technologies/feed.xml" rel="self" type="application/rss+xml"/>`
+    );
+    expect(XMLValidator.validate(xml)).toBe(true);
   });
 
   it("preserves the order it is given", () => {

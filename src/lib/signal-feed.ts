@@ -2,7 +2,8 @@ import { getAllTags, getAllTechnologies } from "@/lib/content";
 import {
   escapeXml,
   formatRssDate,
-  getSiteBaseUrl
+  getSiteBaseUrl,
+  renderRssDocument
 } from "@/lib/digest-delivery";
 import { signalFeedPath } from "@/lib/feed-paths";
 import {
@@ -53,18 +54,7 @@ export function renderSignalRssXml(
     })
     .join("\n");
 
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0">',
-    "  <channel>",
-    `    <title>${escapeXml(channel.title)}</title>`,
-    `    <link>${escapeXml(channel.link)}</link>`,
-    `    <description>${escapeXml(channel.description)}</description>`,
-    `    <lastBuildDate>${escapeXml(new Date().toUTCString())}</lastBuildDate>`,
-    ...(items ? [items] : []),
-    "  </channel>",
-    "</rss>"
-  ].join("\n");
+  return renderRssDocument({ ...channel, items });
 }
 
 /**
