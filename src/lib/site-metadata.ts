@@ -40,28 +40,58 @@ export { getSiteUrl } from "@/lib/site-url";
 const descriptionMaxLength = 160;
 
 /**
+ * The same limit by width. A full-width character (CJK, full-width
+ * punctuation) is about two Latin characters wide, and a Chinese result
+ * snippet shows about 80–120 characters where an English one shows 160, so
+ * 160 characters of Chinese ran well past what a result displays — 77 of
+ * 110 signal descriptions were cut there (seo-8, 2026-10-21). 200 half-width
+ * units is 100 Chinese characters or 160 Latin ones; both limits apply.
+ */
+const descriptionMaxWidth = 200;
+
+// East Asian Wide and Fullwidth: CJK ideographs and their extensions, kana,
+// Hangul, CJK punctuation and symbols, the full-width forms.
+const fullWidthCharacter =
+  /^(?:[\u1100-\u115F\u2E80-\u303E\u3041-\u33FF\u3400-\u4DBF\u4E00-\u9FFF\uA000-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]|[\u{20000}-\u{3FFFD}])$/u;
+
+/**
  * Trims a summary to snippet length on a clause boundary when one is near,
  * so a description never ends mid-word. Whitespace runs are collapsed first
- * because summaries can carry line breaks.
+ * because summaries can carry line breaks. The cut is the longest prefix
+ * within both the character and the display-width limit.
  */
 export function compactDescription(
   text: string,
-  maxLength = descriptionMaxLength
+  maxLength = descriptionMaxLength,
+  maxWidth = descriptionMaxWidth
 ): string {
   const collapsed = text.replace(/\s+/g, " ").trim();
 
-  if (collapsed.length <= maxLength) {
+  let cutAt = 0;
+  let width = 0;
+
+  for (const char of collapsed) {
+    width += fullWidthCharacter.test(char) ? 2 : 1;
+
+    if (cutAt + char.length > maxLength || width > maxWidth) {
+      break;
+    }
+
+    cutAt += char.length;
+  }
+
+  if (cutAt >= collapsed.length) {
     return collapsed;
   }
 
-  const head = collapsed.slice(0, maxLength);
+  const head = collapsed.slice(0, cutAt);
   const clauseEnd = Math.max(
     head.lastIndexOf("。"),
     head.lastIndexOf("；"),
     head.lastIndexOf("，"),
     head.lastIndexOf(". ")
   );
-  const cut = clauseEnd >= maxLength * 0.6 ? clauseEnd + 1 : maxLength;
+  const cut = clauseEnd >= cutAt * 0.6 ? clauseEnd + 1 : cutAt;
 
   return `${head.slice(0, cut).trim()}…`;
 }
