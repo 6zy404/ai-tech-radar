@@ -55,6 +55,10 @@ beforeEach(() => {
         candidate("empty-release", "No content."),
         candidate("plain", "A plain summary."),
         {
+          ...candidate("tagged", "Tagged."),
+          tags: ["tag-workflow", "frontier-model", "首页轮播", "tag-workflow"]
+        },
+        {
           ...candidate("defaced", ""),
           originalTitle: "hacked by trenggalek6etar"
         }
@@ -98,10 +102,22 @@ describe("news lane summaries", () => {
       items.find((item) => item.sourceUrl === `https://example.com/${id}`)
         ?.summary;
 
-    expect(items).toHaveLength(4);
+    expect(items).toHaveLength(5);
     expect(summaryOf("github-blog")).toBe("Enter canvases.");
     expect(summaryOf("infoq-link-only")).toBeUndefined();
     expect(summaryOf("empty-release")).toBeUndefined();
     expect(summaryOf("plain")).toBe("A plain summary.");
+  });
+
+  it("shows only canonical topic names, never a source's raw labels", async () => {
+    vi.resetModules();
+    const { getPublicNewsItems } = await import("@/lib/news");
+
+    const items = getPublicNewsItems(new Date("2026-09-30T12:00:00+08:00"));
+    const tagged = items.find(
+      (item) => item.sourceUrl === "https://example.com/tagged"
+    );
+
+    expect(tagged?.tags).toEqual(["工作流"]);
   });
 });

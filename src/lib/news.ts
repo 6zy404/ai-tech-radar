@@ -109,13 +109,22 @@ function truncateSummary(value: string | undefined): string | undefined {
   return compactText(trimmed, maxSummaryLength);
 }
 
+/**
+ * Only canonical topic names reach readers. A source's default tags and a
+ * feed's own category labels (`frontier-model`, `startup`, 「首页轮播」) are not
+ * topics the site knows, so until 2026-10-21 they were shown as they came —
+ * 61 raw labels on one 34-item page. Unknown ids are dropped, not echoed.
+ */
 function getPublicTagNames(tags: string[], locale: Locale): string[] {
   const allTags = localizeTags(getAllTags(), locale);
-
-  return tags
+  const names = tags
     .filter((tag) => tag !== fallbackTag)
-    .map((tag) => allTags.find((topicTag) => topicTag.id === tag)?.name ?? tag)
-    .slice(0, 4);
+    .flatMap((tag) => {
+      const name = allTags.find((topicTag) => topicTag.id === tag)?.name;
+      return name ? [name] : [];
+    });
+
+  return [...new Set(names)].slice(0, 4);
 }
 
 function toPublicNewsItem(
