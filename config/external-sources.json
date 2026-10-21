@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T20:18:02.865Z",
+  "updatedAt": "2026-10-21T01:53:49.582Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -12,21 +12,28 @@
       "publisherName": "Ollama",
       "publisherType": "open-source-community",
       "defaultTags": [
-        "local-inference",
-        "open-source"
+        "tag-on-device",
+        "tag-inference"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "success",
-      "lastImportCount": 10,
-      "consecutiveFailureCount": 0,
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 1,
       "totalImportedCount": 114,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-10-20T00:05:53.580Z",
+      "updatedAt": "2026-10-21T01:53:49.436Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:53.580Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastFetchedAt": "2026-10-21T00:06:23.839Z",
+      "lastImportMessage": "请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout",
       "lastSuccessfulImportAt": "2026-10-20T00:05:53.580Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:06:23.839Z",
+          "status": "failed",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0,
+          "errorSummary": "请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout"
+        },
         {
           "at": "2026-10-20T00:05:53.580Z",
           "status": "success",
@@ -188,7 +195,8 @@
           "candidatesSkipped": 0,
           "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
         }
-      ]
+      ],
+      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout"
     },
     {
       "id": "source-vllm-releases",
@@ -201,21 +209,28 @@
       "publisherName": "vLLM Project",
       "publisherType": "open-source-community",
       "defaultTags": [
-        "inference",
-        "serving"
+        "tag-inference",
+        "tag-efficient-inference"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "success",
-      "lastImportCount": 10,
-      "consecutiveFailureCount": 0,
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 1,
       "totalImportedCount": 60,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-10-20T00:06:05.702Z",
+      "updatedAt": "2026-10-21T01:53:49.489Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:06:05.702Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastFetchedAt": "2026-10-21T00:08:07.589Z",
+      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
       "lastSuccessfulImportAt": "2026-10-20T00:06:05.702Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:08:07.589Z",
+          "status": "failed",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0,
+          "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
+        },
         {
           "at": "2026-10-20T00:06:05.702Z",
           "status": "success",
@@ -376,7 +391,8 @@
           "candidatesSkipped": 0,
           "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
         }
-      ]
+      ],
+      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -389,8 +405,8 @@
       "publisherName": "modelcontextprotocol",
       "publisherType": "open-source-community",
       "defaultTags": [
-        "mcp",
-        "agent"
+        "tag-ai-agents",
+        "tag-agent-infra"
       ],
       "defaultNormalizedType": "tool",
       "lastImportStatus": "success",
@@ -398,12 +414,18 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 21,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-10-20T00:05:13.942Z",
+      "updatedAt": "2026-10-21T01:53:49.519Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:13.942Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:13.942Z",
+      "lastFetchedAt": "2026-10-21T00:05:36.141Z",
+      "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:36.141Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:36.141Z",
+          "status": "success",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 10
+        },
         {
           "at": "2026-10-20T00:05:13.942Z",
           "status": "success",
@@ -576,21 +598,26 @@
       "publisherName": "Hugging Face",
       "publisherType": "open-source-community",
       "defaultTags": [
-        "open-source",
-        "model"
+        "tag-open-weights"
       ],
       "defaultNormalizedType": "unknown",
       "lastImportStatus": "success",
       "lastImportCount": 12,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 95,
+      "totalImportedCount": 98,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-10-20T00:05:11.027Z",
+      "updatedAt": "2026-10-21T01:53:49.549Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:11.027Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:11.027Z",
+      "lastFetchedAt": "2026-10-21T00:05:33.137Z",
+      "lastImportMessage": "导入 3 条新候选；跳过 9 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:33.137Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:33.137Z",
+          "status": "success",
+          "candidatesCreated": 3,
+          "candidatesSkipped": 9
+        },
         {
           "at": "2026-10-20T00:05:11.027Z",
           "status": "success",
@@ -760,20 +787,26 @@
       "publisherName": "OpenAI",
       "publisherType": "big-tech",
       "defaultTags": [
-        "frontier-model"
+        "tag-frontier-models"
       ],
       "defaultNormalizedType": "model",
       "lastImportStatus": "success",
       "lastImportCount": 12,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 188,
+      "totalImportedCount": 190,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-10-20T00:05:55.069Z",
+      "updatedAt": "2026-10-21T01:53:49.582Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:55.069Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:55.069Z",
+      "lastFetchedAt": "2026-10-21T00:06:25.301Z",
+      "lastImportMessage": "导入 2 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-10-21T00:06:25.301Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:06:25.301Z",
+          "status": "success",
+          "candidatesCreated": 2,
+          "candidatesSkipped": 10
+        },
         {
           "at": "2026-10-20T00:05:55.069Z",
           "status": "success",
@@ -951,12 +984,18 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 45,
       "createdAt": "2026-07-21T03:20:23.722Z",
-      "updatedAt": "2026-10-20T00:05:10.099Z",
+      "updatedAt": "2026-10-21T00:05:32.183Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:10.099Z",
+      "lastFetchedAt": "2026-10-21T00:05:32.183Z",
       "lastImportMessage": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:10.099Z",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:32.183Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:32.183Z",
+          "status": "success",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 12
+        },
         {
           "at": "2026-10-20T00:05:10.099Z",
           "status": "success",
@@ -1138,12 +1177,18 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 43,
       "createdAt": "2026-07-21T03:20:23.739Z",
-      "updatedAt": "2026-10-20T00:05:08.197Z",
+      "updatedAt": "2026-10-21T00:05:30.569Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:08.197Z",
+      "lastFetchedAt": "2026-10-21T00:05:30.569Z",
       "lastImportMessage": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:08.197Z",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:30.569Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:30.569Z",
+          "status": "success",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 12
+        },
         {
           "at": "2026-10-20T00:05:08.197Z",
           "status": "success",
@@ -1354,14 +1399,20 @@
       "lastImportStatus": "success",
       "lastImportCount": 10,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 41,
+      "totalImportedCount": 42,
       "createdAt": "2026-07-21T03:20:23.765Z",
-      "updatedAt": "2026-10-20T00:05:05.677Z",
+      "updatedAt": "2026-10-21T00:05:05.607Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:05.677Z",
+      "lastFetchedAt": "2026-10-21T00:05:05.607Z",
       "lastImportMessage": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:05.677Z",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:05.607Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:05.607Z",
+          "status": "success",
+          "candidatesCreated": 1,
+          "candidatesSkipped": 9
+        },
         {
           "at": "2026-10-20T00:05:05.677Z",
           "status": "success",
@@ -1537,14 +1588,20 @@
       "lastImportStatus": "success",
       "lastImportCount": 12,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 37,
+      "totalImportedCount": 38,
       "createdAt": "2026-07-21T03:20:23.776Z",
-      "updatedAt": "2026-10-20T00:06:00.363Z",
+      "updatedAt": "2026-10-21T00:07:00.180Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:06:00.363Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:06:00.363Z",
+      "lastFetchedAt": "2026-10-21T00:07:00.180Z",
+      "lastImportMessage": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-10-21T00:07:00.180Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:07:00.180Z",
+          "status": "success",
+          "candidatesCreated": 1,
+          "candidatesSkipped": 11
+        },
         {
           "at": "2026-10-20T00:06:00.363Z",
           "status": "success",
@@ -1710,9 +1767,9 @@
       "maxItems": 12,
       "lastImportStatus": "success",
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 382,
+      "totalImportedCount": 392,
       "createdAt": "2026-08-10T09:42:52.227Z",
-      "updatedAt": "2026-10-20T00:05:03.032Z",
+      "updatedAt": "2026-10-21T00:05:03.502Z",
       "id": "source-qbitai",
       "name": "量子位",
       "type": "rss",
@@ -1726,10 +1783,16 @@
       ],
       "defaultNormalizedType": "unknown",
       "lastImportCount": 10,
-      "lastFetchedAt": "2026-10-20T00:05:03.032Z",
-      "lastImportMessage": "导入 2 条新候选；跳过 8 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:03.032Z",
+      "lastFetchedAt": "2026-10-21T00:05:03.502Z",
+      "lastImportMessage": "导入 10 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:03.502Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:03.502Z",
+          "status": "success",
+          "candidatesCreated": 10,
+          "candidatesSkipped": 0
+        },
         {
           "at": "2026-10-20T00:05:03.032Z",
           "status": "success",
@@ -1893,9 +1956,9 @@
       "maxItems": 12,
       "lastImportStatus": "success",
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 477,
+      "totalImportedCount": 489,
       "createdAt": "2026-08-10T09:42:52.227Z",
-      "updatedAt": "2026-10-20T00:05:11.769Z",
+      "updatedAt": "2026-10-21T00:05:33.871Z",
       "id": "source-infoq-cn",
       "name": "InfoQ 中文",
       "type": "rss",
@@ -1909,10 +1972,16 @@
       ],
       "defaultNormalizedType": "unknown",
       "lastImportCount": 12,
-      "lastFetchedAt": "2026-10-20T00:05:11.769Z",
+      "lastFetchedAt": "2026-10-21T00:05:33.871Z",
       "lastImportMessage": "导入 12 条新候选；跳过 0 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:11.769Z",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:33.871Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:33.871Z",
+          "status": "success",
+          "candidatesCreated": 12,
+          "candidatesSkipped": 0
+        },
         {
           "at": "2026-10-20T00:05:11.769Z",
           "status": "success",
@@ -2074,11 +2143,11 @@
     {
       "enabled": true,
       "maxItems": 12,
-      "lastImportStatus": "success",
-      "consecutiveFailureCount": 0,
+      "lastImportStatus": "failed",
+      "consecutiveFailureCount": 1,
       "totalImportedCount": 16,
       "createdAt": "2026-08-10T09:42:52.227Z",
-      "updatedAt": "2026-10-20T00:05:58.610Z",
+      "updatedAt": "2026-10-21T00:06:58.750Z",
       "id": "source-sglang-releases",
       "name": "SGLang Releases",
       "type": "atom",
@@ -2091,11 +2160,18 @@
         "tag-inference"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportCount": 10,
-      "lastFetchedAt": "2026-10-20T00:05:58.610Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastImportCount": 0,
+      "lastFetchedAt": "2026-10-21T00:06:58.750Z",
+      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
       "lastSuccessfulImportAt": "2026-10-20T00:05:58.610Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:06:58.750Z",
+          "status": "failed",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0,
+          "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
+        },
         {
           "at": "2026-10-20T00:05:58.610Z",
           "status": "success",
@@ -2256,7 +2332,8 @@
           "candidatesSkipped": 0,
           "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
         }
-      ]
+      ],
+      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
     },
     {
       "enabled": true,
@@ -2265,7 +2342,7 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 16,
       "createdAt": "2026-08-10T09:42:52.227Z",
-      "updatedAt": "2026-10-20T00:05:52.119Z",
+      "updatedAt": "2026-10-21T00:05:40.880Z",
       "id": "source-ms-swift-releases",
       "name": "ms-swift Releases",
       "type": "atom",
@@ -2280,10 +2357,16 @@
       ],
       "defaultNormalizedType": "tool",
       "lastImportCount": 10,
-      "lastFetchedAt": "2026-10-20T00:05:52.119Z",
+      "lastFetchedAt": "2026-10-21T00:05:40.880Z",
       "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-10-20T00:05:52.119Z",
+      "lastSuccessfulImportAt": "2026-10-21T00:05:40.880Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:40.880Z",
+          "status": "success",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 10
+        },
         {
           "at": "2026-10-20T00:05:52.119Z",
           "status": "success",
@@ -2574,13 +2657,19 @@
       "lastImportStatus": "success",
       "lastImportCount": 10,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 11,
+      "totalImportedCount": 12,
       "createdAt": "2026-10-12T03:10:35.316Z",
-      "updatedAt": "2026-10-20T00:05:16.274Z",
+      "updatedAt": "2026-10-21T00:05:39.218Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:05:16.274Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "lastFetchedAt": "2026-10-21T00:05:39.218Z",
+      "lastImportMessage": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:05:39.218Z",
+          "status": "success",
+          "candidatesCreated": 1,
+          "candidatesSkipped": 9
+        },
         {
           "at": "2026-10-20T00:05:16.274Z",
           "status": "success",
@@ -2625,7 +2714,7 @@
           "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: www.microsoft.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
         }
       ],
-      "lastSuccessfulImportAt": "2026-10-20T00:05:16.274Z"
+      "lastSuccessfulImportAt": "2026-10-21T00:05:39.218Z"
     },
     {
       "id": "source-transformers-releases",
@@ -2642,17 +2731,24 @@
         "tag-inference"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "success",
-      "lastImportCount": 10,
-      "consecutiveFailureCount": 0,
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 1,
       "totalImportedCount": 13,
       "createdAt": "2026-10-12T03:10:35.317Z",
-      "updatedAt": "2026-10-20T00:06:03.224Z",
+      "updatedAt": "2026-10-21T00:07:33.642Z",
       "maxItems": 12,
-      "lastFetchedAt": "2026-10-20T00:06:03.224Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+      "lastFetchedAt": "2026-10-21T00:07:33.642Z",
+      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
       "lastSuccessfulImportAt": "2026-10-20T00:06:03.224Z",
       "importHistory": [
+        {
+          "at": "2026-10-21T00:07:33.642Z",
+          "status": "failed",
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0,
+          "errorSummary": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
+        },
         {
           "at": "2026-10-20T00:06:03.224Z",
           "status": "success",
@@ -2695,49 +2791,49 @@
           "candidatesCreated": 10,
           "candidatesSkipped": 0
         }
-      ]
+      ],
+      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
     }
   ],
   "latestImportRun": {
-    "id": "import-run-2026-10-20t00-05-02-308z",
-    "startedAt": "2026-10-20T00:05:02.308Z",
-    "finishedAt": "2026-10-20T00:06:05.764Z",
+    "id": "import-run-2026-10-21t00-05-02-466z",
+    "startedAt": "2026-10-21T00:05:02.466Z",
+    "finishedAt": "2026-10-21T00:08:07.661Z",
     "status": "partial",
     "totalSources": 18,
-    "enabledSources": 16,
-    "skippedSources": 2,
-    "successfulSources": 15,
-    "failedSources": 1,
+    "enabledSources": 15,
+    "skippedSources": 3,
+    "successfulSources": 11,
+    "failedSources": 4,
     "partialSources": 0,
-    "totalCandidatesCreated": 19,
-    "totalCandidatesSkipped": 143,
+    "totalCandidatesCreated": 30,
+    "totalCandidatesSkipped": 92,
     "messages": [
-      "量子位: 导入 2 条新候选；跳过 8 条重复或已存在的候选。",
+      "量子位: 导入 10 条新候选；跳过 0 条重复或已存在的候选。",
       "GitHub Blog AI: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
       "Google AI Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
       "Google DeepMind Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-      "Hugging Face Blog: 导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+      "Hugging Face Blog: 导入 3 条新候选；跳过 9 条重复或已存在的候选。",
       "InfoQ 中文: 导入 12 条新候选；跳过 0 条重复或已存在的候选。",
-      "MCP Servers Releases: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-      "Microsoft Research Blog: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-      "Mistral AI News: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: mistral.ai:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+      "MCP Servers Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+      "Microsoft Research Blog: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
       "ms-swift Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-      "Ollama Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-      "OpenAI News: 导入 1 条新候选；跳过 11 条重复或已存在的候选。",
-      "SGLang Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-      "Simon Willison Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-      "Transformers Releases: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-      "vLLM Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。"
+      "Ollama Releases: 请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout",
+      "OpenAI News: 导入 2 条新候选；跳过 10 条重复或已存在的候选。",
+      "SGLang Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+      "Simon Willison Blog: 导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+      "Transformers Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+      "vLLM Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
     ],
     "sourceResults": [
       {
         "sourceId": "source-qbitai",
         "sourceName": "量子位",
         "status": "success",
-        "message": "导入 2 条新候选；跳过 8 条重复或已存在的候选。",
+        "message": "导入 10 条新候选；跳过 0 条重复或已存在的候选。",
         "candidateCount": 10,
-        "candidatesCreated": 2,
-        "candidatesSkipped": 8
+        "candidatesCreated": 10,
+        "candidatesSkipped": 0
       },
       {
         "sourceId": "source-github-blog-ai",
@@ -2770,10 +2866,10 @@
         "sourceId": "source-hugging-face-blog",
         "sourceName": "Hugging Face Blog",
         "status": "success",
-        "message": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+        "message": "导入 3 条新候选；跳过 9 条重复或已存在的候选。",
         "candidateCount": 12,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 11
+        "candidatesCreated": 3,
+        "candidatesSkipped": 9
       },
       {
         "sourceId": "source-infoq-cn",
@@ -2788,28 +2884,19 @@
         "sourceId": "source-mcp-servers-releases",
         "sourceName": "MCP Servers Releases",
         "status": "success",
-        "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-        "candidateCount": 10,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 9
-      },
-      {
-        "sourceId": "source-microsoft-research-blog",
-        "sourceName": "Microsoft Research Blog",
-        "status": "success",
         "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
         "candidateCount": 10,
         "candidatesCreated": 0,
         "candidatesSkipped": 10
       },
       {
-        "sourceId": "source-mistral-ai-news",
-        "sourceName": "Mistral AI News",
-        "status": "failed",
-        "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: mistral.ai:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
-        "candidateCount": 0,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 0
+        "sourceId": "source-microsoft-research-blog",
+        "sourceName": "Microsoft Research Blog",
+        "status": "success",
+        "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+        "candidateCount": 10,
+        "candidatesCreated": 1,
+        "candidatesSkipped": 9
       },
       {
         "sourceId": "source-ms-swift-releases",
@@ -2823,15 +2910,33 @@
       {
         "sourceId": "source-ollama-releases",
         "sourceName": "Ollama Releases",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "candidateCount": 10,
+        "status": "failed",
+        "message": "请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout",
+        "candidateCount": 0,
         "candidatesCreated": 0,
-        "candidatesSkipped": 10
+        "candidatesSkipped": 0
       },
       {
         "sourceId": "source-openai-news",
         "sourceName": "OpenAI News",
+        "status": "success",
+        "message": "导入 2 条新候选；跳过 10 条重复或已存在的候选。",
+        "candidateCount": 12,
+        "candidatesCreated": 2,
+        "candidatesSkipped": 10
+      },
+      {
+        "sourceId": "source-sglang-releases",
+        "sourceName": "SGLang Releases",
+        "status": "failed",
+        "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+        "candidateCount": 0,
+        "candidatesCreated": 0,
+        "candidatesSkipped": 0
+      },
+      {
+        "sourceId": "source-simon-willison-blog",
+        "sourceName": "Simon Willison Blog",
         "status": "success",
         "message": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
         "candidateCount": 12,
@@ -2839,44 +2944,194 @@
         "candidatesSkipped": 11
       },
       {
-        "sourceId": "source-sglang-releases",
-        "sourceName": "SGLang Releases",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "candidateCount": 10,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 10
-      },
-      {
-        "sourceId": "source-simon-willison-blog",
-        "sourceName": "Simon Willison Blog",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-        "candidateCount": 12,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 12
-      },
-      {
         "sourceId": "source-transformers-releases",
         "sourceName": "Transformers Releases",
-        "status": "success",
-        "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-        "candidateCount": 10,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 9
+        "status": "failed",
+        "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+        "candidateCount": 0,
+        "candidatesCreated": 0,
+        "candidatesSkipped": 0
       },
       {
         "sourceId": "source-vllm-releases",
         "sourceName": "vLLM Releases",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "candidateCount": 10,
+        "status": "failed",
+        "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+        "candidateCount": 0,
         "candidatesCreated": 0,
-        "candidatesSkipped": 10
+        "candidatesSkipped": 0
       }
     ]
   },
   "importRuns": [
+    {
+      "id": "import-run-2026-10-21t00-05-02-466z",
+      "startedAt": "2026-10-21T00:05:02.466Z",
+      "finishedAt": "2026-10-21T00:08:07.661Z",
+      "status": "partial",
+      "totalSources": 18,
+      "enabledSources": 15,
+      "skippedSources": 3,
+      "successfulSources": 11,
+      "failedSources": 4,
+      "partialSources": 0,
+      "totalCandidatesCreated": 30,
+      "totalCandidatesSkipped": 92,
+      "messages": [
+        "量子位: 导入 10 条新候选；跳过 0 条重复或已存在的候选。",
+        "GitHub Blog AI: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+        "Google AI Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
+        "Google DeepMind Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
+        "Hugging Face Blog: 导入 3 条新候选；跳过 9 条重复或已存在的候选。",
+        "InfoQ 中文: 导入 12 条新候选；跳过 0 条重复或已存在的候选。",
+        "MCP Servers Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+        "Microsoft Research Blog: 导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+        "ms-swift Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+        "Ollama Releases: 请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout",
+        "OpenAI News: 导入 2 条新候选；跳过 10 条重复或已存在的候选。",
+        "SGLang Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+        "Simon Willison Blog: 导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+        "Transformers Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+        "vLLM Releases: 请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)"
+      ],
+      "sourceResults": [
+        {
+          "sourceId": "source-qbitai",
+          "sourceName": "量子位",
+          "status": "success",
+          "message": "导入 10 条新候选；跳过 0 条重复或已存在的候选。",
+          "candidateCount": 10,
+          "candidatesCreated": 10,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-github-blog-ai",
+          "sourceName": "GitHub Blog AI",
+          "status": "success",
+          "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+          "candidateCount": 10,
+          "candidatesCreated": 1,
+          "candidatesSkipped": 9
+        },
+        {
+          "sourceId": "source-google-ai-blog",
+          "sourceName": "Google AI Blog",
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 12
+        },
+        {
+          "sourceId": "source-google-deepmind-blog",
+          "sourceName": "Google DeepMind Blog",
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 12
+        },
+        {
+          "sourceId": "source-hugging-face-blog",
+          "sourceName": "Hugging Face Blog",
+          "status": "success",
+          "message": "导入 3 条新候选；跳过 9 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 3,
+          "candidatesSkipped": 9
+        },
+        {
+          "sourceId": "source-infoq-cn",
+          "sourceName": "InfoQ 中文",
+          "status": "success",
+          "message": "导入 12 条新候选；跳过 0 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 12,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-mcp-servers-releases",
+          "sourceName": "MCP Servers Releases",
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+          "candidateCount": 10,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 10
+        },
+        {
+          "sourceId": "source-microsoft-research-blog",
+          "sourceName": "Microsoft Research Blog",
+          "status": "success",
+          "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
+          "candidateCount": 10,
+          "candidatesCreated": 1,
+          "candidatesSkipped": 9
+        },
+        {
+          "sourceId": "source-ms-swift-releases",
+          "sourceName": "ms-swift Releases",
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
+          "candidateCount": 10,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 10
+        },
+        {
+          "sourceId": "source-ollama-releases",
+          "sourceName": "Ollama Releases",
+          "status": "failed",
+          "message": "请求失败（重试 3 次后仍失败）：The operation was aborted due to timeout",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-openai-news",
+          "sourceName": "OpenAI News",
+          "status": "success",
+          "message": "导入 2 条新候选；跳过 10 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 2,
+          "candidatesSkipped": 10
+        },
+        {
+          "sourceId": "source-sglang-releases",
+          "sourceName": "SGLang Releases",
+          "status": "failed",
+          "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-simon-willison-blog",
+          "sourceName": "Simon Willison Blog",
+          "status": "success",
+          "message": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
+          "candidateCount": 12,
+          "candidatesCreated": 1,
+          "candidatesSkipped": 11
+        },
+        {
+          "sourceId": "source-transformers-releases",
+          "sourceName": "Transformers Releases",
+          "status": "failed",
+          "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-vllm-releases",
+          "sourceName": "vLLM Releases",
+          "status": "failed",
+          "message": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0
+        }
+      ]
+    },
     {
       "id": "import-run-2026-10-20t00-05-02-308z",
       "startedAt": "2026-10-20T00:05:02.308Z",
@@ -5879,154 +6134,6 @@
           "candidateCount": 12,
           "candidatesCreated": 12,
           "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-sglang-releases",
-          "sourceName": "SGLang Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-simon-willison-blog",
-          "sourceName": "Simon Willison Blog",
-          "status": "success",
-          "message": "导入 1 条新候选；跳过 11 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 1,
-          "candidatesSkipped": 11
-        },
-        {
-          "sourceId": "source-vllm-releases",
-          "sourceName": "vLLM Releases",
-          "status": "success",
-          "message": "导入 1 条新候选；跳过 9 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 1,
-          "candidatesSkipped": 9
-        }
-      ]
-    },
-    {
-      "id": "import-run-2026-09-22t01-50-13-332z",
-      "startedAt": "2026-09-22T01:50:13.332Z",
-      "finishedAt": "2026-09-22T01:50:42.813Z",
-      "status": "success",
-      "totalSources": 14,
-      "enabledSources": 13,
-      "skippedSources": 1,
-      "successfulSources": 13,
-      "failedSources": 0,
-      "partialSources": 0,
-      "totalCandidatesCreated": 31,
-      "totalCandidatesSkipped": 111,
-      "messages": [
-        "量子位: 导入 10 条新候选；跳过 0 条重复或已存在的候选。",
-        "GitHub Blog AI: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "Google AI Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-        "Google DeepMind Blog: 导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-        "Hugging Face Blog: 导入 2 条新候选；跳过 10 条重复或已存在的候选。",
-        "InfoQ 中文: 导入 12 条新候选；跳过 0 条重复或已存在的候选。",
-        "MCP Servers Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "ms-swift Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "Ollama Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "OpenAI News: 导入 5 条新候选；跳过 7 条重复或已存在的候选。",
-        "SGLang Releases: 导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-        "Simon Willison Blog: 导入 1 条新候选；跳过 11 条重复或已存在的候选。",
-        "vLLM Releases: 导入 1 条新候选；跳过 9 条重复或已存在的候选。"
-      ],
-      "sourceResults": [
-        {
-          "sourceId": "source-qbitai",
-          "sourceName": "量子位",
-          "status": "success",
-          "message": "导入 10 条新候选；跳过 0 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 10,
-          "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-github-blog-ai",
-          "sourceName": "GitHub Blog AI",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-google-ai-blog",
-          "sourceName": "Google AI Blog",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 12
-        },
-        {
-          "sourceId": "source-google-deepmind-blog",
-          "sourceName": "Google DeepMind Blog",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 12 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 12
-        },
-        {
-          "sourceId": "source-hugging-face-blog",
-          "sourceName": "Hugging Face Blog",
-          "status": "success",
-          "message": "导入 2 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 2,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-infoq-cn",
-          "sourceName": "InfoQ 中文",
-          "status": "success",
-          "message": "导入 12 条新候选；跳过 0 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 12,
-          "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-mcp-servers-releases",
-          "sourceName": "MCP Servers Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-ms-swift-releases",
-          "sourceName": "ms-swift Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-ollama-releases",
-          "sourceName": "Ollama Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
-          "candidateCount": 10,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 10
-        },
-        {
-          "sourceId": "source-openai-news",
-          "sourceName": "OpenAI News",
-          "status": "success",
-          "message": "导入 5 条新候选；跳过 7 条重复或已存在的候选。",
-          "candidateCount": 12,
-          "candidatesCreated": 5,
-          "candidatesSkipped": 7
         },
         {
           "sourceId": "source-sglang-releases",
