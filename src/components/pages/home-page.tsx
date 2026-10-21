@@ -59,7 +59,9 @@ import type {
 import { buildPageMetadata } from "@/lib/site-metadata";
 
 export function getHomePageMetadata(locale: Locale) {
-  return buildPageMetadata({ path: "/", locale });
+  // The home page shares the site card (src/app/opengraph-image.tsx), so X
+  // may draw it as a large card.
+  return buildPageMetadata({ path: "/", largeImage: true, locale });
 }
 
 // The Chinese site shows a card's Chinese text when it has one; the English
