@@ -161,6 +161,13 @@ export interface PageMetadataInput {
   path: string;
   /** `article` for a single record, `website` for lists and tools. */
   type?: "website" | "article";
+  /**
+   * When the record was published (`YYYY-MM-DD` or an ISO timestamp), written
+   * as `article:published_time`. Read only for `type: "article"`. No
+   * modified time: the public data has no trustworthy one (bulk scripts do
+   * not touch `updatedAt`).
+   */
+  publishedTime?: string;
   /** Set when the page has nothing worth indexing (search results, a query). */
   noIndex?: boolean;
   /**
@@ -187,6 +194,7 @@ export function buildPageMetadata({
   description,
   path,
   type = "website",
+  publishedTime,
   noIndex = false,
   feeds = [],
   largeImage = false,
@@ -197,6 +205,13 @@ export function buildPageMetadata({
   );
   const pagePath = localePath(locale, path);
   const fullTitle = title ? `${title} · ${siteName}` : siteName;
+  const openGraphBase = {
+    title: fullTitle,
+    description: resolvedDescription,
+    url: pagePath,
+    siteName,
+    locale: openGraphLocales[locale]
+  };
 
   return {
     title: title ? title : { absolute: siteName },
@@ -211,14 +226,14 @@ export function buildPageMetadata({
         : {}),
       types: buildFeedAlternateTypes(feeds, locale)
     },
-    openGraph: {
-      title: fullTitle,
-      description: resolvedDescription,
-      url: pagePath,
-      siteName,
-      locale: openGraphLocales[locale],
-      type
-    },
+    openGraph:
+      type === "article"
+        ? {
+            ...openGraphBase,
+            type,
+            ...(publishedTime ? { publishedTime } : {})
+          }
+        : { ...openGraphBase, type },
     twitter: {
       card: largeImage ? "summary_large_image" : "summary",
       title: fullTitle,

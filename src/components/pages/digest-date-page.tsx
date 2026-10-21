@@ -45,6 +45,7 @@ export async function generateDigestDatePageMetadata(
     description: getPublicDigestSummaryPlainText(digest),
     path: `/digest/${digest.date}`,
     type: "article",
+    publishedTime: digest.publishedAt ?? digest.date,
     largeImage: true,
     locale
   });

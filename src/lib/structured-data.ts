@@ -329,6 +329,9 @@ export function buildContentJsonLd(
     inLanguage: "zh-CN",
     url,
     mainEntityOfPage: url,
+    // The page's share card (its own opengraph-image route); an Article with
+    // no image gets no thumbnail in a result (seo-9).
+    image: [absolute(siteUrl, `${path}/opengraph-image`)],
     author: sitePublisher(siteUrl),
     publisher: sitePublisher(siteUrl),
     ...(tags.length > 0 ? { keywords: tags.map((tag) => tag.name) } : {}),

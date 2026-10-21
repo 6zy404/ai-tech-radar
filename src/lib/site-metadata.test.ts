@@ -44,6 +44,29 @@ describe("buildPageMetadata share card", () => {
   });
 });
 
+describe("buildPageMetadata article dates", () => {
+  it("writes publishedTime on an article page only", () => {
+    const article = buildPageMetadata({
+      path: "/technologies/x",
+      type: "article",
+      publishedTime: "2026-10-20"
+    });
+
+    expect(article.openGraph).toMatchObject({
+      type: "article",
+      publishedTime: "2026-10-20"
+    });
+    expect(
+      buildPageMetadata({ path: "/technologies/x", type: "article" }).openGraph
+    ).not.toHaveProperty("publishedTime");
+    // A website has no article:published_time, whatever a caller passes.
+    expect(
+      buildPageMetadata({ path: "/digest", publishedTime: "2026-10-20" })
+        .openGraph
+    ).not.toHaveProperty("publishedTime");
+  });
+});
+
 describe("buildPageMetadata feeds", () => {
   it("keeps the digest feeds on a page that passes none", () => {
     // A page's `alternates` replaces the layout's, so dropping them here

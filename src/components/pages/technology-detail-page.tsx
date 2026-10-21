@@ -58,6 +58,7 @@ export async function generateTechnologyDetailPageMetadata(
     description: getTechnologySummaryForLocale(technology, locale).text,
     path: `/technologies/${technology.slug}`,
     type: "article",
+    publishedTime: technology.publishDate,
     largeImage: true,
     locale
   });

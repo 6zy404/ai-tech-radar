@@ -282,6 +282,8 @@ describe("buildContentJsonLd", () => {
       headline: "智能体工作流设计",
       articleSection: "技能",
       url: `${siteUrl}/skills/agent-workflow-design`,
+      // The page's own share card, so a result can carry a thumbnail.
+      image: [`${siteUrl}/skills/agent-workflow-design/opengraph-image`],
       keywords: ["智能体"]
     });
     expect(article).not.toHaveProperty("about");
@@ -314,6 +316,21 @@ describe("buildContentJsonLd", () => {
     });
     expect(breadcrumbs).toMatchObject({
       itemListElement: [{}, { name: "知识", item: `${siteUrl}/knowledge` }, {}]
+    });
+  });
+
+  it("names the English page's own card on the English site", () => {
+    const [article] = buildContentJsonLd(
+      "knowledge",
+      knowledge(),
+      [],
+      siteUrl,
+      "en"
+    );
+
+    expect(article).toMatchObject({
+      url: `${siteUrl}/en/knowledge/rag`,
+      image: [`${siteUrl}/en/knowledge/rag/opengraph-image`]
     });
   });
 });
