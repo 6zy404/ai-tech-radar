@@ -1,6 +1,1132 @@
 {
-  "updatedAt": "2026-10-20T20:18:01.645Z",
+  "updatedAt": "2026-10-21T03:39:13.245Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "slug": "torchneuron-aws-trainium-hugging-face",
+      "title": {
+        "original": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
+        "zh": "PyTorch 原生支持 Trainium：TorchNeuron 公测"
+      },
+      "summary": {
+        "original": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
+        "zh": "AWS Trainium 通过 TorchNeuron 插件成为 PyTorch 的原生设备：eager 模式、torch.compile 与 FSDP、张量并行都用 PyTorch 自己的接口，10 月 20 日起公测。Transformers、Diffusers、Kernels 原生支持，前 100 个常用文本生成架构里 89% 开箱即用（Optimum Neuron 时是 46%），Hugging Face 建议不再经过 Optimum Neuron。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\nHugging Face 在 10 月 19 日发文介绍 TorchNeuron：一个让 AWS Trainium 成为 PyTorch 原生设备的插件，支持 eager 模式、`torch.compile`，以及 DTensor、FSDP2 这类 PyTorch 自己的分布式原语。从 10 月 20 日起它进入公测，`pip install torch-neuronx` 即可安装。Transformers、Diffusers、Kernels 三个库已经原生支持它，Accelerate、PEFT 和 TRL 也能直接在 Trainium 上运行。\n\n## 具体内容\n\n过去在 Trainium 和 Inferentia 上用 Hugging Face 的库，要经过 optimum-neuron：它建立在 PyTorch XLA 之上，意味着写代码得像写编译器一样思考——惰性张量而不是即时执行、只能用静态形状、每遇到一次图中断就要重新编译。Optimum Neuron 的存在就是为了藏起这些复杂度，为此维护着一套自己的模型类和训练器。\n\nTorchNeuron 把 `neuron` 做成了一个普通设备。文章给出的变化：\n\n- 文本生成在 Transformers 里原生可用，前 100 个最常用的文本生成架构里有 89% 开箱即用，Optimum Neuron v0.4.5 时是 46%；代码里传一个 `device_map=neuron` 就把模型挪到 Neuron 设备上，配合张量并行用满整台实例。生成建议用静态缓存，避免频繁重编译。\n- 训练用的还是 Transformers、Accelerate、PEFT 和 TRL，不再需要专门的训练器或 Neuron 版模型代码。文章用一份普通的 TRL `SFTTrainer` 脚本在 8 颗 Trainium2 芯片（32 个 NeuronCore，半台 trn2.48xlarge）上做了监督微调：张量并行与 FSDP 的大小写进 `DistributedConfig`，权重加载时就按 TP × FSDP 网格切分，不用再传 `--fsdp` 或 Accelerate 的 FSDP 配置；`--torch_compile true` 会自动选中 Neuron 后端。\n- 在 Trainium 上要注意三件事：关掉 `torch.compile` 的自动动态形状，TRL 1.16 及以上会把批次填充到 128 个 token 的倍数以限制输入形状的数量；Transformers 的异步权重加载暂不支持，要设 `HF_DEACTIVATE_ASYNC_LOAD=1`；保存出来的是标准 Transformers checkpoint，可以直接推到 Hub、在任何硬件上加载。\n- Diffusers 里的很多流水线在 eager 与编译模式下都兼容，FLUX.1-dev、FLUX.2、Qwen-Image、Qwen-Image-2.1 和 H3 还支持张量并行。\n\nHugging Face 由此建议 Neuron 用户直接使用这些库，不再经过 Optimum Neuron。\n\n## 与以往相比\n\n同样的硬件，差别在抽象层：以前是一个为编译器思维打补丁的中间库，现在是 PyTorch 设备列表里多了一个名字。对使用者而言，最直接的变化是写在 GPU 上的 Transformers 与 TRL 脚本可以几乎不改地搬到 Trainium，而不是先学一套 Neuron 专用的模型类。\n\n## 对读者意味着什么\n\n1. 已经在用 Optimum Neuron 的团队，可以拿一份现有脚本在公测版上跑通一遍，核对支持的架构和 `torch.compile` 的重编译次数，再决定迁移。\n2. 在评估 Trainium 作为训练或推理算力的团队，这次的门槛变化比性能数字更值得关注：文章没有给出吞吐或延迟对比，收益要自己测。\n3. 公测意味着还有空白——异步权重加载、动态形状都还不支持，把这些限制写进评估清单再开工。"
+      },
+      "type": "tool",
+      "publishDate": "2026-10-19",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/hf-torchneuron",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-training",
+        "tag-efficient-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-7796779a",
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:39:13.245Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "Trainium 一直被「要用专门的库、按编译器思维写代码」挡在多数团队的选型之外。TorchNeuron 把它变成一个普通的 PyTorch 设备，GPU 上的 Transformers 与 TRL 脚本几乎不改就能跑，这把评估另一种训练与推理算力的成本从迁移代码降到了跑一次脚本。",
+      "whoShouldCare": [
+        "在 AWS 上做训练或推理、想把 GPU 之外的算力纳入对比的平台团队",
+        "维护 Transformers、TRL 微调脚本、关心跨硬件可移植性的工程师",
+        "正在用 Optimum Neuron、需要决定是否迁移的团队"
+      ],
+      "technicalContext": "Neuron 是 AWS 自研 AI 芯片 Trainium 与 Inferentia 的软件栈。此前 PyTorch 通过 XLA 接入这些芯片，程序被当作静态图编译执行，动态形状和控制流会触发重编译；TorchNeuron 改为以原生后端的方式接入 PyTorch，支持即时执行，并复用 PyTorch 的 DTensor 与 FSDP2 做分布式。",
+      "impactAreas": [
+        "训练与微调基础设施",
+        "推理部署",
+        "跨硬件的模型可移植性"
+      ],
+      "learningPath": [
+        "先弄清 PyTorch 的 eager 模式与 torch.compile 的区别，以及静态形状为什么影响编译次数",
+        "读一遍 Transformers 的 DistributedConfig 与张量并行、FSDP 的配置方式",
+        "拿一份已有的 TRL 微调脚本在公测版上复现文章的设置，记录重编译次数与吞吐"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "Trainium 这类非 GPU 路径的价值取决于适配成本，这正是模型选型中约束匹配的一部分。",
+        "knowledge-ws-c761533e": "混合推理架构要在不同硬件间分配请求，适配层的成熟度直接影响这种分配是否可行。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-7796779a": "评估 TorchNeuron 时，需要判断它是「能跑起来」还是「跑得对、跑得快」。",
+        "skill-ws-a9e80194": "Trainium 的采用决策最终落在并发、显存与成本三者的估算上。"
+      },
+      "followUpQuestions": [
+        "公测版在同等规模模型上的吞吐与延迟和 GPU 相比如何，文章没有给出",
+        "异步权重加载与动态形状何时支持，正式版的时间表是什么",
+        "Kernels 库在 Neuron 上支持哪些算子，自定义 kernel 的路径是否打通"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "createdAt": "2026-10-21T03:30:19.231Z",
+      "updatedAt": "2026-10-21T03:39:13.245Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-hf-torchneuron.",
+        "2026-10-21 AI 起草时原文请求超时，只得到标题级内容；正文、摘要与解释字段由主控按 Hugging Face 博客原文手写（原文经 Node fetch 走代理取得）。",
+        "AI 起草保留的关联与附注（4 条）经核对保留。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-21T03:30:18.924Z",
+        "sourceTextOrigin": "candidate_fallback",
+        "sourceFetchError": "请求超时",
+        "tokenUsage": {
+          "promptTokens": 4262,
+          "completionTokens": 1046,
+          "totalTokens": 5308
+        },
+        "latencyMs": 21263,
+        "warnings": [
+          "模型注明：原文请求超时，未能获取正文，所有技术细节均缺失。",
+          "模型注明：发布方按订阅源记录填为 Hugging Face，需核对是否为该项目实际发布方。",
+          "模型注明：标题中的「easier than ever」没有任何具体依据，正文未作引用。"
+        ]
+      },
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "slug": "anylanguagemodel-1-0-swift",
+      "title": {
+        "original": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+        "zh": "AnyLanguageModel 1.0 发布：本地与云端共用一套 API"
+      },
+      "summary": {
+        "original": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+        "zh": "Hugging Face 为 Apple 平台推出的 AnyLanguageModel 到达 1.0，作为 Foundation Models 框架的替代实现，开发者只改一行 import 就能切换系统模型、llama.cpp/MLX/Core ML 本地模型以及 OpenAI、Anthropic、Gemini 等托管服务。一年间补齐了所有提供方一致的工具调用、引导生成与图像输入，并支持 Linux。",
+        "en": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "Hugging Face 在 10 月 20 日发布了 AnyLanguageModel 1.0，同时配套的 swift-huggingface 与 swift-xet 也到达 1.0。这个库去年以「Foundation Models 框架的替代品」形式出现，目标是让 Swift 开发者用同一套会话代码选择模型和提供方。\n\n## 核心变化\n\n接入方式仍然是替换 import 语句：把 `import FoundationModels` 换成 `import AnyLanguageModel`，原有 session 代码继续有效。模型侧覆盖系统自带模型、经 llama.cpp、MLX、Core ML 运行的开放权重模型，以及托管 API。\n\n过去一年补齐的功能包括：\n\n- 工具调用在所有提供方上可用；\n- 引导生成（guided generation）同样覆盖全部提供方，支持嵌套的 `@Generable` 类型及其数组；\n- 图像可以按 Foundation Models 27 的语法附加到提示中，系统模型也支持；\n- 在 OS 27 上，任何遵循 `LanguageModel` 协议（含 Core AI 模型）的模型都能接入；\n- 新增 Linux 支持，同一份代码可运行在服务器上。\n\n## 托管提供方\n\n1.0 支持的托管服务包括 OpenAI Chat Completions 与 Responses API、Open Responses、Anthropic Messages API（带 adaptive thinking 与 effort 选项）、Google Gemini API、Ollama、Private Cloud Compute，以及通过自定义 base URL 接入的 HF Inference Providers、OpenRouter 等 OpenAI 兼容端点。\n\n原文给出的示例用 `OpenAILanguageModel` 把 `openai/gpt-oss-120b` 指向 `https://router.huggingface.co/v1/`，说明超出设备能力的开放权重模型也能用同一套会话代码调用。托管提供方与本地模型享有相同特性：引导生成、带流式的工具调用、响应中的 token 用量。推理过程会进入 transcript，切换提供方时若对方无法回放则自动从请求中省略。API key 改为通过闭包获取，便于从自有服务器取短期 token。\n\n## 模型示例与依赖\n\n原文列出的热门模型包括：Gemma 4 E2B（GGUF，Q4_0 下约 3.4 GB）、Liquid AI 的 LFM2.5 2.6B（GGUF，Q4_K_M 下约 1.7 GB）、Qwen3.8 27B 的 MLX 版本（4 位下约 16 GB）。前两个可在 iPhone 上运行，Qwen3.8 27B 需要 32 GB 内存以上的 Mac。Z.ai 的 GLM-5.3 在 BF16 下约需 1.5 TB，适合通过 Inference Providers 使用。\n\n升级依赖写法为 `.package(url: \"https://github.com/huggingface/AnyLanguageModel\", from: \"1.0.0\", traits: [\"MLX\"])`，已有应用可参考三个库的 release notes 中的迁移说明。\n\n## 对读者意味着什么\n\n1. 已经有 Swift 应用在用 Foundation Models 的团队，可以用很小的改动获得多提供方切换能力，不必为每个后端写适配层。\n2. 打算在 iPhone 或 Mac 上跑开放权重模型的团队，可以借 Gemma 4 E2B、LFM2.5 2.6B 这类小模型先做端侧原型，再用同一套代码把大模型请求转到托管端点。\n3. 需要服务端复用的团队可以关注 Linux 支持，但应先在目标 OS 版本上核对这些特性是否全部可用。"
+      },
+      "type": "tool",
+      "publishDate": "2026-10-20",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/anylanguagemodel-1-0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-open-weights",
+        "tag-inference",
+        "tag-agent-infra"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-open-weights",
+        "knowledge-model-sizing",
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-open-weights-self-hosting",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:39:13.098Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "Apple 平台上的模型接入一直分散在系统框架和各推理后端之间，AnyLanguageModel 把切换成本压到一行 import，并让本地与云端共享工具调用、引导生成等特性。对已经在维护 Swift 应用的团队，这意味着评估端侧模型或更换提供方不再需要重写会话层。",
+      "whoShouldCare": [
+        "正在用 Foundation Models 框架开发 iOS/macOS 应用的 Swift 开发者",
+        "需要在端侧运行开放权重模型并评估机型可行性的移动团队",
+        "希望同一套代码同时覆盖设备端与服务器端推理的工程团队"
+      ],
+      "technicalContext": "Foundation Models 是 Apple 的系统模型框架，AnyLanguageModel 用相同 API 提供可替换的模型后端。llama.cpp、MLX、Core ML 是 Apple 生态常见的本地推理路径，托管侧则通过 OpenAI 兼容或各家原生 API 接入。引导生成指按 Swift 类型约束模型输出结构，工具调用则让模型在会话中触发外部函数。",
+      "impactAreas": [
+        "端侧推理",
+        "Swift 开发",
+        "多提供方接入",
+        "开放权重模型"
+      ],
+      "learningPath": [
+        "先读 AnyLanguageModel 的 README 与迁移说明，弄清替换 import 后哪些会话代码保持不变、哪些需要调整。",
+        "在目标 iPhone 或 Mac 上跑通 Gemma 4 E2B 或 LFM2.5 2.6B 的示例，确认显存与首 token 延迟是否可接受。",
+        "对照 Foundation Models 的引导生成与工具调用文档，验证同一段代码在本地模型和托管提供方上的行为差异。",
+        "如果要上线，检查 API key 闭包与代理方案，并确认 Linux 端所需特性在目标环境中可用。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-open-weights": "读开放权重发布要分清权重、许可与配套，这个库解决的是「配套」里的运行时接入问题。",
+        "knowledge-model-sizing": "模型选型要先看哪个约束最先咬人，端侧场景里显存和延迟通常排在最前。",
+        "knowledge-tool-use": "工具调用把推理与行动分开，跨提供方一致的工具调用需要先懂这个基本形状。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "端侧部署要定量化档位、选运行时并用首 token 延迟验收，这个库正好提供统一的运行时入口。",
+        "skill-open-weights-self-hosting": "评估开放权重能否自托管要看许可、显存、引擎支持与总成本，这些数字是判断的起点。",
+        "skill-tool-integration": "把 AI 接入内部工具时，工具层要吸收混乱，统一的工具调用接口能减少提供方切换带来的重复工作。"
+      },
+      "followUpQuestions": [
+        "同一段会话代码在本地 MLX 模型与托管 OpenAI 兼容端点上的工具调用行为是否一致？",
+        "在目标 iPhone 机型上运行 Gemma 4 E2B 的实际内存占用和生成速度是多少？",
+        "从旧版本迁移到 1.0 时，哪些 API 或依赖声明需要手动修改？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "createdAt": "2026-10-21T03:30:11.248Z",
+      "updatedAt": "2026-10-21T03:39:13.098Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0.",
+        "2026-10-21 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 7795 tokens · 13.3 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型给的知识 id「knowledge-c761533e」不存在或未发布，已丢弃。",
+        "AI 起草提示：模型注明：原文未说明 AnyLanguageModel 的具体开源许可证。",
+        "AI 起草提示：模型注明：原文提到的 OS 27、Foundation Models 27 与部分模型版本为发布时表述，编辑需核对当前实际版本号。",
+        "AI 起草提示：模型注明：原文未给出各模型在具体设备上的实测延迟或内存占用数据。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-21T03:30:10.932Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 5553,
+          "completionTokens": 2242,
+          "totalTokens": 7795
+        },
+        "latencyMs": 13270,
+        "warnings": [
+          "模型给的知识 id「knowledge-c761533e」不存在或未发布，已丢弃。",
+          "模型注明：原文未说明 AnyLanguageModel 的具体开源许可证。",
+          "模型注明：原文提到的 OS 27、Foundation Models 27 与部分模型版本为发布时表述，编辑需核对当前实际版本号。",
+          "模型注明：原文未给出各模型在具体设备上的实测延迟或内存占用数据。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "slug": "minimax-m3-1-flash-release",
+      "title": {
+        "original": "比 Opus 5.5 便宜 88 倍！MiniMax M3.1 Flash “杀“回王座，顺手拿了个 Agent 国模第一",
+        "zh": "MiniMax M3.1 Flash：成本降七成，Agent 国模第一"
+      },
+      "summary": {
+        "original": "比 Opus 5.5 便宜 88 倍！MiniMax M3.1 Flash “杀“回王座，顺手拿了个 Agent 国模第一",
+        "zh": "MiniMax 于 10 月 19 日发布 M3.1 Flash，输入每百万 token 0.15 美元、输出 0.60 美元、缓存输入 0.015 美元，官方称 Agent 任务使用成本较上一代降低 70%。模型在 OSWorld V2 得 61.7、Agents' Last Exam 得 29.6，文章称后者位列中国模型第一。此前匿名模型 Space Bunny 被确认是该模型的早期版本。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\nMiniMax 于 10 月 19 日正式发布 M3.1 Flash。此前在开发者社区中匿名走红的 Space Bunny 被确认是这款模型的早期版本：它 9 月 23 日上线后，在 OpenCode 调用量榜单中排在第二，在 OpenRouter 调用量榜单中一度排到第一。\n\n与早期版本相比，MiniMax 称 M3.1 Flash 在 Agent 任务执行、代码生成和长程任务处理上做了进一步优化。\n\n## 具体内容\n\n官方公布的 API 价格如下：\n\n- 输入：每百万 token 0.15 美元\n- 输出：每百万 token 0.60 美元\n- 缓存输入：每百万 token 0.015 美元\n\n按这个单价，一次输入 10 万 token、输出 2 万 token 且未命中缓存的任务，模型费用约为 0.027 美元。MiniMax 同时表示，M3.1 Flash 的 Agent 任务整体使用成本比上一代降低 70%。\n\n文章给出的基准成绩包括：\n\n- DeepSWE v1.1：73.7%（软件工程）\n- OSWorld V2：61.7（真实桌面环境操作）\n- Agents' Last Exam：29.6，文章称其在中国模型中排第一，略低于 Opus 5 与 GPT-5.6 Sol\n- BankerToolBench：76.2（金融场景下的工具调用）\n- CyberGym：82%（漏洞分析等安全任务）\n- Automation-Bench v1.0.6：62.2\n\n速度方面，文章称 M3.1 Flash 日常输出可超过 200 TPS，中位数速度稳定在 170 TPS 以上。\n\n## 与以往相比\n\n过去 Flash 档模型主要被用于简单问答和代码补全，M3.1 Flash 的定位则是参与软件工程、电脑操作和多步骤 Agent 任务。\n\n价格上，它与 DeepSeek V4.1 Flash 1017 的闲时价格持平（输入 0.15 美元、输出 0.60 美元），是后者忙时价格的一半。在 Artificial Analysis 的同一套评测中，M3.1 Flash 的 Intelligence Index 为 43，DeepSeek V4.1 Flash 1017 为 45；两者加权平均任务成本分别为 0.22 美元和 0.26 美元。\n\n在部分编程指标上，DeepSeek 的公开成绩更高：DeepSWE v1.1 为 77.0，Terminal-Bench 4.0 也更高。\n\n## 对读者意味着什么\n\n1. 如果你的工作流以电脑操作、多步骤自动化为主，可以把 M3.1 Flash 放进同一组真实任务的横向测试里，重点记录成功率、重试次数和端到端耗时，而不只看单 token 单价。\n2. 如果主要做代码修复和终端任务，DeepSeek 在该类公开基准上的成绩更高，值得先拿自己的仓库任务分别跑一遍再决定。\n3. 评估成本时，把重试成本和人工接管成本算进去：文章提醒，单次调用便宜并不等于完成一项任务便宜。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-21",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/7Twa7KBWIzi8JGOdVwCK?utm_source=rss&utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "MiniMax",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-model-pricing",
+        "tag-ai-agents",
+        "tag-coding-agents",
+        "tag-benchmarks"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-execution-based-eval",
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:39:12.944Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "Flash 档模型过去基本只承担简单问答和补全，这次 MiniMax 把它推进到电脑操作与多步骤 Agent 任务，并且把输入价格压到每百万 token 0.15 美元。对正在评估 Agent 工作流成本的团队来说，这意味着低单价模型第一次值得进入真实任务的横向对比，而不只是做降级兜底。",
+      "whoShouldCare": [
+        "正在为编码或电脑操作类 Agent 选型的工程团队",
+        "需要控制大规模模型调用成本的平台与基础设施负责人",
+        "关注国产开放模型在 Agent 赛道进展的技术决策者",
+        "用 OpenRouter、OpenCode 等聚合渠道做模型对比的开发者"
+      ],
+      "technicalContext": "Flash 档模型通常以低延迟、低单价为设计目标，能力上限弱于旗舰模型。Agent 场景下的成本不只由单 token 价格决定，还取决于模型完成同一任务需要消耗多少 token、调用多少次工具、失败重试多少轮，以及结果需要多少人工纠错。OSWorld、Agents' Last Exam 这类基准衡量的是模型在真实环境中采取行动并推进任务的能力，与单轮问答基准不可直接比较。",
+      "impactAreas": [
+        "模型定价",
+        "Agent 工作流",
+        "编码助手",
+        "电脑操作"
+      ],
+      "learningPath": [
+        "先读 M3.1 Flash 与 DeepSeek V4.1 Flash 1017 的官方定价页，弄清输入、输出与缓存三档价格的区别，再判断单 token 成本。",
+        "找 OSWorld V2 与 Agents' Last Exam 的任务说明，弄清这两类基准测的是行动能力还是问答能力，避免把它们与代码基准混在一起比较。",
+        "挑 5 到 10 个自己团队的真实 Agent 任务，在相同工具和验收标准下跑两个模型，记录成功率、token 消耗、端到端耗时与重试次数。",
+        "把人工接管时间折算进成本，算出单位任务成本，再决定是否把 M3.1 Flash 放进生产工作流。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-execution-based-eval": "理解基于执行的评测，才能判断 61.7 分与 73.7% 这类数字衡量的是行动能力还是生成能力。",
+        "knowledge-model-sizing": "选模型不是挑最强的那个，而是先看哪个约束最先咬人；M3.1 Flash 的定位正是把成本约束放在首位。",
+        "knowledge-evaluation-loops": "单看总榜名次无法回答哪个模型适合自家工作流，需要定义预期、观察实际并持续比较。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "把「什么算完成任务」写成能判错的检查，才能得到可比较的成功率与重试次数。",
+        "skill-ws-a9e80194": "推理服务容量规划帮助把单 token 价格换算成并发与任务级成本，判断低价是否真的省。"
+      },
+      "followUpQuestions": [
+        "在你们自己的电脑操作或自动化任务上，M3.1 Flash 的一次成功率与重试次数分别是多少？",
+        "缓存输入价格是 0.015 美元，你们的 Agent 工作流中多轮对话的缓存命中率大概是多少？",
+        "文章称 Agent 任务成本较上一代降低 70%，这个数字是在什么任务集和计价方式下得出的？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-10-21T03:30:07.170Z",
+      "updatedAt": "2026-10-21T03:39:12.944Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article.",
+        "2026-10-21 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 10429 tokens · 9.5 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：原文由 InfoQ 中文发布，部分基准成绩（如 Agents' Last Exam 中国模型第一）为文章转述，编辑需核对 MiniMax 官方博客原始数据。",
+        "AI 起草提示：模型注明：文章引用的开发者测试案例（成本对比、游戏生成）来自社交媒体个人帖子，未经过独立复现。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-21T03:30:07.155Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 8389,
+          "completionTokens": 2040,
+          "totalTokens": 10429
+        },
+        "latencyMs": 9490,
+        "warnings": [
+          "模型注明：原文由 InfoQ 中文发布，部分基准成绩（如 Agents' Last Exam 中国模型第一）为文章转述，编辑需核对 MiniMax 官方博客原始数据。",
+          "模型注明：文章引用的开发者测试案例（成本对比、游戏生成）来自社交媒体个人帖子，未经过独立复现。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-504067"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "slug": "pytorch-2-15-mps-fp8",
+      "title": {
+        "original": "MPS in PyTorch 2.15",
+        "zh": "PyTorch 2.15：MPS 支持 FP8，MoE 解码快 6 倍"
+      },
+      "summary": {
+        "original": "MPS in PyTorch 2.15",
+        "zh": "PyTorch 2.15 为 MPS 后端加入 float8_e4m3fn 张量与 F.scaled_mm，并让 MoE 解码比 2.14 快 5–6.5 倍：M3 Ultra 上 Qwen3.6-35B-A3B 从 9.4 提升到 61.3 tokens/s。此外词表 softmax 约快 8 倍，Wan2.2 视频 VAE 解码的驱动内存峰值从约 270 GiB 降到 8 GiB。",
+        "en": "MPS in PyTorch 2.15"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\nHugging Face 的 PyTorch 团队发布博文，介绍 PyTorch 2.15 在 MPS（Metal Performance Shaders）后端上的改动。该团队表示，他们的做法是在 Hugging Face Hub 上用语言、图像和视频的真实模型做测试，找出 MPS 的短板，再回到 PyTorch 上游修复，其中不少工作是绕开 MPSGraph、改写为专用 Metal kernel。\n\n## 具体内容\n\n**FP8 进 Mac。** 2.15 在 MPS 上支持 `torch.float8_e4m3fn` 张量，每个值占一个字节，存储是 FP16 或 BF16 的一半；配套的 `F.scaled_mm` 支持按张量和按行两种缩放方式，可直接在 GPU 上做量化矩阵乘。\n\n**MoE 与 LLM 解码加速。** 解码阶段每个新 token 以单行走过模型，大矩阵乘退化为矩阵向量乘。2.14 已有 `torch.mm` 的 GEMV kernel，但 `F.linear` 仍走 MPSGraph；2.15 把两者接通，96 个来自真实模型的 BF16 层形状上几何平均提速 1.23 倍，收益集中在 MoE 门控这类小投影上。MoE 层则获得了原生 grouped matmul：偏移量不再拷回 CPU 循环，小分组（解码时的常见情况）有独立 kernel。\n\n**数字。** 在 M3 Ultra 上配合 `torch.compile`：\n\n- Qwen3.6-35B-A3B：9.4 → 61.3 tokens/s\n- LFM2.5-8B-A1B：23.6 → 123.6 tokens/s\n\n**Softmax 与内存。** 词表 softmax 改走专用 Metal kernel，对 `[1, 128256]` 的 FP32 logits 从 57 µs 降到 7 µs，约 8 倍。Wan2.2 的 tiled VAE 解码一次完整流程有 8,764 次 padding 调用，改用 Metal padding 后，驱动内存峰值从约 270 GiB 降到 8 GiB。\n\n**其他。** 新增 `torch.mps.Stream` 与 `torch.mps.stream` 上下文管理器，可从 Python 选择 MPS 流；complex64 的 LU 分解与求解、三角形求解、小矩阵求逆、QR 分解等线性代数操作也得到支持或加速；conv1d 前向、反射/复制 padding、dropout、上采样反向等训练相关操作有新的 Metal 路径。\n\n**要求变化。** MPS 现在要求 macOS 15 或更高版本，PyTorch 2.15 要求 Python 3.11 或更高版本。\n\n## 对读者意味着什么\n\n1. 在 Apple silicon 上跑本地 LLM 或 MoE 模型的团队，值得用 2.15 重新测一遍解码吞吐，尤其是小投影密集的 MoE 结构。\n2. 做本地视频生成的用户，padding 修复可能直接决定模型能否在机器上跑完，而不只是快慢问题。\n3. 依赖 MPS 的旧环境要先确认 macOS 与 Python 版本是否满足新门槛，再谈升级收益。",
+        "en": "Imported candidate without captured body content. Use the source link for the full original text."
+      },
+      "type": "tool",
+      "publishDate": "2026-10-20",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/mps-pytorch-2-15",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "PyTorch",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-efficient-inference",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-latency-tradeoffs",
+        "knowledge-kv-cache"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-inference-speedup-verification",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:34.622Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "Mac 一直是本地推理的可用但不够快选项，这次 MoE 解码 5–6.5 倍的提升和视频 VAE 内存从 270 GiB 降到 8 GiB，属于会改变「能不能跑、值不值得跑」判断的量级变化。FP8 与 scaled_mm 进入 MPS，也意味着量化权重在 Apple 平台有了官方路径，而不必依赖第三方补丁。",
+      "whoShouldCare": [
+        "在 Mac 上本地运行 LLM 或 MoE 模型的开发者",
+        "用 ComfyUI、diffusers 做本地图像与视频生成的用户",
+        "维护 PyTorch 跨平台兼容层的工程团队",
+        "评估 Apple silicon 作为推理硬件的技术选型人员"
+      ],
+      "technicalContext": "MPS 是 PyTorch 面向 Apple Metal GPU 的后端，长期依赖 MPSGraph 图执行，部分算子缺失或性能不佳。MoE 模型在解码时每个 token 被路由到不同专家，形成大小不一的矩阵乘分组，需要 grouped matmul；此前的实现要把分组偏移拷回 CPU，成为瓶颈。FP8 指 float8_e4m3fn 这类 8 位浮点格式，配合缩放因子做矩阵乘，可在几乎不损失精度的情况下把权重显存减半。",
+      "impactAreas": [
+        "本地推理",
+        "量化",
+        "视频生成",
+        "线性代数"
+      ],
+      "learningPath": [
+        "先读 PyTorch 2.15 的兼容性矩阵，确认自己的 macOS 与 Python 版本满足 MPS 的新要求。",
+        "在自己的 Mac 上用同一模型分别跑 2.14 与 2.15，记录解码 tokens/s，验证博文中的提速是否出现在自己的负载上。",
+        "弄懂 MoE 解码中 grouped matmul 与小分组 kernel 的关系，判断自己的模型结构是否落在收益区间。",
+        "尝试 FP8 加 F.scaled_mm 的量化路径，对比 BF16 下的显存占用与输出质量。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "选模型时要先看哪个约束最先咬人；这篇信号里内存与吞吐同时被放宽，模型选型的边界随之移动。",
+        "knowledge-ws-34da6116": "理解量化与数值精度，才能判断 FP8 在 MPS 上的精度代价与适用场景。",
+        "knowledge-latency-tradeoffs": "交互系统的体验由等待时间决定，这篇信号里的 GEMV 与 softmax 优化正是压缩这段等待。",
+        "knowledge-kv-cache": "上下文越长显存越紧，理解 KV 缓存有助于评估 MPS 上长上下文解码的实际可用性。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "端侧部署技能提供定量化档位、选运行时和验收指标的框架，正好用于消化这篇信号。",
+        "skill-inference-speedup-verification": "该技能教人分清加速的是哪一段、在同等条件下比较，避免直接采信宣传数字。",
+        "skill-model-evaluation": "上线前的评估检查能帮助团队判断量化带来的精度损失是否可接受。"
+      },
+      "followUpQuestions": [
+        "博文中的吞吐数字均在 M3 Ultra 上测得，在 M1/M2 或更低内存配置的机器上，加速比还剩多少？",
+        "FP8 的 F.scaled_mm 在真实模型权重上的精度损失如何，是否有官方推荐的缩放策略？",
+        "Wan2.2 内存从 270 GiB 降到 8 GiB 后，实际生成速度与画质是否同步改善？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "createdAt": "2026-10-21T03:30:58.262Z",
+      "updatedAt": "2026-10-21T03:35:34.622Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15.",
+        "2026-10-21 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 9364 tokens · 11.5 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：博文中的吞吐数字均在 M3 Ultra 上测得，未给出其他 Apple silicon 芯片的数据。",
+        "AI 起草提示：模型注明：原文对 FP8 在真实模型上的精度影响没有给出量化评估。",
+        "AI 起草提示：模型注明：2.16 的内容部分标注为仍在评审中，细节可能变化。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-21T03:30:58.249Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 7332,
+          "completionTokens": 2032,
+          "totalTokens": 9364
+        },
+        "latencyMs": 11454,
+        "warnings": [
+          "模型注明：博文中的吞吐数字均在 M3 Ultra 上测得，未给出其他 Apple silicon 芯片的数据。",
+          "模型注明：原文对 FP8 在真实模型上的精度影响没有给出量化评估。",
+          "模型注明：2.16 的内容部分标注为仍在评审中，细节可能变化。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "slug": "memt-1-0-native-memory-model",
+      "title": {
+        "original": "RSI三块关键拼图，MemT 1.0从模型层补上「记忆」",
+        "zh": "记忆张量开源 MemT 1.0：把记忆原生写进 Transformer"
+      },
+      "summary": {
+        "original": "把记忆原生焊进Transformer",
+        "zh": "记忆张量开源记忆原生模型 MemT 1.0，含 36B 总参数、激活 3B 的 Nano 与 288B 总参数、激活 17B 的 Flash 两个型号，在 Transformer 模块中加入与注意力并行的记忆分支，把经验编码为可读写的内部状态。论文称这是记忆原生模型首次完成近 300B 参数规模的工程验证。"
+      },
+      "content": {
+        "original": "把记忆原生焊进Transformer",
+        "zh": "## 发生了什么\n\n记忆张量开源了 MemT 1.0 系列模型，主打「记忆原生」：不把历史经验塞回上下文，而是在模型内部为经验留出一条可训练的通路。团队称这是记忆原生模型首次实现近 300B 参数规模的工程验证，论文编号为 arXiv:2610.26825，代码与权重分别放在 GitHub 和 HuggingFace 上。\n\n## 具体内容\n\n本次放出两个型号：\n\n1. MemT-1.0-Nano，总参数 36B、激活 3B，基座为 Qwen3.6-35B-A3B。\n2. MemT-1.0-Flash，总参数 288B、激活 17B，基座为经过进一步后训练的 DeepSeek-V4-Flash。\n\n架构上，模型保留基座原有计算流程，在选定的 Transformer 模块里加入一条与注意力并行的记忆分支，拆成三层：承载通用能力且在训练记忆时冻结的主干权重、包含读写投影与门控等可训练参数的超记忆、以动态矩阵状态保存新信息的局部记忆。写入时由隐状态投影出记忆键值，用擦除、写入、遗忘门控调节已有关联；读取时把当前输入映射为记忆查询，归一化并经输出门控后与注意力输出融合。更新机制基于 Gated DeltaNet-2 做逐 Token 生成，并在每轮结束后触发一次。\n\n为应对记忆容量扩张，团队还提出 MoS（Mixture-of-Storage）：把单个记忆原生模块扩成多个记忆专家，采用稠密融合，所有专家都参与计算，由路由权重决定各自贡献，这点与基座 MoE 的稀疏路由不同。\n\n训练侧共构建了 340 亿 Token 的记忆语料，其中继续预训练 200 亿、后训练 140 亿。继续预训练的格式是先把长文本切成连续片段写入记忆，再让模型带着记忆状态回答查询；后训练包含记忆原生语言建模、记忆存储与利用（摘要、续写、压缩等）以及强化长程记忆的任务数据，并以冻结的主干作为教师，沿 off-policy 蒸馏让学生对齐教师分布。\n\n## 与以往相比\n\n外部记忆的做法是把记忆原文或检索证据放回上下文。MemT 1.0 让经验参与训练，成为可更新、可读取的内部状态。代价是精确删除、解释与恢复需要额外机制，文本记忆在长历史细节召回上仍有优势。\n\n评测数据：\n\n- SWE-bench Verified 的 500 项任务各跑三次，Nano 在关键断点的平均成功率为 69.73%，无经验基线 66.07%，文本经验组 69.13%；三次全部成功的比例从 54.00% 升到 62.80%，文本经验组为 61.80%。\n- SWE-bench Multilingual 上，原生记忆组平均成功率 63.56%，无经验组 60.00%，文本经验组 63.00%。\n- 11 项记忆基准的综合评估中，Flash 与 Nano 平均得分分别为 50.6 和 47.0，在参与评估的参数化记忆方法中列前两位。\n- 消融实验把逐 Token 更新换成整轮聚合后，Nano 的记忆基准平均分从约 47.0 降到 41.0。\n- 在 128K 长历史下，Nano 的端到端推理速度约为完整上下文方案的 1.86 倍，每条轨迹的持久状态占用是完整上下文 KV Cache 的六十六分之一。\n\n## 对读者意味着什么\n\n1. 如果你的智能体要在长会话里复用经验，可以先看它的状态占用与推理速度数字，再决定是否值得把记忆从上下文层挪到模型层。\n2. 如果关注持续学习或自我改进，这条信号把「记忆」当作三块拼图中的第一块，值得跟踪后续反馈与验证环节如何接上。\n3. 记忆原生与外部文本记忆并非互斥，涉及精确原文、来源和版本的查询仍适合走外部记录。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-20",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/10/504456.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "记忆张量",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-open-weights",
+        "tag-agent-infra",
+        "tag-training",
+        "tag-efficient-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-open-weights",
+        "knowledge-kv-cache",
+        "knowledge-ws-a28a8a56"
+      ],
+      "relatedSkillIds": [
+        "skill-open-weights-self-hosting",
+        "skill-inference-speedup-verification",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:34.385Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "把记忆从上下文工程挪到模型内部，意味着经验复用可以从推理期开销问题变成训练与架构问题，直接影响长会话智能体的成本和可靠性。团队给出的状态占用与推理速度数字，为「记忆该放在哪一层」提供了可比较的工程依据。",
+      "whoShouldCare": [
+        "做长时程智能体、需要跨会话复用经验的工程团队",
+        "自托管开放权重模型、关心长上下文显存与延迟的推理运维人员",
+        "评估企业 AI 方案、关心重复工作流能否沉淀经验的选型负责人"
+      ],
+      "technicalContext": "记忆原生指模型把历史经验编码为内部动态状态，通过训练学会写入、更新和读取，而不是把历史文本重新拼进提示词。MemT 1.0 的记忆分支与注意力并行，读出结果与注意力输出融合后再参与生成；MoS 则借鉴 MoE 思路扩展记忆容量，但采用所有专家都参与计算的稠密融合。",
+      "impactAreas": [
+        "模型架构",
+        "长上下文推理",
+        "智能体记忆",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先读开放权重与模型许可，弄清这次发布放出了哪些权重、以什么条款使用。",
+        "再了解 MoE 与稀疏激活，理解 Nano 的 36B 总参数、3B 激活意味着什么部署成本。",
+        "接着对比外部记忆与记忆原生的差别，弄清经验放在上下文里和放在模型状态里各自的可解释性与删除成本。",
+        "最后用 SWE-bench 相关材料理解基于执行的评测，判断 69.73% 这类数字该怎么读。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "理解总参数与激活参数脱钩，才能判断这两个型号的实际部署成本。",
+        "knowledge-open-weights": "读一次开放发布要分别看权重能否下载、许可能否商用、配套是否齐全。",
+        "knowledge-kv-cache": "KV 缓存随上下文变长而膨胀，是理解这条占用对比的前提。",
+        "knowledge-ws-a28a8a56": "长时程记忆的分层体系里，这条信号给出了一种把记忆下沉到模型层的做法。"
+      },
+      "relatedSkillExplanations": {
+        "skill-open-weights-self-hosting": "面对两个新放出的开放权重型号，这套流程能回答该不该自己跑。",
+        "skill-inference-speedup-verification": "加速与省显存的数字依赖条件和负载，需要在同条件下复测。",
+        "skill-model-evaluation": "平均成功率与三次全过比例是两种口径，评估时要写清判错标准。"
+      },
+      "followUpQuestions": [
+        "六十六分之一的持久状态占用是在什么精度和什么硬件条件下测的，换到自己的负载还剩多少？",
+        "记忆原生模型的经验如何精确删除和审计，团队提到需要额外机制，具体是什么？",
+        "两个型号的许可条款是否允许商用与二次训练？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-504456",
+      "createdAt": "2026-10-21T03:30:08.007Z",
+      "updatedAt": "2026-10-21T03:35:34.385Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-504456.",
+        "2026-10-21 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 10020 tokens · 10 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：原文来自量子位报道，模型许可条款、训练数据构成等细节未在文中给出，需核对 HuggingFace 页面。",
+        "AI 起草提示：模型注明：推理速度与状态占用数字的测试硬件、精度与具体设置原文未说明。",
+        "AI 起草提示：模型注明：arXiv 编号与基座模型版本（Qwen3.6-35B-A3B、DeepSeek-V4-Flash）需与论文和模型卡核对。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-21T03:30:07.695Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 7981,
+          "completionTokens": 2039,
+          "totalTokens": 10020
+        },
+        "latencyMs": 10037,
+        "warnings": [
+          "模型注明：原文来自量子位报道，模型许可条款、训练数据构成等细节未在文中给出，需核对 HuggingFace 页面。",
+          "模型注明：推理速度与状态占用数字的测试硬件、精度与具体设置原文未说明。",
+          "模型注明：arXiv 编号与基座模型版本（Qwen3.6-35B-A3B、DeepSeek-V4-Flash）需与论文和模型卡核对。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "slug": "lfm2-5-2-6b-on-device-agents",
+      "title": {
+        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
+        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
+        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
+      },
+      "summary": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
+        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
+        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
+      },
+      "content": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
+        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-04",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/LiquidAI/lfm2-5-2-6b",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-inference",
+        "tag-training"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-c761533e",
+        "knowledge-rl-post-training",
+        "knowledge-distillation",
+        "knowledge-fine-tuning"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-84837d46",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 95,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:16.279Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
+      "whoShouldCare": [
+        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
+        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
+        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
+      ],
+      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
+      "impactAreas": [
+        "端侧与边缘部署",
+        "智能体工具循环",
+        "推理成本与隐私边界",
+        "后训练方法"
+      ],
+      "learningPath": [
+        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
+        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
+        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
+        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
+        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
+        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
+        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
+        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
+        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
+        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
+        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
+        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
+      },
+      "followUpQuestions": [
+        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
+        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
+        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "createdAt": "2026-08-06T12:45:47.493Z",
+      "updatedAt": "2026-10-21T03:35:16.279Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+        "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "slug": "ollama-v0-32-4",
+      "title": {
+        "original": "Ollama v0.32.4",
+        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
+        "en": "Ollama v0.32.4"
+      },
+      "summary": {
+        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
+        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。注意：本版的 MLX Laguna 路径存在会降低 NVFP4 模型输出质量的缺陷，已在两天后的 v0.32.5 修复——要在 Apple GPU 上跑 Laguna 请直接用 v0.32.5。"
+      },
+      "content": {
+        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
+        "zh": "## 更正（2026-07-28）\n\n下面第 1 条改动——MLX 引擎支持 Laguna——在本版中是带缺陷发布的：MLX 的 Metal 后端存在一个 bug，会让 NVFP4 精度的模型输出质量下降，其中 Laguna 受影响最明显。官方在两天后的 **v0.32.5** 中修复了它，那一版除此之外没有任何其他改动。\n\n所以：**要在 Apple GPU 上跑 Laguna，请直接用 v0.32.5，不要停在本版。** 本站没有把 v0.32.5 单独收录为一条技术信号——它是一次单点修复，不构成新的技术信号；但它修的正是本条信号的头条功能，所以更正写在这里。\n## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-inference",
+        "tag-efficient-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-36346103",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 89,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:15.590Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
+      "whoShouldCare": [
+        "在 Apple 芯片上做本地推理的开发者",
+        "评估端侧部署可行性的架构师",
+        "关注推测解码实际收益的性能工程师"
+      ],
+      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
+      "impactAreas": [
+        "端侧推理性能",
+        "MoE 量化路径",
+        "推测解码收益",
+        "Apple 芯片部署"
+      ],
+      "learningPath": [
+        "先弄清 MoE 的专家路由与逐专家量化",
+        "再理解推测解码里草稿模型的开销从哪来",
+        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
+        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
+        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
+      },
+      "followUpQuestions": [
+        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
+        "统一内存架构下，混合专家精度的最佳组合是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "createdAt": "2026-07-27T01:43:12.851Z",
+      "updatedAt": "2026-10-21T03:35:15.590Z",
+      "editorialNotes": [
+        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。",
+        "2026-07-28 轮：v0.32.5 标记为已看不选（正文仅一行 MLX Metal 修复，同 v0.32.3 的补丁先例），改为在本条正文顶部补更正段——因为它修的是本条头条的 MLX Laguna 路径。同批次 vLLM v0.26.1rc0 按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+        "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "slug": "agent-memory-is-a-dose-not-a-switch",
+      "title": {
+        "original": "How Much Memory Does Your Agent Actually Need?",
+        "zh": "智能体记忆不是开关，是要按模型标定的剂量"
+      },
+      "summary": {
+        "original": "IBM Research evaluates ALTK-Evolve across eight models and finds that the right amount of agentic memory depends on the model, not on parameter count.",
+        "zh": "IBM Research 把 ALTK-Evolve 铺到八个模型上评测：智能体从自己的历史轨迹里蒸馏出可复用的行为指引，推理时注入回上下文，不更新任何权重、不需要人工标注。结论反直觉——同一套指引在不同模型上的最佳用量完全不同，而决定用量的不是参数规模：745B 的 GLM-5 一分没涨，117B 的 gpt-oss-120b 用最省的策略涨了 16.1 个点，代价只有 5% 的 token。",
+        "en": "Agentic memory is not a feature you switch on; it is a dose you calibrate to the model."
+      },
+      "content": {
+        "original": "See the linked Hugging Face article for the original English text.",
+        "zh": "## 学习发生在模型外面，不在模型里面\n\n这里的「记忆」不是回放一段历史对话，而是一套**行为指引**：从智能体自己过去的成功与失败轨迹里蒸馏出来的策略、要避开的错误和边界情况。循环很短——智能体做任务产生轨迹，`ALTK-Evolve` 从成功和失败的运行里提取指引，合并成一套可复用的集合，推理时把全部或按任务挑选的一部分交回给它。\n\n**没有任何权重被更新。** 改变的是智能体可用的指引，不是底下那个模型——这也正是它便宜、且能横跨八个模型移植的原因。\n\n## 三档剂量，而参数量不预测你在哪一档\n\n八个模型从 30B 稠密一路铺到闭源前沿，落成三种反复出现的形态：\n\n- **有余量的强模型要全量。** 每一条指引都要，包括罕见的边界情况，因为它们吃得下也用得上。DeepSeek-V3.2（671B MoE）拿到自己挖出的全套指引后，任务完成度涨了 **9.5 个百分点**。\n- **弱一些的模型会被大指引集淹掉。** 它们最适合一个高置信的紧凑核心，加上每个任务现取的少量相关条目。gpt-oss-120b（117B MoE）用这种选择性策略涨了 **16.1 个百分点**——而全量策略涨得更少、token 还多花约 **50%**。\n- **已经饱和的模型一分不涨。** GLM-5（745B MoE）在这轮里就是如此：**0.0 / 0.0**。\n\n**745B 的那个没涨，117B 的那个涨得最多。** 决定你在哪一档的不是参数量，而是基准上的剩余空间、上下文窗口、架构、指引质量和任务分布——研究者明确说，把这些因素分开仍是进行中的工作。\n\n值得单独表扬的是措辞：作者写明「饱和」这个标签**描述的是观察到的现象，不是已证明的原因**，并列出三种都还成立的解释——模型可能本来就接近这批任务的天花板，指引可能没打中它剩下的失败模式，也可能是它没有有效地应用这些指引。本站《模型与输出评估》里那条判据在这里被作者自己执行了：**一个数字说明什么，取决于它排除了什么。**\n\n## 最省的策略可以同时是最好的\n\n这一点最容易被跳过，因为它违反「更多即更好」的直觉。\n\n每一步都注入全套指引会让每个 ReAct 步骤的输入都变胖，因为指引每一轮都要重发。而 gpt-oss-120b 上，按任务检索的策略拿到 **+16.1 个百分点**，token 只多了 **5%**。\n\n也就是说：**最准的那一档和最便宜的那一档，在这个模型上是同一档。** 这不是普遍规律——强模型确实要全量——但它足以说明「先上全量再说」是一个会同时输掉准确率和成本的默认值。\n\n## 越严格的尺子动得越多\n\n两种打分方式的差距本身就是发现。SGC 要求一个场景的**每一个变体**都通过，比 TGC 严格得多，而它普遍涨得更多：\n\n1. DeepSeek-V3.2：TGC **+9.5**，SGC **+16.1**\n2. Claude Opus 4.6：TGC +4.1，SGC **+7.1**（基线已是 90.5 / 87.5）\n3. GPT-5.5：TGC +2.9，SGC **+7.2**\n\n原因说得通：好的指引尤其帮助智能体清掉一个场景的所有变体，而不只是把平均情况做对。**而且在天花板附近它并没有消失**——只要模型还剩一个可被指引打中的失败模式，记忆就还在付钱。\n\n## 这条信号的边界\n\n- 全部结果来自 **AppWorld 一个基准**，9 个模拟应用，不是真实生产环境。\n- 指引只从训练集挖掘，测试集数据没有进入构建过程——这一点作者写明了，是这组数字可信的前提。\n- 「饱和」只观察到一个样本（GLM-5），且作者自己拒绝把它当成结论。\n- 该团队在上一篇里比较的是**指引怎么投递**，这一篇回答的是**该给多少**；两个问题都还没有跨基准的复现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-18",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "IBM Research",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-retrieval",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-model-sizing",
+        "knowledge-rag-basics"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:15.231Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "「给智能体加记忆」通常被当成一个开关：把过去的经验塞回上下文，经验越多表现越好。这项评测把它证伪了，而且给出了可执行的替代做法——按模型的剩余空间决定注入多少。更要紧的是它顺手推翻了一个省事的代理指标：参数量不预测该给多少记忆。",
+      "whoShouldCare": [
+        "正在给智能体接记忆层、以为「攒得越多越好」的工程师",
+        "需要在准确率和每次任务 token 成本之间做取舍的平台团队",
+        "设计评测口径的人：这项研究的严格指标比宽松指标动得更多"
+      ],
+      "technicalContext": "评测在 AppWorld 上进行：9 个模拟应用（日历、消息、支付等）里的 585 个多步任务，其中 168 个 test_normal、417 个 test_challenge。两种打分方式——TGC 看单个任务是否完整完成，SGC 更严格，要求一个场景的每个变体都通过。三种配置共用同一套指引，区别只在投递方式：不注入（基线）、每一步都注入全部指引（full guideline set）、固定高置信核心加上按任务检索的少量条目（curated retrieval）。指引只从训练集挖掘，测试集数据从未进入构建过程。",
+      "impactAreas": [
+        "智能体记忆",
+        "评测方法",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先记住那句判据：记忆是剂量不是开关——先问你的模型还剩多少空间，再决定注入多少",
+        "读《长时程智能体的记忆与上下文管理》：这条研究给它补上了量化证据",
+        "把你自己的评测拆成宽松与严格两档，看严格那档动得是不是更多——这项研究里它普遍更大",
+        "算一次 token 账：每一步重复注入全部指引的成本，和按任务检索少量的成本，差了约十倍",
+        "读《评估闭环》第 4 步：一次没有改变任何配置的评测是报告，不是闭环"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "这条给「记忆该带多少进上下文」补上了量化证据：是剂量，不是开关。",
+        "knowledge-evaluation-loops": "评测跑完改变了配置，才算闭环；这项研究改变的正是注入策略。",
+        "knowledge-ws-e251051e": "指引里写的是失败模式，所以它改进的是智能体对「这一步做对了吗」的判断。",
+        "knowledge-model-sizing": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。",
+        "skill-agent-design": "改变的是智能体可用的指引而不是模型，所以这是流程层的设计而不是训练问题。",
+        "skill-ws-f741f122": "指引从自己跑过的成功与失败轨迹里蒸馏，前提是那些轨迹被完整记录下来了。",
+        "skill-retrieval-tuning": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
+      },
+      "followUpQuestions": [
+        "你的模型落在哪一档，是靠实测还是靠参数量猜的？",
+        "指引集是从你自己的任务轨迹里挖的，还是借来的？后者还成立吗？",
+        "「饱和」在你这里是模型到顶了，还是指引没打中它真正的失败模式？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "createdAt": "2026-08-23T16:09:55.118Z",
+      "updatedAt": "2026-10-21T03:35:15.231Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-www-qbitai-com-p-504456"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "slug": "deepseek-v41-flash-1017-search-api",
+      "title": {
+        "original": "突发！DeepSeek新模型发布，超级性价比斩杀一切",
+        "zh": "DeepSeek V4.1 Flash 新版 1017：更强也更省"
+      },
+      "summary": {
+        "original": "新版本V4.1-Flash-1017，还开放了自研搜索API",
+        "zh": "DeepSeek 推出 V4.1-Flash-1017 模型，在代码与智能体任务基准上提升的同时压缩了任务运行时间和输出长度，官方称为「性能—费用的帕累托改进」。配套 Harness 升级至 0.2.1 版本，并开放自研 Search 与 Fetch 两个搜索 API，每千次成功请求 5 元，11 月 1 日前免费。"
+      },
+      "content": {
+        "original": "新版本V4.1-Flash-1017，还开放了自研搜索API",
+        "zh": "## 发生了什么\n\nDeepSeek 发布新模型 DeepSeek-V4.1-Flash-1017，网页端、App 与 API 已同步切换。官方称新模型在训练时针对 DeepSeek Harness 做了专项优化，在提升任务表现的同时缩短任务运行时间、减少输出消耗和 token 费用。\n\n同时，DeepSeek 自研搜索引擎推出 Search 和 Fetch 两个 API 接口，前者搜网页、后者读正文，开发者可以让智能体先按关键词找资料，再把选中网页抓取成 Markdown 交给模型分析。\n\n## 具体内容\n\n- 模型名中的「1017」对应 10 月 17 日，符合 DeepSeek 用日期标记模型快照的惯例。\n- 与上一版 V4.1 Flash 相比，1017 版本在代码、智能体任务等基准测试上均有提升；官方称任务运行时间和输出长度同时被压低。\n- 要完整使用新能力，DeepSeek Harness 需升级到 0.2.1-rc.1 及以上版本。\n- Search API 支持限定网站、语言和发布时间；按成功请求次数计价，每千次 5 元，失败、无结果或超时不计费，限时到 11 月 1 日免费。\n- 符合条件的用户首次登录 Harness 可领 6 元赠金，7 天内有效，限量发放。\n- 模型权重已在 HuggingFace 与 ModelScope 上线。\n\n## 与以往相比\n\n官方将这次更新称为「性能—费用的帕累托改进」：以往提升智能体任务表现通常要付出更长思考、更多步骤和更多 token，而 1017 版本试图在少绕路、少说废话的前提下把任务做完。官方放出的 DeepSWE 测试显示，新模型在多个智能体框架下把性能与成本的边界往外推了一截，DeepSeek Harness、腾讯 CodeBuddy 和 WorkBuddy 都获得了专项优化。\n\n新模型还主打「许愿式编程」：用户只需说清想要什么，规划、写代码、运行、检查和修改由模型自己推进。背后是一套基于自反馈的强化学习训练技术，模型写完第一版后会继续检查并回头修。官方演示了用一句话生成可实时浏览切换视角的 3D 故宫场景、网页赛车游戏、Godot 版《传送门 2》复刻等。\n\n## 对读者意味着什么\n\n1. 如果团队在用 DeepSeek API 跑编码或智能体任务，可以对比新旧版本在同等任务上的 token 消耗与完成时间，验证「更省」是否在自己负载上成立。\n2. Search 与 Fetch API 把「智能体上网查资料」拆成搜索和正文抓取两步，适合评估能否替换自建的检索管线，注意 11 月 1 日后的计价方式。\n3. 想用「许愿式编程」的团队，需先把 Harness 升到 0.2.1-rc.1 以上，并确认自己使用的框架是否在专项优化名单内。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-17",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/10/504067.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "DeepSeek",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-coding-agents",
+        "tag-model-pricing",
+        "tag-retrieval",
+        "tag-open-weights"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-rag-basics",
+        "knowledge-open-weights",
+        "knowledge-rl-post-training"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-coding-agent-acceptance",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-21T03:35:14.583Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这次更新同时动了模型能力和单位任务成本：官方称性能提升的同时运行时间和输出长度下降，直接影响智能体任务的账单。配套开放的搜索 API 按成功请求计价且初期免费，给了团队一个低成本替换自建检索管线的选项。",
+      "whoShouldCare": [
+        "用 DeepSeek API 跑编码或智能体任务的工程团队",
+        "正在自建或评估检索管线的开发者",
+        "关注推理成本与 token 消耗的平台负责人"
+      ],
+      "technicalContext": "「性能—费用的帕累托改进」指在不牺牲任务表现的前提下压低耗时与 token 消耗，这类改进通常来自训练阶段对特定智能体框架的专项优化和自反馈式强化学习。Search 与 Fetch 是检索增强生成中的两个环节：先召回候选网页，再抓取正文转成模型可读的文本，计价按成功请求计，失败不计费。",
+      "impactAreas": [
+        "推理成本",
+        "编码智能体",
+        "检索增强生成",
+        "模型选型"
+      ],
+      "learningPath": [
+        "先读官方模型卡和 API 文档，弄清 V4.1-Flash-1017 与上一版在基准和计费上的差异。",
+        "在自己的智能体任务上跑一组新旧版本对比，记录完成率、运行时间和 token 消耗，验证「更省」是否成立。",
+        "用 Search 与 Fetch API 搭一条最小检索链路，观察抓取正文转 Markdown 后的回答质量。",
+        "结合团队账单估算 11 月 1 日免费期结束后的检索成本。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-rag-basics": "理解 Search 负责找网页、Fetch 负责读正文，才能判断这条检索链路能替换自建管线的哪一段。",
+        "knowledge-open-weights": "开放权重发布要分别看权重、许可和配套，这条信号里三者的信息还不完整。",
+        "knowledge-rl-post-training": "自反馈式强化学习让模型写完代码后自己检查并修改，这是长时程编码任务的关键机制。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "容量规划要用的正是单位任务的耗时与消耗，这条信号给出的正是这两个维度。",
+        "skill-coding-agent-acceptance": "把整段编码交给模型前，先挑对任务并把判卷标准锁在模型够不着的地方。",
+        "skill-retrieval-tuning": "抓取正文转 Markdown 后的分块与结果格式，直接决定回答是否有依据。"
+      },
+      "followUpQuestions": [
+        "官方所说的运行时间和输出长度下降，在自己的任务分布上幅度有多大？",
+        "Search API 限定网站、语言和发布时间的能力，能否覆盖内部检索需求？",
+        "Harness 0.2.1-rc.1 是候选版本，升级后稳定性是否满足生产要求？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-504067",
+      "createdAt": "2026-10-20T02:59:13.863Z",
+      "updatedAt": "2026-10-21T03:35:14.583Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-504067.",
+        "2026-10-20 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 8386 tokens · 9.2 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：原文为媒体报道，模型许可条款、训练数据等开放权重发布的关键信息未提及。",
+        "AI 起草提示：模型注明：基准提升幅度和成本下降数字均来自官方说法，原文未给出完整对比数据。",
+        "AI 起草提示：模型注明：Harness 0.2.1-rc.1 为候选版本，原文未说明正式版时间。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v2",
+        "generatedAt": "2026-10-20T02:59:13.851Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 6494,
+          "completionTokens": 1892,
+          "totalTokens": 8386
+        },
+        "latencyMs": 9241,
+        "warnings": [
+          "模型注明：原文为媒体报道，模型许可条款、训练数据等开放权重发布的关键信息未提及。",
+          "模型注明：基准提升幅度和成本下降数字均来自官方说法，原文未给出完整对比数据。",
+          "模型注明：Harness 0.2.1-rc.1 为候选版本，原文未说明正式版时间。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
       "slug": "llm-0-32-agent-shaped",
@@ -2431,119 +3557,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-      "slug": "agent-memory-is-a-dose-not-a-switch",
-      "title": {
-        "original": "How Much Memory Does Your Agent Actually Need?",
-        "zh": "智能体记忆不是开关，是要按模型标定的剂量"
-      },
-      "summary": {
-        "original": "IBM Research evaluates ALTK-Evolve across eight models and finds that the right amount of agentic memory depends on the model, not on parameter count.",
-        "zh": "IBM Research 把 ALTK-Evolve 铺到八个模型上评测：智能体从自己的历史轨迹里蒸馏出可复用的行为指引，推理时注入回上下文，不更新任何权重、不需要人工标注。结论反直觉——同一套指引在不同模型上的最佳用量完全不同，而决定用量的不是参数规模：745B 的 GLM-5 一分没涨，117B 的 gpt-oss-120b 用最省的策略涨了 16.1 个点，代价只有 5% 的 token。",
-        "en": "Agentic memory is not a feature you switch on; it is a dose you calibrate to the model."
-      },
-      "content": {
-        "original": "See the linked Hugging Face article for the original English text.",
-        "zh": "## 学习发生在模型外面，不在模型里面\n\n这里的「记忆」不是回放一段历史对话，而是一套**行为指引**：从智能体自己过去的成功与失败轨迹里蒸馏出来的策略、要避开的错误和边界情况。循环很短——智能体做任务产生轨迹，`ALTK-Evolve` 从成功和失败的运行里提取指引，合并成一套可复用的集合，推理时把全部或按任务挑选的一部分交回给它。\n\n**没有任何权重被更新。** 改变的是智能体可用的指引，不是底下那个模型——这也正是它便宜、且能横跨八个模型移植的原因。\n\n## 三档剂量，而参数量不预测你在哪一档\n\n八个模型从 30B 稠密一路铺到闭源前沿，落成三种反复出现的形态：\n\n- **有余量的强模型要全量。** 每一条指引都要，包括罕见的边界情况，因为它们吃得下也用得上。DeepSeek-V3.2（671B MoE）拿到自己挖出的全套指引后，任务完成度涨了 **9.5 个百分点**。\n- **弱一些的模型会被大指引集淹掉。** 它们最适合一个高置信的紧凑核心，加上每个任务现取的少量相关条目。gpt-oss-120b（117B MoE）用这种选择性策略涨了 **16.1 个百分点**——而全量策略涨得更少、token 还多花约 **50%**。\n- **已经饱和的模型一分不涨。** GLM-5（745B MoE）在这轮里就是如此：**0.0 / 0.0**。\n\n**745B 的那个没涨，117B 的那个涨得最多。** 决定你在哪一档的不是参数量，而是基准上的剩余空间、上下文窗口、架构、指引质量和任务分布——研究者明确说，把这些因素分开仍是进行中的工作。\n\n值得单独表扬的是措辞：作者写明「饱和」这个标签**描述的是观察到的现象，不是已证明的原因**，并列出三种都还成立的解释——模型可能本来就接近这批任务的天花板，指引可能没打中它剩下的失败模式，也可能是它没有有效地应用这些指引。本站《模型与输出评估》里那条判据在这里被作者自己执行了：**一个数字说明什么，取决于它排除了什么。**\n\n## 最省的策略可以同时是最好的\n\n这一点最容易被跳过，因为它违反「更多即更好」的直觉。\n\n每一步都注入全套指引会让每个 ReAct 步骤的输入都变胖，因为指引每一轮都要重发。而 gpt-oss-120b 上，按任务检索的策略拿到 **+16.1 个百分点**，token 只多了 **5%**。\n\n也就是说：**最准的那一档和最便宜的那一档，在这个模型上是同一档。** 这不是普遍规律——强模型确实要全量——但它足以说明「先上全量再说」是一个会同时输掉准确率和成本的默认值。\n\n## 越严格的尺子动得越多\n\n两种打分方式的差距本身就是发现。SGC 要求一个场景的**每一个变体**都通过，比 TGC 严格得多，而它普遍涨得更多：\n\n1. DeepSeek-V3.2：TGC **+9.5**，SGC **+16.1**\n2. Claude Opus 4.6：TGC +4.1，SGC **+7.1**（基线已是 90.5 / 87.5）\n3. GPT-5.5：TGC +2.9，SGC **+7.2**\n\n原因说得通：好的指引尤其帮助智能体清掉一个场景的所有变体，而不只是把平均情况做对。**而且在天花板附近它并没有消失**——只要模型还剩一个可被指引打中的失败模式，记忆就还在付钱。\n\n## 这条信号的边界\n\n- 全部结果来自 **AppWorld 一个基准**，9 个模拟应用，不是真实生产环境。\n- 指引只从训练集挖掘，测试集数据没有进入构建过程——这一点作者写明了，是这组数字可信的前提。\n- 「饱和」只观察到一个样本（GLM-5），且作者自己拒绝把它当成结论。\n- 该团队在上一篇里比较的是**指引怎么投递**，这一篇回答的是**该给多少**；两个问题都还没有跨基准的复现。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-08-18",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "IBM Research",
-      "publisherType": "research-lab",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-retrieval",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e",
-        "knowledge-model-sizing",
-        "knowledge-rag-basics"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-retrieval-tuning"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-20T03:11:45.931Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "「给智能体加记忆」通常被当成一个开关：把过去的经验塞回上下文，经验越多表现越好。这项评测把它证伪了，而且给出了可执行的替代做法——按模型的剩余空间决定注入多少。更要紧的是它顺手推翻了一个省事的代理指标：参数量不预测该给多少记忆。",
-      "whoShouldCare": [
-        "正在给智能体接记忆层、以为「攒得越多越好」的工程师",
-        "需要在准确率和每次任务 token 成本之间做取舍的平台团队",
-        "设计评测口径的人：这项研究的严格指标比宽松指标动得更多"
-      ],
-      "technicalContext": "评测在 AppWorld 上进行：9 个模拟应用（日历、消息、支付等）里的 585 个多步任务，其中 168 个 test_normal、417 个 test_challenge。两种打分方式——TGC 看单个任务是否完整完成，SGC 更严格，要求一个场景的每个变体都通过。三种配置共用同一套指引，区别只在投递方式：不注入（基线）、每一步都注入全部指引（full guideline set）、固定高置信核心加上按任务检索的少量条目（curated retrieval）。指引只从训练集挖掘，测试集数据从未进入构建过程。",
-      "impactAreas": [
-        "智能体记忆",
-        "评测方法",
-        "推理成本"
-      ],
-      "learningPath": [
-        "先记住那句判据：记忆是剂量不是开关——先问你的模型还剩多少空间，再决定注入多少",
-        "读《长时程智能体的记忆与上下文管理》：这条研究给它补上了量化证据",
-        "把你自己的评测拆成宽松与严格两档，看严格那档动得是不是更多——这项研究里它普遍更大",
-        "算一次 token 账：每一步重复注入全部指引的成本，和按任务检索少量的成本，差了约十倍",
-        "读《评估闭环》第 4 步：一次没有改变任何配置的评测是报告，不是闭环"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "这条给「记忆该带多少进上下文」补上了量化证据：是剂量，不是开关。",
-        "knowledge-evaluation-loops": "评测跑完改变了配置，才算闭环；这项研究改变的正是注入策略。",
-        "knowledge-ws-e251051e": "指引里写的是失败模式，所以它改进的是智能体对「这一步做对了吗」的判断。",
-        "knowledge-model-sizing": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。",
-        "skill-agent-design": "改变的是智能体可用的指引而不是模型，所以这是流程层的设计而不是训练问题。",
-        "skill-ws-f741f122": "指引从自己跑过的成功与失败轨迹里蒸馏，前提是那些轨迹被完整记录下来了。",
-        "skill-retrieval-tuning": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
-      },
-      "followUpQuestions": [
-        "你的模型落在哪一档，是靠实测还是靠参数量猜的？",
-        "指引集是从你自己的任务轨迹里挖的，还是借来的？后者还成立吗？",
-        "「饱和」在你这里是模型到顶了，还是指引没打中它真正的失败模式？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-      "createdAt": "2026-08-23T16:09:55.118Z",
-      "updatedAt": "2026-10-20T03:11:45.931Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "slug": "thinkingmachines-inkling",
       "title": {
@@ -2861,134 +3874,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "slug": "lfm2-5-2-6b-on-device-agents",
-      "title": {
-        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
-        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
-        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
-      },
-      "summary": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
-        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
-        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
-      },
-      "content": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
-        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
-      },
-      "type": "model",
-      "publishDate": "2026-08-04",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://huggingface.co/blog/LiquidAI/lfm2-5-2-6b",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-inference",
-        "tag-training"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-tool-use",
-        "knowledge-ws-e251051e",
-        "knowledge-latency-tradeoffs",
-        "knowledge-ws-c761533e",
-        "knowledge-rl-post-training",
-        "knowledge-distillation",
-        "knowledge-fine-tuning"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-84837d46",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 95,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-20T03:11:45.403Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
-      "whoShouldCare": [
-        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
-        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
-        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
-      ],
-      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
-      "impactAreas": [
-        "端侧与边缘部署",
-        "智能体工具循环",
-        "推理成本与隐私边界",
-        "后训练方法"
-      ],
-      "learningPath": [
-        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
-        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
-        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
-        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
-        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
-        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
-        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
-        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
-        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
-        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
-        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
-        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
-      },
-      "followUpQuestions": [
-        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
-        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
-        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "createdAt": "2026-08-06T12:45:47.493Z",
-      "updatedAt": "2026-10-20T03:11:45.403Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-485108",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
-        "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -3990,135 +4875,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-www-qbitai-com-p-496393",
         "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-504067",
-      "slug": "deepseek-v41-flash-1017-search-api",
-      "title": {
-        "original": "突发！DeepSeek新模型发布，超级性价比斩杀一切",
-        "zh": "DeepSeek V4.1 Flash 新版 1017：更强也更省"
-      },
-      "summary": {
-        "original": "新版本V4.1-Flash-1017，还开放了自研搜索API",
-        "zh": "DeepSeek 推出 V4.1-Flash-1017 模型，在代码与智能体任务基准上提升的同时压缩了任务运行时间和输出长度，官方称为「性能—费用的帕累托改进」。配套 Harness 升级至 0.2.1 版本，并开放自研 Search 与 Fetch 两个搜索 API，每千次成功请求 5 元，11 月 1 日前免费。"
-      },
-      "content": {
-        "original": "新版本V4.1-Flash-1017，还开放了自研搜索API",
-        "zh": "## 发生了什么\n\nDeepSeek 发布新模型 DeepSeek-V4.1-Flash-1017，网页端、App 与 API 已同步切换。官方称新模型在训练时针对 DeepSeek Harness 做了专项优化，在提升任务表现的同时缩短任务运行时间、减少输出消耗和 token 费用。\n\n同时，DeepSeek 自研搜索引擎推出 Search 和 Fetch 两个 API 接口，前者搜网页、后者读正文，开发者可以让智能体先按关键词找资料，再把选中网页抓取成 Markdown 交给模型分析。\n\n## 具体内容\n\n- 模型名中的「1017」对应 10 月 17 日，符合 DeepSeek 用日期标记模型快照的惯例。\n- 与上一版 V4.1 Flash 相比，1017 版本在代码、智能体任务等基准测试上均有提升；官方称任务运行时间和输出长度同时被压低。\n- 要完整使用新能力，DeepSeek Harness 需升级到 0.2.1-rc.1 及以上版本。\n- Search API 支持限定网站、语言和发布时间；按成功请求次数计价，每千次 5 元，失败、无结果或超时不计费，限时到 11 月 1 日免费。\n- 符合条件的用户首次登录 Harness 可领 6 元赠金，7 天内有效，限量发放。\n- 模型权重已在 HuggingFace 与 ModelScope 上线。\n\n## 与以往相比\n\n官方将这次更新称为「性能—费用的帕累托改进」：以往提升智能体任务表现通常要付出更长思考、更多步骤和更多 token，而 1017 版本试图在少绕路、少说废话的前提下把任务做完。官方放出的 DeepSWE 测试显示，新模型在多个智能体框架下把性能与成本的边界往外推了一截，DeepSeek Harness、腾讯 CodeBuddy 和 WorkBuddy 都获得了专项优化。\n\n新模型还主打「许愿式编程」：用户只需说清想要什么，规划、写代码、运行、检查和修改由模型自己推进。背后是一套基于自反馈的强化学习训练技术，模型写完第一版后会继续检查并回头修。官方演示了用一句话生成可实时浏览切换视角的 3D 故宫场景、网页赛车游戏、Godot 版《传送门 2》复刻等。\n\n## 对读者意味着什么\n\n1. 如果团队在用 DeepSeek API 跑编码或智能体任务，可以对比新旧版本在同等任务上的 token 消耗与完成时间，验证「更省」是否在自己负载上成立。\n2. Search 与 Fetch API 把「智能体上网查资料」拆成搜索和正文抓取两步，适合评估能否替换自建的检索管线，注意 11 月 1 日后的计价方式。\n3. 想用「许愿式编程」的团队，需先把 Harness 升到 0.2.1-rc.1 以上，并确认自己使用的框架是否在专项优化名单内。"
-      },
-      "type": "model",
-      "publishDate": "2026-10-17",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/10/504067.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "DeepSeek",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-coding-agents",
-        "tag-model-pricing",
-        "tag-retrieval",
-        "tag-open-weights"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-rag-basics",
-        "knowledge-open-weights",
-        "knowledge-rl-post-training"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-coding-agent-acceptance",
-        "skill-retrieval-tuning"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-10-20T03:06:25.107Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "这次更新同时动了模型能力和单位任务成本：官方称性能提升的同时运行时间和输出长度下降，直接影响智能体任务的账单。配套开放的搜索 API 按成功请求计价且初期免费，给了团队一个低成本替换自建检索管线的选项。",
-      "whoShouldCare": [
-        "用 DeepSeek API 跑编码或智能体任务的工程团队",
-        "正在自建或评估检索管线的开发者",
-        "关注推理成本与 token 消耗的平台负责人"
-      ],
-      "technicalContext": "「性能—费用的帕累托改进」指在不牺牲任务表现的前提下压低耗时与 token 消耗，这类改进通常来自训练阶段对特定智能体框架的专项优化和自反馈式强化学习。Search 与 Fetch 是检索增强生成中的两个环节：先召回候选网页，再抓取正文转成模型可读的文本，计价按成功请求计，失败不计费。",
-      "impactAreas": [
-        "推理成本",
-        "编码智能体",
-        "检索增强生成",
-        "模型选型"
-      ],
-      "learningPath": [
-        "先读官方模型卡和 API 文档，弄清 V4.1-Flash-1017 与上一版在基准和计费上的差异。",
-        "在自己的智能体任务上跑一组新旧版本对比，记录完成率、运行时间和 token 消耗，验证「更省」是否成立。",
-        "用 Search 与 Fetch API 搭一条最小检索链路，观察抓取正文转 Markdown 后的回答质量。",
-        "结合团队账单估算 11 月 1 日免费期结束后的检索成本。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-rag-basics": "理解 Search 负责找网页、Fetch 负责读正文，才能判断这条检索链路能替换自建管线的哪一段。",
-        "knowledge-open-weights": "开放权重发布要分别看权重、许可和配套，这条信号里三者的信息还不完整。",
-        "knowledge-rl-post-training": "自反馈式强化学习让模型写完代码后自己检查并修改，这是长时程编码任务的关键机制。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "容量规划要用的正是单位任务的耗时与消耗，这条信号给出的正是这两个维度。",
-        "skill-coding-agent-acceptance": "把整段编码交给模型前，先挑对任务并把判卷标准锁在模型够不着的地方。",
-        "skill-retrieval-tuning": "抓取正文转 Markdown 后的分块与结果格式，直接决定回答是否有依据。"
-      },
-      "followUpQuestions": [
-        "官方所说的运行时间和输出长度下降，在自己的任务分布上幅度有多大？",
-        "Search API 限定网站、语言和发布时间的能力，能否覆盖内部检索需求？",
-        "Harness 0.2.1-rc.1 是候选版本，升级后稳定性是否满足生产要求？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "draft",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-504067",
-      "createdAt": "2026-10-20T02:59:13.863Z",
-      "updatedAt": "2026-10-20T03:06:25.107Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-504067.",
-        "2026-10-20 AI 起草：deepseek-chat · candidate-draft-v2 · 已读原文网页 · 8386 tokens · 9.2 秒。发布前核对数字、发布方、类型与关联。",
-        "AI 起草提示：模型注明：原文为媒体报道，模型许可条款、训练数据等开放权重发布的关键信息未提及。",
-        "AI 起草提示：模型注明：基准提升幅度和成本下降数字均来自官方说法，原文未给出完整对比数据。",
-        "AI 起草提示：模型注明：Harness 0.2.1-rc.1 为候选版本，原文未说明正式版时间。"
-      ],
-      "aiDraft": {
-        "generationMode": "llm_assisted",
-        "providerName": "openai_compatible",
-        "modelName": "deepseek-chat",
-        "promptVersion": "candidate-draft-v2",
-        "generatedAt": "2026-10-20T02:59:13.851Z",
-        "sourceTextOrigin": "page",
-        "tokenUsage": {
-          "promptTokens": 6494,
-          "completionTokens": 1892,
-          "totalTokens": 8386
-        },
-        "latencyMs": 9241,
-        "warnings": [
-          "模型注明：原文为媒体报道，模型许可条款、训练数据等开放权重发布的关键信息未提及。",
-          "模型注明：基准提升幅度和成本下降数字均来自官方说法，原文未给出完整对比数据。",
-          "模型注明：Harness 0.2.1-rc.1 为候选版本，原文未说明正式版时间。"
-        ]
-      },
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -7444,115 +8200,6 @@
         "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "slug": "ollama-v0-32-4",
-      "title": {
-        "original": "Ollama v0.32.4",
-        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
-        "en": "Ollama v0.32.4"
-      },
-      "summary": {
-        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
-        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。注意：本版的 MLX Laguna 路径存在会降低 NVFP4 模型输出质量的缺陷，已在两天后的 v0.32.5 修复——要在 Apple GPU 上跑 Laguna 请直接用 v0.32.5。"
-      },
-      "content": {
-        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
-        "zh": "## 更正（2026-07-28）\n\n下面第 1 条改动——MLX 引擎支持 Laguna——在本版中是带缺陷发布的：MLX 的 Metal 后端存在一个 bug，会让 NVFP4 精度的模型输出质量下降，其中 Laguna 受影响最明显。官方在两天后的 **v0.32.5** 中修复了它，那一版除此之外没有任何其他改动。\n\n所以：**要在 Apple GPU 上跑 Laguna，请直接用 v0.32.5，不要停在本版。** 本站没有把 v0.32.5 单独收录为一条技术信号——它是一次单点修复，不构成新的技术信号；但它修的正是本条信号的头条功能，所以更正写在这里。\n## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-inference",
-        "tag-efficient-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-36346103",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a",
-        "skill-inference-speedup-verification"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 89,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为一般信号，归入值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-09-28T03:14:30.193Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
-      "whoShouldCare": [
-        "在 Apple 芯片上做本地推理的开发者",
-        "评估端侧部署可行性的架构师",
-        "关注推测解码实际收益的性能工程师"
-      ],
-      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
-      "impactAreas": [
-        "端侧推理性能",
-        "MoE 量化路径",
-        "推测解码收益",
-        "Apple 芯片部署"
-      ],
-      "learningPath": [
-        "先弄清 MoE 的专家路由与逐专家量化",
-        "再理解推测解码里草稿模型的开销从哪来",
-        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
-        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
-        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
-      },
-      "followUpQuestions": [
-        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
-        "统一内存架构下，混合专家精度的最佳组合是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-09-28T03:14:30.193Z",
-      "editorialNotes": [
-        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。",
-        "2026-07-28 轮：v0.32.5 标记为已看不选（正文仅一行 MLX Metal 修复，同 v0.32.3 的补丁先例），改为在本条正文顶部补更正段——因为它修的是本条头条的 MLX Laguna 路径。同批次 vLLM v0.26.1rc0 按预发布规则拒绝。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
       ]
     },
     {

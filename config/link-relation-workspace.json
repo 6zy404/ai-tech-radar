@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T20:18:01.975Z",
+  "updatedAt": "2026-10-21T03:35:16.379Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -11205,6 +11205,312 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "同一次发布的后续报道：补充 30B 量化压进消费级显卡与 DFlash 提速的细节。"
+    },
+    {
+      "id": "rel-ws-9198dc11",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "OSWorld V2 与 DeepSWE 都属于让模型在真实环境里执行任务再判分的评测。"
+    },
+    {
+      "id": "rel-ws-a1651d1a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Flash 档模型的选择本质是延迟、成本与任务需求之间的约束匹配。"
+    },
+    {
+      "id": "rel-ws-450b063d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "文章建议用一组真实任务、相同验收标准对比模型，这正是评估闭环的做法。"
+    },
+    {
+      "id": "rel-ws-c4379af2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "用真实任务和统一验收标准对比 M3.1 Flash 与 DeepSeek，需要可重跑的检查。"
+    },
+    {
+      "id": "rel-ws-4a56fd76",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "按 0.15/0.60 美元单价与多轮调用量估算 Agent 工作流的实际支出。"
+    },
+    {
+      "id": "rel-ws-9da92a93",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Nano 36B 总参数、3B 激活，Flash 288B 总参数、17B 激活，均为 MoE 形态"
+    },
+    {
+      "id": "rel-ws-1fd06c48",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "MemT 1.0 在 GitHub 与 HuggingFace 放出权重，需区分权重、许可与配套"
+    },
+    {
+      "id": "rel-ws-03b5333f",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "128K 历史下持久状态占用为完整上下文 KV Cache 的六十六分之一"
+    },
+    {
+      "id": "rel-ws-977ed131",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "把智能体记忆从外部存储与检索回填，延伸到模型内部可训练状态"
+    },
+    {
+      "id": "rel-ws-48ec5ea8",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "skill-open-weights-self-hosting",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "按许可、显存、引擎支持、自测、总成本五步判断能否自托管 MemT 1.0"
+    },
+    {
+      "id": "rel-ws-ef9a31b1",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "skill-inference-speedup-verification",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "复核 1.86 倍推理速度与六十六分之一状态占用在自己负载上的余量"
+    },
+    {
+      "id": "rel-ws-5ada87f3",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把 SWE-bench 三次运行的成功率与记忆基准分转成可重跑的检查"
+    },
+    {
+      "id": "rel-ws-4e1294bd",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "AnyLanguageModel 1.0 让 Gemma 4、LFM2.5、Qwen3.8 等开放权重模型可在 Apple 设备上直接调用。"
+    },
+    {
+      "id": "rel-ws-b38a3639",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "原文按 GB 与内存用量列出模型，说明选型首先受设备显存约束。"
+    },
+    {
+      "id": "rel-ws-fc05615a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "1.0 在所有提供方上支持工具调用，理解函数调用机制才能正确使用。"
+    },
+    {
+      "id": "rel-ws-e9872fca",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "用 AnyLanguageModel 在 iPhone 或 Mac 上验证 Gemma 4 E2B、LFM2.5 2.6B 的可运行性。"
+    },
+    {
+      "id": "rel-ws-574fbd31",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "skill-open-weights-self-hosting",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "原文给出 Qwen3.8 27B 需 32 GB 内存 Mac、GLM-5.3 需约 1.5 TB 等数字，可用于自托管判断。"
+    },
+    {
+      "id": "rel-ws-ed5d1907",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "AnyLanguageModel 1.0 支持跨提供方的工具调用与带流式响应。"
+    },
+    {
+      "id": "rel-ws-529a9e70",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "选算力不只看芯片峰值，要先看约束来自延迟、成本还是生态适配。"
+    },
+    {
+      "id": "rel-ws-5fc6f14f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "TorchNeuron 可能让本地或云上异构算力的混合部署更容易。"
+    },
+    {
+      "id": "rel-ws-2026afc5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "换硬件后端前，先确认引擎支持到了哪一级、能否跑对。"
+    },
+    {
+      "id": "rel-ws-4cf9d972",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "判断更换推理栈对自托管服务的容量与成本意味着什么。"
+    },
+    {
+      "id": "rel-ws-ad79aadb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "MoE 解码提速与 FP8 减半显存，直接改变 Mac 上能跑多大模型的判断"
+    },
+    {
+      "id": "rel-ws-3ea5406b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "FP8 张量每个值一字节，是 BF16 的一半，配合缩放做矩阵乘"
+    },
+    {
+      "id": "rel-ws-592ef862",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "解码阶段单行输入走矩阵向量乘，小投影层带宽利用率低是延迟主因"
+    },
+    {
+      "id": "rel-ws-c6de5e9b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "博文提到长上下文解码，KV 缓存是长上下文推理显存占用的主要来源"
+    },
+    {
+      "id": "rel-ws-fa3e5298",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "判断一台 Mac 能否跑 MoE 模型，要用首 token 延迟与稳态吞吐验收"
+    },
+    {
+      "id": "rel-ws-a97430e0",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "skill-inference-speedup-verification",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "博文给出 5–6.5 倍与 8 倍等数字，需要在本地负载上复测"
+    },
+    {
+      "id": "rel-ws-b42373c6",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "FP8 量化后要用可判错的检查确认输出质量未退化"
+    },
+    {
+      "id": "rel-ws-8415492c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两天内接连发布的两款国产 Flash 档模型，标价相同档位：DeepSeek 在纯编码基准上更高，MiniMax 在电脑操作与跨 SaaS 工作流上更强。"
+    },
+    {
+      "id": "rel-ws-5d740009",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "IBM 那条讲的是外部记忆该给多少剂量，这条把记忆挪进模型层，是同一个问题的另一种答案。"
+    },
+    {
+      "id": "rel-ws-420aa0d3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一块 Apple GPU 的两条路：Ollama 走自己的运行时，PyTorch 2.15 让 MPS 后端本身的解码变快。"
+    },
+    {
+      "id": "rel-ws-900da5e2",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "AnyLanguageModel 用 MLX 与 Core ML 跑本地模型，PyTorch 2.15 的 MPS 改进是同一批 Mac 用户的另一条加速路径。"
+    },
+    {
+      "id": "rel-ws-babd6f1d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "原文把 LFM2.5 2.6B 列为 iPhone 上可直接运行的示例模型之一。"
     }
   ]
 }

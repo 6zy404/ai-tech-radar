@@ -1,76 +1,82 @@
 {
-  "updatedAt": "2026-10-21T00:08:09.599Z",
+  "updatedAt": "2026-10-21T03:41:14.136Z",
   "digests": [
     {
       "id": "digest-2026-10-21",
       "date": "2026-10-21",
-      "status": "draft",
+      "status": "published",
       "title": "技术简报 - 2026-10-21",
-      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
-      "editorialSummary": "",
+      "summary": "本期 1 条立即关注，4 条值得跟踪，覆盖 3 个来源。",
+      "editorialSummary": "这一期的五条信号都在把能力挪到更便宜、更本地的地方。先看 MiniMax M3.1 Flash：输入每百万 token 0.15 美元，Agent 任务成本较上一代降 70%，OSWorld V2 得 61.7。本地推理有三条：PyTorch 2.15 让 MPS 支持 FP8，MoE 解码在 M3 Ultra 上从 9.4 提到 61.3 tokens/s；AnyLanguageModel 1.0 让 Apple 应用换模型只改一行 import；TorchNeuron 把 Trainium 变成普通的 PyTorch 设备。MemT 1.0 则把记忆做成 Transformer 里的并行分支，288B 型号已开源。",
       "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
-        "draft-candidate-rss-https-www-qbitai-com-p-502654",
-        "draft-candidate-rss-https-www-qbitai-com-p-502628"
+        "draft-candidate-rss-https-www-qbitai-com-p-502654"
       ],
       "watchTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+        "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+        "draft-candidate-rss-https-www-qbitai-com-p-504456",
+        "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
         "draft-candidate-rss-https-github-blog-p-98713",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
-        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
       ],
       "manuallyAddedTechnologyIds": [],
-      "excludedTechnologyIds": [],
-      "pinnedTechnologyIds": [],
-      "orderedTechnologyIds": [
+      "excludedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-meta-muse-spark-open",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-gemini-models-introducing-gemini-4-argon",
         "draft-candidate-rss-https-www-qbitai-com-p-502654",
-        "draft-candidate-rss-https-www-qbitai-com-p-502628",
         "draft-candidate-rss-https-github-blog-p-98713",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502628",
         "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
         "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
+        "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+        "draft-candidate-rss-https-www-qbitai-com-p-504456",
+        "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron"
       ],
       "skillIds": [
-        "skill-agent-design",
         "skill-model-evaluation",
+        "skill-inference-speedup-verification",
+        "skill-open-weights-self-hosting",
         "skill-ws-a9e80194",
-        "skill-ws-f741f122",
-        "skill-coding-agent-acceptance",
+        "skill-ws-d7c9d1d8",
         "skill-tool-integration",
-        "skill-ws-dddaf80c",
-        "skill-ai-science-evidence"
+        "skill-ws-7796779a"
       ],
       "knowledgeIds": [
-        "knowledge-evaluation-loops",
         "knowledge-model-sizing",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e",
+        "knowledge-kv-cache",
+        "knowledge-open-weights",
+        "knowledge-evaluation-loops",
         "knowledge-execution-based-eval",
         "knowledge-latency-tradeoffs",
-        "knowledge-system-design"
+        "knowledge-tool-use",
+        "knowledge-ws-34da6116"
       ],
       "sourceNames": [
         "量子位",
-        "GitHub Blog AI",
-        "Google AI Blog",
-        "Google DeepMind Blog",
         "Hugging Face Blog",
-        "InfoQ 中文",
-        "OpenAI News"
+        "InfoQ 中文"
       ],
       "generatedAt": "2026-10-21T12:00:00.000Z",
-      "updatedAt": "2026-10-21T00:08:09.588Z",
+      "updatedAt": "2026-10-21T03:41:14.134Z",
+      "lastRegeneratedAt": "2026-10-21T03:36:31.636Z",
+      "publishedAt": "2026-10-21T03:40:06.119Z",
       "editorialNotes": [
-        "由已发布技术记录按 Ranking v0 优先级生成。",
-        "Daily Digest v0 默认排除低优先级条目。"
+        "2026-10-21 编辑轮：30 条候选，发 5、标已看 13、拒 12，盲评。",
+        "导语由「AI 起草导语」起草（deepseek-chat，493 字），主控核对数字后压到约 290 字。",
+        "排除了前几期已登的 5 条（Muse Spark Open、Gemini 4 Argon、Memento 3、Copilot 运行时、pass@k），置顶 MiniMax M3.1 Flash。"
       ]
     },
     {

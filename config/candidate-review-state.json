@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T02:59:13.873Z",
+  "updatedAt": "2026-10-21T03:30:58.280Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -4449,6 +4449,161 @@
       "importStatus": "converted",
       "reviewedAt": "2026-10-20T02:59:13.873Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-504067",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504277": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:53.829Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504452": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:53.957Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504435": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.060Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504395": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.161Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504372": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.266Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-blog-p-99538": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.389Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-cioicj3urrn6txq2hnjq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.493Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-xkjg7ble3o6l9qcidvx0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.597Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-d8ucysg2sf29ybwp4i2g-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.701Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-houf1phd3wczck3yme7m-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.834Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-microsoft-com-en-us-research-p-1185073": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:54.939Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-ted-taylor-restaurant": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-21T03:29:55.051Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504517": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.154Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504421": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.278Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504415": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.379Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504314": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.485Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ttpkszcixepxuzduywdg-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.584Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-mj5udrylfwjov1pk4dsq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.705Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-tgqmejsqxfx6yzacoiar-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.804Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-4frecluuqb4w4axuhxo5-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:55.908Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ywvgvdvlssu7r47jk6lq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:56.024Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-j1z3rygh3vyd9lfefmlf-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:56.147Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-zyjobqgawfurpflbqond-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:56.245Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-openai-to-acquire-orchestra-bio": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:56.349Z",
+      "blind": true
+    },
+    "candidate-rss-https-simonwillison-net-2026-oct-20-battledrones": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-21T03:29:56.453Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-21T03:30:07.181Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-7twa7kbwizi8jgodvwck-utm-source-rss-amp-utm-medium-article",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-504456": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-21T03:30:08.016Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-504456",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-21T03:30:11.257Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-anylanguagemodel-1-0",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-hf-torchneuron": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-21T03:30:19.241Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-hf-torchneuron",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-21T03:30:58.280Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-mps-pytorch-2-15",
       "blind": true
     }
   }
