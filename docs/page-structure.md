@@ -63,7 +63,7 @@ Purpose:
 Used by:
 
 - `/`
-- `/technologies` (also hosts the 全部快讯/按话题/我关注的 views via `?view=`)
+- `/technologies` (also hosts the 全部快讯/按话题/我关注的/稍后读 views via `?view=`)
 - `/skills`
 - `/knowledge`
 - `/topics`
@@ -417,7 +417,8 @@ Workspace deployment boundary:
     `/technologies?view=news`, with the auto-aggregation disclaimer
   - does not show workspace actions, source health, delivery, audit, task-runner, or local JSON warnings
 - `/technologies`
-  - user-facing published technology hub with four views switched by a
+  - user-facing published technology hub with five views (精选 / 全部快讯 /
+    按话题 / 我关注的 / 稍后读) switched by a
     `?view=` query param and a tab strip at the top of the page; `/news`,
     and `/timeline` each redirect here to the matching view (`/radar` did
     until 2026-10-13; it is now the technology radar)

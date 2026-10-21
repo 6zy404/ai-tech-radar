@@ -121,8 +121,18 @@ Public pages:
   skills and knowledge, with citations; declines with a fixed phrase when the
   site has nothing. Up to 5 questions per conversation (追问, 2026-10-13); the
   conversation lives in the page only and the server stays stateless
+- `/sources` — publisher directory derived from published signals;
+  `/about` — how signals are picked, fixed copy; `/offline` — what the
+  service worker shows offline (2026-10-02 / 10-12 / 10-13; none in the nav)
+- `/en` and `/en/...` — the English twin of every public page (2026-10-14;
+  interface only, content untranslated; no twin for the feeds, the API
+  routes or the workspace)
 - `/feed.xml`
 - `/feed.json`
+
+The complete list, with the share-image routes and the PWA files, is
+`docs/reference.md` → "Architecture & route boundary"; this page keeps the
+routes that carry a product rule.
 
 Public API routes:
 
@@ -142,6 +152,16 @@ Public API routes:
   learning path for one published technology, grounded in its related
   knowledge and skills from the content graph. Same boundary discipline as
   the compare route.
+- `GET /api/health` — liveness for an external monitor: build id, uptime,
+  the counts of the stores the home page reads and the search-model state;
+  `503` naming the store when one fails to parse. No paths, no environment.
+- `GET /api/push/config`, `POST /api/push/subscribe`,
+  `POST /api/push/unsubscribe` — a reader's own 「有新信号时提醒我」
+  subscription (2026-10-13): the one public route that **writes** server
+  state — the push endpoint, its keys, the followed topic ids and a creation
+  time, nothing else. Same content-type / origin check as the AI routes, its
+  own rate limit, and a change needs the subscription's `auth` secret; see
+  `docs/security-boundary.md` → "Reader Push Boundary".
 
 Internal workspace routes:
 
@@ -154,12 +174,23 @@ Internal mutation APIs:
 
 Public feed/API surfaces:
 
-- `/feed.xml`
-- `/feed.json`
+- `/feed.xml`, `/feed.json` — published digests
+- `/technologies/feed.xml` — the newest 50 published signals
+- `/topics/[tagId]/feed.xml` — one topic's published signals
+- `/digest/weekly/feed.xml` — the weekly review
+- `/signal-vectors.json` — the recommendation data file for the browser-side
+  和你读过的相近 (published signals' vectors and card fields, the same for
+  everyone)
+- `/manifest.webmanifest`, `/sw.js`, `/pwa/signal-paths.json` — the
+  installable site and offline 稍后读
+- `*/opengraph-image` — share images painted from the same public fields
 
 Workspace access protection covers `/workspace/*`, `/api/workspace/*`,
-`/api/candidates/*`, and legacy internal redirects. Public pages remain
-read-only user surfaces.
+`/api/candidates/*`, and legacy internal redirects. Public pages are
+read-only with one exception, a reader's own push subscription
+(`/api/push/*`), which stores that subscription and nothing about the
+reader's browsing; the four AI routes write only their own result caches and
+the daily call count.
 
 ## Data lifecycle
 

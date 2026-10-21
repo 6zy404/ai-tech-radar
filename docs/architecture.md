@@ -134,7 +134,16 @@ prerequisite instead of silently doing nothing.
 
 Route and API boundaries:
 
-- Public routes: `/`, `/technologies` (also hosts the news/timeline/followed views via `?view=`), `/technologies/[slug]`, `/radar`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
+- Public routes: the full list is `docs/reference.md` → "Architecture & route
+  boundary", and why each one is public is `docs/security-boundary.md` →
+  "Public Surfaces"; neither list is repeated here. Every public page, feed
+  and share image reads published content through the public mappings only.
+- Public write endpoints, the only ones: the four AI routes
+  (`POST /api/technologies/{compare,explain,learning-path}`, `POST /api/ask`;
+  cached where possible, rate limited, capped per day) and a reader's own
+  alert subscription (`POST /api/push/{subscribe,unsubscribe}`; stores the
+  push endpoint and followed topics, nothing else — see "Reader Push
+  Boundary" in `docs/security-boundary.md`).
 - Internal routes: `/workspace/*`
 - Internal mutation APIs: `/api/workspace/*` and `/api/candidates/*`
 - Public pages do not import workspace action components and do not call workspace mutation APIs
@@ -498,15 +507,11 @@ User-facing routes never show task-runner commands, schedule configuration, deli
 
 Deployment readiness defines which parts of the local-first prototype can be public and which must remain internal.
 
-Public user-facing routes:
-
-- `/`
-- `/technologies` (also hosts the news/timeline/followed views via `?view=`)
-- `/technologies/[slug]`
-- `/digest/today`
-- `/digest/[date]`
-- `/feed.xml`
-- `/feed.json`
+Public user-facing routes: everything not under the five internal prefixes
+below. The list is `docs/reference.md` → "Architecture & route boundary" and
+is not repeated here (this section held a seven-entry list until 2026-10-21,
+by which time the site had about fifty public page, feed, image and API
+routes, plus their `/en` twins).
 
 Internal workspace and mutation routes:
 
