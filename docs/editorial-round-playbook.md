@@ -60,7 +60,7 @@ Do this at the start of every round:
   are no partial writes to clean up.
 - Optional, removes the file-watcher failure vector and aligns with the
   production data-externalization recommendation
-  (`docs/production-readiness.md` → B2): point `LOCAL_DATA_DIR` at a directory
+  (`docs/history/production-readiness.md` → B2): point `LOCAL_DATA_DIR` at a directory
   **outside the project tree** for local runs, so the round's rapid
   `config/*.json` writes are not seen by the dev file watcher.
 

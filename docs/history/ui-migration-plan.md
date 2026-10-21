@@ -1,5 +1,10 @@
 # UI Migration Plan
 
+> **归档于 2026-10-21，内容已过时。** 所有页面都已迁移并做过目视确认——
+> `docs/page-structure.md` → "UI Template QA & Consolidation v0" 写着
+> 「Pages left for later UI migration: none — the list is empty」。下面的
+> Migrated / Pending / Uncertain 是 2026-06-15 的状态，只作存档。
+
 Project Context Recovery v0. This file tracks UI template migration only.
 
 ## Workspace Console Template

@@ -1420,7 +1420,7 @@ own value still wins and `NODE_USE_ENV_PROXY=0` remains a working escape hatch.
 
 `npm run backup:data` (`scripts/backup-local-data.mjs`) takes a timestamped
 copy of `LOCAL_DATA_DIR` and verifies it. It is the mitigation for the
-durability gap in `docs/production-readiness.md` → I2: the JSON store has no
+durability gap in `docs/history/production-readiness.md` → I2: the JSON store has no
 multi-writer locking, and the task runner writes the same files the operator
 edits through the workspace UI.
 

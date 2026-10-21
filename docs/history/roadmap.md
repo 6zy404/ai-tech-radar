@@ -1,10 +1,9 @@
 # Roadmap
 
-> **Last brought up to date on 2026-09-28.** What shipped after that — the
-> technology radar at `/radar`, opt-in new-signal alerts, browser-side
-> 和你读过的相近, semantic duplicate grouping, 问雷达 follow-ups, among
-> others — is in `docs/reference.md` and `CHANGELOG.md`, which win wherever
-> this page disagrees.
+> **归档于 2026-10-21，内容已过时。** 内容停在 2026-09-28；此后上线的
+> 技术雷达、新信号提醒、本机推荐、语义去重、问雷达追问、英文界面等都不在
+> 这里。现状看 `docs/reference.md`，待办看 `docs/next-task.md`，逐条历史看
+> `CHANGELOG.md`；本文与它们不一致之处以它们为准。
 
 This is the durable, high-level plan for the project: what it is, what is built,
 and what comes next. It complements `docs/reference.md` (what exists today) and

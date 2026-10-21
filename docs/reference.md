@@ -1058,9 +1058,12 @@ relevant file under [`docs/`](./): `project-spec`, `architecture`,
 `data-model`, `page-structure`, `design-system`, `security-boundary`,
 `deployment`, `persistence-plan`, `database-migration`, `workflow-hardening`,
 `content-intelligence`, `editorial-enrichment`, `llm-provider`, `prompt-quality`,
-`operations`, `workspace-actions`, `editorial-round-playbook`,
-`production-readiness`, `decisions`, and `next-task`. The session log that
-used to live in `next-task` is archived in `history/next-task-log.md`.
+`operations`, `workspace-actions`, `editorial-round-playbook`, `decisions`,
+and `next-task`. The session log that used to live in `next-task` is archived
+in `history/next-task-log.md`, beside the four planning documents retired on
+2026-10-21 (`roadmap`, `production-readiness`, `ui-migration-plan`,
+`task-01-foundation`): read those only for the history of a decision, never
+for the current state.
 
 ## Intentionally not implemented yet
 

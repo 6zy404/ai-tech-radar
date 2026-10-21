@@ -1,5 +1,12 @@
 # Production Readiness Assessment
 
+> **归档于 2026-10-21，内容已过时。** 这是 2026-07-22 的一次性评估。站点
+> 2026-09-20 起以 `npm run build:public` 上线，工作台路由不在构建里，所以 B1
+> 对公开站点已不适用；每条到 2026-10-21 的现状已在文中标注（B1、B2 和
+> 「Go-live checklist」）。现行做法看 `docs/deployment.md`（"The public build
+> is what is served"、"Deploy with one command"、"Go-live runbook"），边界看
+> `docs/security-boundary.md`，没做完的事看 `docs/next-task.md`。
+>
 > Read-only assessment produced 2026-07-22. Scope target chosen by the owner:
 > **a controlled single-operator go-live** — deploy the public read-only site
 > to a real domain, lock the Internal Workspace behind the token guard, and

@@ -1,5 +1,9 @@
 # Task 01 - Build the project foundation
 
+> **归档于 2026-10-21，内容已过时。** 2026-04 的原始任务书，已完成。它写的
+> 「不要做排序、推送、推荐」只是那一轮的范围；之后的排序、推送提醒与本机
+> 推荐都按 `AGENTS.md` 的授权上线（见 `CHANGELOG.md`）。
+
 ## Background
 
 This project is not a generic AI news site.
