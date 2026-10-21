@@ -5,10 +5,8 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { makeTechnologyItem } from "@/lib/test-factories";
-import {
-  getWeeklyFeedWeeks,
-  renderWeeklyReviewRssXml
-} from "@/lib/weekly-feed";
+import { renderWeeklyReviewRssXml } from "@/lib/weekly-feed";
+import { getWeeklyReview } from "@/lib/weekly-review";
 import {
   getPublishedWeeklySummaryText,
   getWeeklySummary,
@@ -138,9 +136,11 @@ describe("weekly review RSS with summaries", () => {
     updatedAt: "2026-10-14T00:00:00.000Z"
   });
 
+  // The week is handed over directly: the feed itself carries ended weeks
+  // only (seo-11), and on the mocked 2026-10-14 this week is still running.
   it("carries a published summary as plain text", () => {
     const xml = renderWeeklyReviewRssXml(
-      getWeeklyFeedWeeks(),
+      [getWeeklyReview(week)!],
       "https://x.dev",
       [record("published")]
     );
@@ -150,7 +150,7 @@ describe("weekly review RSS with summaries", () => {
 
   it("leaves a draft summary out", () => {
     const xml = renderWeeklyReviewRssXml(
-      getWeeklyFeedWeeks(),
+      [getWeeklyReview(week)!],
       "https://x.dev",
       [record("draft")]
     );
