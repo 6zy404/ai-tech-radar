@@ -12,6 +12,84 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Review batch F: content and copy
+
+The second batch of the 2026-10-14 review, ten findings on content and copy,
+worked in the `review-content` window on 2026-10-21. One commit per finding.
+
+- **2026-10-21. Six of the ten were already fixed when the batch opened.**
+  The review was written on 10-14 and the code moved on that evening. Each
+  was confirmed at its location on 10-21 and left alone: ui-live-10 (the
+  立即关注 wording on the weekly review, 我关注的 and the digest cards names
+  the band's rule, not 「多项信号」; 93127f5), ui-live-12 (radar evidence
+  newest first; 93127f5, pinned by `radar.test.ts`), ui-live-13 (the
+  全部快讯 eyebrow reads 自动聚合快讯 / Auto-aggregated news; 93127f5),
+  content-7 (relation explanations are looked up by `targetId`, not array
+  position; 7bfa510c, `content-relation-lookup.test.ts`), dev-core-8 (the
+  severe-warning cap matches the Chinese warnings; ff5520c1, `ranking.test.ts`
+  「caps a critical technology at watch…」) and dev-core-9 (a published
+  signal cannot take another signal's slug; ff5520c1,
+  `technology-draft-workflow.test.ts`).
+- **2026-10-21. ui-live-3 — the news lane shows only canonical topic names.**
+  `getPublicTagNames` in `src/lib/news.ts` echoed any tag it could not
+  resolve (`?.name ?? tag`), so a source's default tags (`frontier-model`,
+  `startup`, `local-inference` …) and a feed's own category labels
+  (「首页轮播」「资讯」) sat beside the Chinese topic names — 61 raw labels on
+  one 34-item page when the review counted. An unknown id is now dropped and
+  duplicates fold (`news.test.ts`: `["tag-workflow", "frontier-model",
+"首页轮播"]` → `["工作流"]`). Side effect: `/search`'s keyword match on a
+  news item no longer sees those raw labels; title and summary are unchanged.
+  Not seen on a page: this worktree's candidate window is older than 7 days,
+  so the lane rendered its empty state. The five sources' default tags are
+  live data for the workspace, not code (Ollama, vLLM, MCP Servers, Hugging
+  Face Blog, OpenAI News).
+- **2026-10-21. ui-live-4 — who should care is a 适合 … line, not pills.**
+  The audience sentences were chips: on the home page 999px capsules (0.82rem,
+  two lines each, the three cards 899px tall at 1440), on `/technologies`
+  10.5px muted stamps (103 of 440 wrapped to two lines, the second often one
+  word). The digest card already showed the same data as one line of text.
+  One shared `SignalAudienceLine` (`src/components/signal-audience-line.tsx`,
+  copy in `copy/common.ts`, the digest's own keys moved there) now renders
+  「适合 A、B、C」 / 「For …」 with the names marked `zh-CN` on the English
+  site, on all three cards; the chips keep what is a label — the difficulty on
+  the home card, difficulty and topics on the list card. The line is a plain
+  paragraph of the card, so it takes the shell's body size (`28-typography.css`
+  forces every `.user-shell p` to `--fs-body`, which is also why the list
+  card's 13.5px summary rule never applied). Measured in the preview pane on
+  10-21: home cards 786px at 1440 (802 on `/en`); zero two-line chips on
+  `/technologies` at 1440 and 375; 117 audience lines on the list, 7 on the
+  digest, in both languages.
+- **2026-10-21. ui-live-8 — card titles wrap balanced, and a name stays with
+  its version number.** The detail page h1 has had `text-wrap: balance` since
+  the dossier migration; the list, home, digest and skill/knowledge related
+  cards did not, and at 1440 17 of 110 list titles ended on one or two
+  characters (「ARC-AGI- / 3」「鲁棒 / 性」). The four card-title rules now
+  balance; measured by line rectangles on 10-21, titles ending on ≤ 2
+  characters: 0 of 117 at 1440 and 0 at 375. `splitIntoUnbreakableRuns`
+  (`src/lib/cjk-line-break.ts`) also keeps a name with its version — `Memento
+3`, `Gemini 3.8`, `MCP 2.0`, and hyphenated `ARC-AGI-3`, `V4.1-Flash-1017`,
+  `o3-mini` — the way it kept a date whole; a hyphenated name with no digit
+  (`Claude-Code`) is left to the browser. At 375 the h1 of
+  `memento-3-arc-agi-3-rsi` keeps `Memento 3` and `ARC-AGI-3` on one line
+  each (it used to split after `Memento`). The dictionary gaps are unchanged:
+  the same h1 still breaks 「打 / 满」.
+- **2026-10-21. content-8 — the publish gate warns when the shown title
+  passes 36 characters.** The cap lived only in the AI draft prompt (18–36)
+  and the editors' notes. Counted on the title the list card shows (Chinese
+  first, else original): 30 of the 117 published signals are over it, longest
+  58 (`lfm2-5-encoders`), then 46 (`anthropic-measuring-ai-led-rd`,
+  `ollama-v0-32-4`). `evaluateTechnologyPublishReadiness` now adds a
+  `long-title` warning on the title field naming the length; it never blocks
+  (`publish-readiness.test.ts`: 37 warns, 36 does not, the original is
+  measured when there is no Chinese title). `recommendedTitleMaxLength` is
+  exported; the draft prompt still spells its own 36.
+- Verified: `npm run typecheck`; vitest on the touched and the already-fixed
+  modules (10 files, 91 tests); prettier and eslint on every changed file;
+  the home page, `/technologies`, `/digest/today` and the Memento signal page
+  looked at in the preview pane in Chinese and English, 1440 and 375, no
+  console errors. Not run: `build:public`, `validate:all`, `css:diff` (shared
+  CPU with the live site).
+
 ## Housekeeping after the watchdog night
 
 - **2026-10-21. The tunnel watchdog's alert lines decode.** The two `[alert]`
