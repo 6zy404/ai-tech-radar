@@ -96,10 +96,18 @@ delete, or send deliveries.
   `503` on all internal routes while ten public routes stayed `200` — a
   misconfiguration fails closed without taking the public site down. The
   disposable token was removed afterwards and confirmed absent from the tree.
-  **Still open**: `WORKSPACE_ACCESS_ENABLED` is deliberately left `false` so
+  ~~**Still open**: `WORKSPACE_ACCESS_ENABLED` is deliberately left `false` so
   local work is not blocked. The owner must generate the real token and flip it
   as part of the actual deploy — that is one line, and it is the line that
-  matters.
+  matters.~~
+- ✓ Closed (checked 2026-10-21): the main checkout's `.env.local` carries
+  `WORKSPACE_ACCESS_ENABLED=true` and a token (only the flag was read for this
+  note). For the public site the guard has been moot since 2026-09-20: the
+  served build is `npm run build:public`, which has no workspace route at all
+  (`docs/security-boundary.md` → "Public Build Boundary"); the guard matters
+  for the local `next dev` an editorial round runs against the live data, and
+  since 2026-10-14 that server also refuses cross-site writes and non-loopback
+  hosts (`docs/security-boundary.md` → "Minimal Access Protection").
 
 ### B2. Runtime/config stores are committed to git — latent secret leak
 
@@ -125,6 +133,12 @@ only via env (that one is correctly kept out of the stores).
   (still written locally). Content/config/editorial-state stores stay tracked
   because they seed a deploy. Fully externalizing live data via
   `LOCAL_DATA_DIR` remains the production pattern (operator choice).
+- ✓ Decided the other way (2026-09-21, `docs/deployment.md` → "The public
+  build is what is served"): the deployment **is** the checkout, so the
+  content and editorial-state stores **stay tracked** — every editorial round
+  is a commit, and git is the way back. The secret-bearing and cache stores
+  stay git-ignored; the third-party text (the candidate snapshot, the two eval
+  sets) left the public history on 2026-10-15.
 
 ### B3. Committed stores contain demo/validation fixtures that would ship as real content
 
@@ -290,6 +304,9 @@ Node ≥ 22.5. A deploy on an older Node silently breaks SQLite mode.
   stay on the JSON driver and document the Node floor.
 - ✓ Addressed (2026-07-22): `package.json` now declares
   `"engines": { "node": ">=22.5.0" }`. Pin the deploy runtime to match.
+- ✓ Aligned (checked 2026-10-21): CI runs Node 24
+  (`.github/workflows/ci.yml`, since 2026-10-14) and the live host runs Node
+  24.12.0.
 
 ## Operational readiness (single operator)
 
@@ -329,25 +346,45 @@ public-scale or multi-user deployment.
 
 ## Go-live checklist (ordered)
 
-1. Set `WORKSPACE_ACCESS_ENABLED=true` + a strong `WORKSPACE_ACCESS_TOKEN`;
-   verify `/workspace` is `401` without it (B1). Verify it by **requesting the
-   route**, not by reading the middleware — that is how the inert-guard bug
-   above went unnoticed. Full step-by-step server setup:
-   `docs/deployment.md` → "Go-live runbook".
-2. Move live data out of git or `.gitignore` the live stores; keep only seed
-   fixtures tracked (B2).
+1. ~~Set `WORKSPACE_ACCESS_ENABLED=true` + a strong `WORKSPACE_ACCESS_TOKEN`;
+   verify `/workspace` is `401` without it (B1).~~ Done — the flag is on in
+   the live `.env.local` (checked 2026-10-21), and the served public build
+   has no workspace routes to guard (`npm run build:public`, since
+   2026-09-20). Verify it by **requesting the route**, not by reading the
+   middleware — that is how the inert-guard bug above went unnoticed; every
+   deploy re-checks that the five internal prefixes answer 401 / 404. Full
+   step-by-step server setup: `docs/deployment.md` → "Go-live runbook".
+2. ~~Move live data out of git or `.gitignore` the live stores; keep only seed
+   fixtures tracked (B2).~~ Decided the other way on 2026-09-21: the content
+   and editorial stores stay tracked (see B2's last note and
+   `docs/deployment.md` → "The public build is what is served"); the
+   secret-bearing stores are git-ignored.
 3. ~~Reset/purge demo & validation fixtures from the live stores (B3).~~ Done
    2026-07-27 — see B3.
-4. Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin; check `/feed.xml` (B4).
+4. ~~Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin; check `/feed.xml`
+   (B4).~~ Done — set to the real origin in the live `.env.local`; since
+   2026-10-21 `src/lib/site-url.ts` is its one definition, the task runner
+   reads it from `.env.local` too, and a send to a real channel or a push run
+   is refused while it is unset or loopback.
 5. ~~Keep `LLM_PROVIDER=mock`, or add a rate limiter before any real key
    (I1).~~ Done 2026-07-27 — the routes are limited by default; before
    configuring a real key, review the per-minute/per-hour budgets for the
    expected traffic (see I1).
-6. Put the app behind HTTPS; add HSTS + a `default-src 'self'` CSP (I3).
-7. Pin the Node runtime (≥ 22.5 if using SQLite) (I4).
+6. ~~Put the app behind HTTPS; add HSTS + a `default-src 'self'` CSP (I3).~~
+   Done — TLS terminates at Cloudflare (the tunnel chosen 2026-08-13), the
+   server listens on `127.0.0.1` only, and the production CSP + HSTS have
+   shipped since 2026-07-22.
+7. ~~Pin the Node runtime (≥ 22.5 if using SQLite) (I4).~~ Done —
+   `engines.node >= 22.5.0` in `package.json`; CI runs Node 24
+   (`.github/workflows/ci.yml`) and the live host runs Node 24.12.0
+   (checked 2026-10-21), so the two are aligned.
 8. ~~Set up a daily backup of `LOCAL_DATA_DIR` / the `.sqlite` file (I2).~~
-   Script done 2026-08-10 (`npm run backup:data`, self-verifying); the one
-   remaining action is registering the daily Windows task —
-   `docs/deployment.md` → "Daily backup (Windows)".
-9. `npm run build` + smoke-test the public routes and a token-gated workspace
-   route before opening traffic.
+   Done — `npm run backup:data` (2026-08-10) runs from a daily Windows task at
+   07:45; retention is by day since 2026-10-21 (`BACKUP_KEEP=14`). What is
+   still open is a second disk: the snapshots share the source's disk
+   (`docs/next-task.md` → 异盘备份).
+9. ~~`npm run build` + smoke-test the public routes and a token-gated workspace
+   route before opening traffic.~~ Superseded — the served build is
+   `npm run build:public` (no workspace routes), and `npm run deploy` builds
+   beside the live server, swaps, restarts, health-checks and rolls back by
+   itself (`docs/deployment.md` → "Deploy with one command").
